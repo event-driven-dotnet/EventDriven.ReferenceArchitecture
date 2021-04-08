@@ -1,0 +1,41 @@
+[
+  {
+    "id": "22eea083-6f0d-48f2-8c82-65ac850e5aad",
+    "eTag": "",
+    "firstName": "Elon",
+    "lastName": "Musk",
+    "shippingAddress": {
+      "street": "123 This Street",
+      "city": "Freemont",
+      "state": "CA",
+      "country": "USA",
+      "postalCode": "90045"
+    }
+  },
+  {
+    "id": "848f5790-3981-4862-bb7e-a8566aa07026",
+    "eTag": "",
+    "firstName": "Jeff",
+    "lastName": "Bezos",
+    "shippingAddress": {
+      "street": "123 That Street",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "USA",
+      "postalCode": "54321"
+    }
+  },
+  {
+    "id": "1c44eea7-400a-4f6f-ab99-5e8c853ea363",
+    "eTag": "",
+    "firstName": "Mark",
+    "lastName": "Zuckerberg",
+    "shippingAddress": {
+      "street": "123 Other Street",
+      "city": "Palo Alto",
+      "state": "CA",
+      "country": "USA",
+      "postalCode": "98765"
+    }
+  }
+]

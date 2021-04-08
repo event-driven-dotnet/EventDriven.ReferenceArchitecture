@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AFFCBFA4-9D64-43AA-AC59-D4CC54BD9C72}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AF357BE9-9A6E-48A3-A995-E75F2147A43F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventDriven.CQRS.Abstractions", "src\EventDriven.CQRS.Abstractions\EventDriven.CQRS.Abstractions.csproj", "{1F665C29-BF1C-45BA-8CB9-829E85C34999}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{269CD137-4093-4100-B33E-808586D335F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "reference-architecture", "reference-architecture", "{C4FD0AF1-927A-4860-A634-7CE342807692}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventDriven.CQRS.Tests", "test\EventDriven.CQRS.Tests\EventDriven.CQRS.Tests.csproj", "{9809006C-2F6B-44A1-8AE2-BC449368D209}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerService", "reference-architecture\CustomerService\CustomerService.csproj", "{48983715-E6DF-462F-AF3C-769C1122794F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService", "reference-architecture\OrderService\OrderService.csproj", "{16A5B2CB-8C46-4F3E-B7A1-97C47D9F66E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "json", "json", "{B11B21E0-7B89-4285-990A-D98793310B02}"
+ProjectSection(SolutionItems) = preProject
+	reference-architecture\json\customers.json = reference-architecture\json\customers.json
+	reference-architecture\json\orders.json = reference-architecture\json\orders.json
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "reference-architecture\Common\Common.csproj", "{FC04D111-903D-49FF-84A6-8806C71E2168}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F665C29-BF1C-45BA-8CB9-829E85C34999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F665C29-BF1C-45BA-8CB9-829E85C34999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F665C29-BF1C-45BA-8CB9-829E85C34999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F665C29-BF1C-45BA-8CB9-829E85C34999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9809006C-2F6B-44A1-8AE2-BC449368D209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9809006C-2F6B-44A1-8AE2-BC449368D209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9809006C-2F6B-44A1-8AE2-BC449368D209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9809006C-2F6B-44A1-8AE2-BC449368D209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48983715-E6DF-462F-AF3C-769C1122794F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48983715-E6DF-462F-AF3C-769C1122794F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48983715-E6DF-462F-AF3C-769C1122794F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48983715-E6DF-462F-AF3C-769C1122794F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16A5B2CB-8C46-4F3E-B7A1-97C47D9F66E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16A5B2CB-8C46-4F3E-B7A1-97C47D9F66E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16A5B2CB-8C46-4F3E-B7A1-97C47D9F66E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16A5B2CB-8C46-4F3E-B7A1-97C47D9F66E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC04D111-903D-49FF-84A6-8806C71E2168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC04D111-903D-49FF-84A6-8806C71E2168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC04D111-903D-49FF-84A6-8806C71E2168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC04D111-903D-49FF-84A6-8806C71E2168}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1F665C29-BF1C-45BA-8CB9-829E85C34999} = {AF357BE9-9A6E-48A3-A995-E75F2147A43F}
+		{9809006C-2F6B-44A1-8AE2-BC449368D209} = {269CD137-4093-4100-B33E-808586D335F6}
+		{48983715-E6DF-462F-AF3C-769C1122794F} = {C4FD0AF1-927A-4860-A634-7CE342807692}
+		{16A5B2CB-8C46-4F3E-B7A1-97C47D9F66E7} = {C4FD0AF1-927A-4860-A634-7CE342807692}
+		{B11B21E0-7B89-4285-990A-D98793310B02} = {C4FD0AF1-927A-4860-A634-7CE342807692}
+		{FC04D111-903D-49FF-84A6-8806C71E2168} = {C4FD0AF1-927A-4860-A634-7CE342807692}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {427A0D03-63CA-48AE-AA95-D21800101398}
+	EndGlobalSection
+EndGlobal

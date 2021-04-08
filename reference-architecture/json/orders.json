@@ -1,0 +1,49 @@
+[
+  {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "customerId": "22eea083-6f0d-48f2-8c82-65ac850e5aad",
+    "orderDate": "2021-04-15T22:54:44.485Z",
+    "orderItems": [
+      {
+        "productId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "productName": "Espresso",
+        "productPrice": "2.50"
+      },
+      {
+        "productId": "5a8c5f7f-0781-4d5e-9d9b-41ef2da5f3c3",
+        "productName": "Cappuccino",
+        "productPrice": "3.50"
+      }
+    ],
+    "shippingAddress": {
+      "street": "123 This Street",
+      "city": "Freemont",
+      "state": "CA",
+      "country": "USA",
+      "postalCode": "90045"
+    },
+    "orderState": 0,
+    "eTag": ""
+  },
+  {
+    "id": "fd06384d-24cd-4a7f-a5f5-b05ec683bfdd",
+    "customerId": "22eea083-6f0d-48f2-8c82-65ac850e5aad",
+    "orderDate": "2021-04-15T22:54:44.485Z",
+    "orderItems": [
+      {
+        "productId": "42b27777-6eff-4193-828d-5fe554a705d1",
+        "productName": "Chai",
+        "productPrice": "1.50"
+      }
+    ],
+    "shippingAddress": {
+      "street": "123 This Street",
+      "city": "Freemont",
+      "state": "CA",
+      "country": "USA",
+      "postalCode": "90045"
+    },
+    "orderState": 0,
+    "eTag": ""
+  }
+]
