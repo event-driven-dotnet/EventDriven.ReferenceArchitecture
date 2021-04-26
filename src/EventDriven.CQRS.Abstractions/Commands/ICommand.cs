@@ -3,7 +3,7 @@
 namespace EventDriven.CQRS.Abstractions.Commands
 {
     /// <summary>
-    /// Represents a command
+    /// An object that is sent to the domain for a state change which is handled by a command handler.
     /// </summary>
     public interface ICommand
     {
@@ -28,7 +28,6 @@ namespace EventDriven.CQRS.Abstractions.Commands
         /// <li>Otherwise, If the value is null, and the EntityEtag is null, no assertion for the entity existing or not will be made. </li>
         /// </ul> 
         /// </summary>
-        /// <value></value>
         bool? EntityExists { get; }
     }
 }

@@ -1,18 +1,38 @@
 ﻿namespace EventDriven.CQRS.Abstractions.Commands
 {
+    /// <summary>
+    /// Outcome of a command.
+    /// </summary>
     public enum CommandOutcome
     {
-        /// only if the command was accepted
+        /// <summary>
+        /// Only if the command was accepted
+        /// </summary>
         Accepted,
-        /// if the command was rejected due to a conflict
+
+        /// <summary>
+        /// If the command was rejected due to a conflict.
+        /// </summary>
         Conflict,
-        /// if the command was invalid due to its parameters
+
+        /// <summary>
+        /// If the command was invalid due to its parameters.
+        /// </summary>
         InvalidCommand,
-        ///If the command was invalid due to the object state
+        
+        /// <summary>
+        /// If the command was invalid due to the object state.
+        /// </summary>
         InvalidState,
-        // Not handled
+
+        /// <summary>
+        /// Not handled.
+        /// </summary>
         NotHandled,
-        //Entity was not found
+
+        /// <summary>
+        /// Entity was not found.
+        /// </summary>
         NotFound
     }
 }

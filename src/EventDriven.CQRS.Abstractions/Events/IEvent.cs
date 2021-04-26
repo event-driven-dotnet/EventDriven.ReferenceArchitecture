@@ -2,24 +2,24 @@
 
 namespace EventDriven.CQRS.Abstractions.Events
 {
+    /// <summary>
+    /// A statement of fact about what change has been made to the domain state.
+    /// </summary>
     public interface IEvent
     {
         /// <summary>
-        /// Unique ID of the Event
+        /// Unique ID of the event.
         /// </summary>
-        /// <value></value>
         Guid Id { get; }
 
         /// <summary>
-        /// Time at which the event was created
+        /// Time at which the event was created.
         /// </summary>
-        /// <value></value>
         DateTime CreatedAt { get; }
 
         /// <summary>
-        /// The name of the service that produced it and acts as a namespace
+        /// The name of the service that produced it and acts as a namespace.
         /// </summary>
-        /// <value></value>
         string Source { get; set; }
     }
 }

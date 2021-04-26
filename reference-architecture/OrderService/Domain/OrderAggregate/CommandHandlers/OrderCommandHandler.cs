@@ -29,7 +29,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
         public async Task<CommandResult<Order>> Handle(CreateOrder command)
         {
             // Process command
-            _logger.LogInformation("Handling command: {commandName}", nameof(CreateOrder));
+            _logger.LogInformation("Handling command: {CommandName}", nameof(CreateOrder));
             var events = command.Order.Process(command);
             
             // Apply events
@@ -45,7 +45,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
 
         public async Task<CommandResult<Order>> Handle(UpdateOrder command)
         {
-            _logger.LogInformation("Handling command: {commandName}", nameof(UpdateOrder));
+            _logger.LogInformation("Handling command: {CommandName}", nameof(UpdateOrder));
 
             try
             {
@@ -63,7 +63,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
         public async Task<CommandResult<Order>> Handle(RemoveOrder command)
         {
             // Persist entity
-            _logger.LogInformation("Handling command: {commandName}", nameof(RemoveOrder));
+            _logger.LogInformation("Handling command: {CommandName}", nameof(RemoveOrder));
             await _repository.RemoveOrder(command.EntityId);
             return new CommandResult<Order>(CommandOutcome.Accepted);
         }
@@ -71,7 +71,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
         public async Task<CommandResult<Order>> Handle(ShipOrder command)
         {
             // Process command
-            _logger.LogInformation("Handling command: {commandName}", nameof(ShipOrder));
+            _logger.LogInformation("Handling command: {CommandName}", nameof(ShipOrder));
             var entity = await _repository.GetOrder(command.EntityId);
             if (entity == null) return new CommandResult<Order>(CommandOutcome.NotFound);
             var events = entity.Process(command);
@@ -97,7 +97,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
         public async Task<CommandResult<Order>> Handle(CancelOrder command)
         {
             // Process command
-            _logger.LogInformation("Handling command: {commandName}", nameof(CancelOrder));
+            _logger.LogInformation("Handling command: {CommandName}", nameof(CancelOrder));
             var entity = await _repository.GetOrder(command.EntityId);
             if (entity == null) return new CommandResult<Order>(CommandOutcome.NotFound);
             var events = entity.Process(command);

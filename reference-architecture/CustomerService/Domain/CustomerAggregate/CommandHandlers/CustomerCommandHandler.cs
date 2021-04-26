@@ -37,7 +37,7 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
         public async Task<CommandResult<Customer>> Handle(CreateCustomer command)
         {
             // Process command
-            _logger.LogInformation("Handling command: {commandName}", nameof(CreateCustomer));
+            _logger.LogInformation("Handling command: {CommandName}", nameof(CreateCustomer));
             var events = command.Customer.Process(command);
             
             // Apply events
@@ -54,7 +54,7 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
         public async Task<CommandResult<Customer>> Handle(UpdateCustomer command)
         {
             // Compare shipping addresses
-            _logger.LogInformation("Handling command: {commandName}", nameof(UpdateCustomer));
+            _logger.LogInformation("Handling command: {CommandName}", nameof(UpdateCustomer));
             var existing = await _repository.Get(command.EntityId);
             var addressChanged = command.Customer.ShippingAddress != existing.ShippingAddress;
             
@@ -68,7 +68,7 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
                 if (addressChanged)
                 {
                     var shippingAddress = _mapper.Map<Integration.Models.Address>(entity.ShippingAddress);
-                    _logger.LogInformation("Publishing event: {eventName}", $"v1.{nameof(CustomerAddressUpdated)}");
+                    _logger.LogInformation("Publishing event: {EventName}", $"v1.{nameof(CustomerAddressUpdated)}");
                     await _eventBus.PublishAsync(
                         new CustomerAddressUpdated(entity.Id, shippingAddress),
                         null, "v1");
@@ -84,7 +84,7 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
         public async Task<CommandResult<Customer>> Handle(RemoveCustomer command)
         {
             // Persist entity
-            _logger.LogInformation("Handling command: {commandName}", nameof(RemoveCustomer));
+            _logger.LogInformation("Handling command: {CommandName}", nameof(RemoveCustomer));
             await _repository.Remove(command.EntityId);
             return new CommandResult<Customer>(CommandOutcome.Accepted);
         }

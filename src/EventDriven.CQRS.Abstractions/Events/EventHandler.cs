@@ -2,13 +2,11 @@
 
 namespace EventDriven.CQRS.Abstractions.Events
 {
-    /// <summary>
-    /// Handles a domain event.
-    /// </summary>
-    /// <typeparam name="TEvent">The type of event</typeparam>
+    /// <inheritdoc />
     public abstract class EventHandler<TEvent> : IEventHandler<TEvent>
         where TEvent : class, IDomainEvent
     {
+        /// <inheritdoc />
         public abstract Task<bool> Handle(TEvent domainEvent);
     }
 }
