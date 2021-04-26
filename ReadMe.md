@@ -2,7 +2,7 @@
 
 An event-driven approach to Command Query Responsibility Segregation.
 
-### Prerequisites
+## Prerequisites
 - [.NET Core SDK](https://dotnet.microsoft.com/download) (5.0 or greater)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - MongoDB Docker: `docker run --name mongo -d -p 27017:27017 -v /tmp/mongo/data:/data/db mongo`
@@ -12,6 +12,9 @@ An event-driven approach to Command Query Responsibility Segregation.
 - [Dapr](https://dapr.io/) (Distributed Application Runtime)
   - [Install Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
   - [Initialize Dapr](https://docs.dapr.io/getting-started/install-dapr-selfhost/)
+
+## Packages
+- [EventDriven.CQRS](https://www.nuget.org/packages/EventDriven.CQRS)
 
 ## Introduction
 
