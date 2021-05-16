@@ -1,3 +1,4 @@
+using EventDriven.EventBus.Dapr;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,7 +38,7 @@ namespace OrderService
             // Configuration
             services.Configure<OrderDatabaseSettings>(
                 Configuration.GetSection(nameof(OrderDatabaseSettings)));
-            services.AddSingleton<IOrderDatabaseSettings>(sp =>
+            services.AddSingleton(sp =>
                 sp.GetRequiredService<IOptions<OrderDatabaseSettings>>().Value);
 
             // Registrations
@@ -45,22 +46,30 @@ namespace OrderService
             services.AddSingleton<OrderCommandHandler>();
             services.AddSingleton(sp =>
             {
-                var settings = sp.GetRequiredService<IOrderDatabaseSettings>();
+                var settings = sp.GetRequiredService<OrderDatabaseSettings>();
                 var client = new MongoClient(settings.ConnectionString);
-                return client.GetDatabase(settings.DatabaseName);
-            });
-            services.AddSingleton(sp =>
-            {
-                var context = sp.GetRequiredService<IMongoDatabase>();
-                var settings = sp.GetRequiredService<IOrderDatabaseSettings>();
-                return context.GetCollection<Order>(settings.OrdersCollectionName);
+                var database = client.GetDatabase(settings.DatabaseName);
+                return database.GetCollection<Order>(settings.OrdersCollectionName);
             });
             services.AddSingleton<IDocumentRepository<Order>, DocumentRepository<Order>>();
             services.AddSingleton<IOrderRepository, OrderRepository>();
             services.AddSingleton<CustomerAddressUpdatedEventHandler>();
 
-            // Event Bus
-            services.AddDaprEventBus(Constants.DaprPubSubName);
+            // Configuration
+            var eventBusOptions = new DaprEventBusOptions();
+            Configuration.GetSection(nameof(DaprEventBusOptions)).Bind(eventBusOptions);
+            var eventBusSchemaOptions = new DaprEventBusSchemaOptions();
+            Configuration.GetSection(nameof(DaprEventBusSchemaOptions)).Bind(eventBusSchemaOptions);
+
+            // Add Dapr event bus
+            services.AddDaprEventBus(eventBusOptions.PubSubName, options =>
+            {
+                options.UseSchemaRegistry = eventBusSchemaOptions.UseSchemaRegistry;
+                options.SchemaRegistryType = eventBusSchemaOptions.SchemaRegistryType;
+                options.MongoStateStoreOptions = eventBusSchemaOptions.MongoStateStoreOptions;
+                options.SchemaValidatorType = eventBusSchemaOptions.SchemaValidatorType;
+                options.AddSchemaOnPublish = eventBusSchemaOptions.AddSchemaOnPublish;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
