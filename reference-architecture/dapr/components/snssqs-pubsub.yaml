@@ -1,0 +1,13 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: snssqs-pubsub
+spec:
+  type: pubsub.snssqs
+  version: v1
+  metadata:
+    - name: endpoint
+      value: http://localhost:4566
+    # Use us-east-1 for localstack
+    - name: region
+      value: us-east-1

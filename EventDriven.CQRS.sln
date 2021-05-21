@@ -30,6 +30,14 @@ EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "reference-architecture\Common\Common.csproj", "{FC04D111-903D-49FF-84A6-8806C71E2168}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dapr", "dapr", "{F0E48E00-7D72-4614-9C13-90A7B015B06F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", "{00BA9501-787E-465C-97D0-F51295D97802}"
+ProjectSection(SolutionItems) = preProject
+	reference-architecture\dapr\components\pubsub.yaml = reference-architecture\dapr\components\pubsub.yaml
+	reference-architecture\dapr\components\snssqs-pubsub.yaml = reference-architecture\dapr\components\snssqs-pubsub.yaml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +75,8 @@ Global
 		{16A5B2CB-8C46-4F3E-B7A1-97C47D9F66E7} = {C4FD0AF1-927A-4860-A634-7CE342807692}
 		{B11B21E0-7B89-4285-990A-D98793310B02} = {C4FD0AF1-927A-4860-A634-7CE342807692}
 		{FC04D111-903D-49FF-84A6-8806C71E2168} = {C4FD0AF1-927A-4860-A634-7CE342807692}
+		{F0E48E00-7D72-4614-9C13-90A7B015B06F} = {AFFCBFA4-9D64-43AA-AC59-D4CC54BD9C72}
+		{00BA9501-787E-465C-97D0-F51295D97802} = {F0E48E00-7D72-4614-9C13-90A7B015B06F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {427A0D03-63CA-48AE-AA95-D21800101398}
