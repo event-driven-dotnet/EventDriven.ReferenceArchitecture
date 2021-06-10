@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using EventDriven.CQRS.Abstractions.Entities;
-
-namespace EventDriven.CQRS.Abstractions.Commands
+﻿namespace EventDriven.CQRS.Abstractions.Commands
 {
+
+    using System.Collections.Generic;
+    using System.Linq;
+    using Entities;
+
     /// <summary>
     /// Represents the result of dispatching a command.
     /// </summary>

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.CQRS.Abstractions.Entities;
 using EventDriven.CQRS.Abstractions.Events;
 using OrderService.Domain.OrderAggregate.Commands;
@@ -8,13 +7,16 @@ using OrderService.Domain.OrderAggregate.Events;
 
 namespace OrderService.Domain.OrderAggregate
 {
+
+    using EventDriven.CQRS.Abstractions.Commands;
+
     public class Order : 
         Entity,
-        ICommandProcessor<CreateOrder>,
+        ICommandProcessor<CreateOrder, CommandResult<Order>>,
         IEventApplier<OrderCreated>,
-        ICommandProcessor<ShipOrder>,
+        ICommandProcessor<ShipOrder, CommandResult<Order>>,
         IEventApplier<OrderShipped>,
-        ICommandProcessor<CancelOrder>,
+        ICommandProcessor<CancelOrder, CommandResult<Order>>,
         IEventApplier<OrderCancelled>
     {
         public Guid CustomerId { get; set; }
@@ -52,7 +54,7 @@ namespace OrderService.Domain.OrderAggregate
             // To process command, return one or more domain events
             => new List<IDomainEvent>
             {
-                new OrderCancelled(command.EntityId, command.EntityEtag)
+                new OrderCancelled(command.EntityId, command.ETag)
             };
 
         public void Apply(OrderCancelled domainEvent)

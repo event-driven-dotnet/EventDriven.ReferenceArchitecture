@@ -17,6 +17,9 @@ using URF.Core.Mongo;
 
 namespace OrderService
 {
+
+    using EventDriven.CQRS.Abstractions.DependencyInjection;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -43,7 +46,7 @@ namespace OrderService
 
             // Registrations
             services.AddAutoMapper(typeof(Startup));
-            services.AddSingleton<OrderCommandHandler>();
+            services.AddCqrs(typeof(Startup).Assembly);
             services.AddSingleton(sp =>
             {
                 var settings = sp.GetRequiredService<OrderDatabaseSettings>();

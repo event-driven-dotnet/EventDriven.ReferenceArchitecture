@@ -1,6 +1,7 @@
-using EventDriven.CQRS.Abstractions.Commands;
+namespace OrderService.Domain.OrderAggregate.Commands {
 
-namespace OrderService.Domain.OrderAggregate.Commands
-{
-    public record CreateOrder(Order Order) : Command.Create(Order.Id);
+    using EventDriven.CQRS.Abstractions.Commands;
+
+    public record CreateOrder(Order Order) : ICommand<CommandResult<Order>>;
+
 }

@@ -1,9 +1,11 @@
-using EventDriven.CQRS.Abstractions.Commands;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerService.Helpers
 {
+
+    using EventDriven.CQRS.Abstractions.Commands;
+
     public static class CommandResultExtensions
     {
         public static ActionResult ToActionResult(this CommandResult result, object entity = null)

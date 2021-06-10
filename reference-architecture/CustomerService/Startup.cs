@@ -1,6 +1,5 @@
 using CustomerService.Configuration;
 using CustomerService.Domain.CustomerAggregate;
-using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.Repositories;
 using EventDriven.EventBus.Dapr;
 using Microsoft.AspNetCore.Builder;
@@ -16,6 +15,9 @@ using URF.Core.Mongo;
 
 namespace CustomerService
 {
+
+    using EventDriven.CQRS.Abstractions.DependencyInjection;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -42,7 +44,7 @@ namespace CustomerService
 
             // Registrations
             services.AddAutoMapper(typeof(Startup));
-            services.AddSingleton<CustomerCommandHandler>();
+            services.AddCqrs(typeof(Startup).Assembly);
             services.AddSingleton(sp =>
             {
                 var settings = sp.GetRequiredService<CustomerDatabaseSettings>();

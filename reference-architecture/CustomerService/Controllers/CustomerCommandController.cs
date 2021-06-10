@@ -1,60 +1,59 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
-using CustomerService.Domain.CustomerAggregate;
-using CustomerService.Domain.CustomerAggregate.CommandHandlers;
-using CustomerService.Domain.CustomerAggregate.Commands;
-using CustomerService.Helpers;
-using EventDriven.CQRS.Abstractions.Commands;
-using Microsoft.AspNetCore.Mvc;
-
-namespace CustomerService.Controllers
+﻿namespace CustomerService.Controllers
 {
+
+    using System;
+    using System.Threading.Tasks;
+    using AutoMapper;
+    using Domain.CustomerAggregate.Commands;
+    using DTO.Write;
+    using EventDriven.CQRS.Abstractions.Commands;
+    using Helpers;
+    using Microsoft.AspNetCore.Mvc;
+
     [Route("api/customer")]
     [ApiController]
     public class CustomerCommandController : ControllerBase
     {
-        private readonly CustomerCommandHandler _commandHandler;
-        private readonly IMapper _mapper;
+        private readonly ICommandBroker commandBroker;
+        private readonly IMapper mapper;
 
-        public CustomerCommandController(CustomerCommandHandler commandHandler, IMapper mapper)
+        public CustomerCommandController(ICommandBroker commandBroker, IMapper mapper)
         {
-            _commandHandler = commandHandler;
-            _mapper = mapper;
+            this.commandBroker = commandBroker;
+            this.mapper = mapper;
         }
 
         // POST api/customer
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] DTO.Write.Customer customerDto)
+        public async Task<IActionResult> Create([FromBody] Customer customerDto)
         {
-            var customerIn = _mapper.Map<Customer>(customerDto);
-            var result = await _commandHandler.Handle(new CreateCustomer(customerIn));
-
+            var customerIn = mapper.Map<Domain.CustomerAggregate.Customer>(customerDto);
+            var result = await commandBroker.InvokeAsync<CreateCustomer, CommandResult<Domain.CustomerAggregate.Customer>>(new CreateCustomer(customerIn));
+            
             if (result.Outcome != CommandOutcome.Accepted)
                 return result.ToActionResult();
-            var customerOut = _mapper.Map<DTO.Write.Customer>(result.Entity);
+            var customerOut = mapper.Map<Customer>(result.Entity);
             return new CreatedResult($"api/customer/{customerOut.Id}", customerOut);
         }
 
         // PUT api/customer
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] DTO.Write.Customer customerDto)
+        public async Task<IActionResult> Update([FromBody] Customer customerDto)
         {
-            var customerIn = _mapper.Map<Customer>(customerDto);
-            var result = await _commandHandler.Handle(new UpdateCustomer(customerIn));
+            var customerIn = mapper.Map<Domain.CustomerAggregate.Customer>(customerDto);
+            var result = await commandBroker.InvokeAsync<UpdateCustomer, CommandResult<Domain.CustomerAggregate.Customer>>(new UpdateCustomer(customerIn));
 
             if (result.Outcome != CommandOutcome.Accepted)
                 return result.ToActionResult();
-            var customerOut = _mapper.Map<DTO.Write.Customer>(result.Entity);
+            var customerOut = mapper.Map<Customer>(result.Entity);
             return result.ToActionResult(customerOut);
         }
 
         // DELETE api/customer/id
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> Remove([FromRoute] Guid id)
-        {
-            var result = await _commandHandler.Handle(new RemoveCustomer(id));
+        public async Task<IActionResult> Remove([FromRoute] Guid id) {
+            var result = await commandBroker.InvokeAsync<RemoveCustomer, CommandResult<Domain.CustomerAggregate.Customer>>(new RemoveCustomer(id));
             return result.Outcome != CommandOutcome.Accepted
                 ? result.ToActionResult() 
                 : new NoContentResult();

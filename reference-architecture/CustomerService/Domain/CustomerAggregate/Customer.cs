@@ -2,15 +2,17 @@ using System;
 using System.Collections.Generic;
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Domain.CustomerAggregate.Events;
-using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.CQRS.Abstractions.Entities;
 using EventDriven.CQRS.Abstractions.Events;
 
 namespace CustomerService.Domain.CustomerAggregate
 {
+
+    using EventDriven.CQRS.Abstractions.Commands;
+
     public class Customer : 
         Entity,
-        ICommandProcessor<CreateCustomer>,
+        ICommandProcessor<CreateCustomer, CommandResult<Customer>>,
         IEventApplier<CustomerCreated>
     {
         public string FirstName { get; set; }
