@@ -1,9 +1,10 @@
-using System;
-using CustomerService.DTO.Read;
-using CustomerService.DTO.Write;
-
-namespace EventDriven.CQRS.Tests.Fakes
+namespace CustomerService.Tests.Fakes
 {
+
+    using System;
+    using DTO.Read;
+    using DTO.Write;
+
     public static class Customers
     {
         public static Customer Customer1 => new Customer

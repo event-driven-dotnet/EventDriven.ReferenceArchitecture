@@ -1,8 +1,9 @@
-using System;
+namespace OrderService.Repositories {
 
-namespace OrderService.Repositories
-{
-    public class ConcurrencyException : Exception
-    {
-    }
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
+    [ExcludeFromCodeCoverage]
+    public class ConcurrencyException : Exception { }
+
 }

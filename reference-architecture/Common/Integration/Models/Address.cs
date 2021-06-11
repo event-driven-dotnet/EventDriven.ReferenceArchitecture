@@ -1,4 +1,8 @@
-namespace Common.Integration.Models
-{
+namespace Common.Integration.Models {
+
+    using System.Diagnostics.CodeAnalysis;
+
+    [ExcludeFromCodeCoverage]
     public record Address(string Street, string City, string State, string Country, string PostalCode);
+
 }

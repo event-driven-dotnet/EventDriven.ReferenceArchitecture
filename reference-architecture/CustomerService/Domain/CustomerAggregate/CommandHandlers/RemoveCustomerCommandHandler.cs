@@ -8,7 +8,7 @@
     using Microsoft.Extensions.Logging;
     using Repositories;
 
-    public class RemoveCustomerCommandHandler : ICommandHandler<RemoveCustomer, CommandResult<Customer>> {
+    public class RemoveCustomerCommandHandler : ICommandHandler<RemoveCustomer, CommandResult> {
 
         private readonly ILogger<RemoveCustomerCommandHandler> logger;
         private readonly ICustomerRepository repository;
@@ -19,11 +19,11 @@
             this.repository = repository;
         }
 
-        public async Task<CommandResult<Customer>> Handle(RemoveCustomer request, CancellationToken cancellationToken) {
+        public async Task<CommandResult> Handle(RemoveCustomer request, CancellationToken cancellationToken) {
             // Persist entity
-            logger.LogInformation("Handling command: {CommandName}", nameof(RemoveCustomer));
+            logger.LogInformation($"Handling command: {nameof(RemoveCustomer)}");
             await repository.Remove(request.CustomerId);
-            return new CommandResult<Customer>(CommandOutcome.Accepted);
+            return new CommandResult(CommandOutcome.Accepted);
         }
 
     }

@@ -55,7 +55,7 @@ namespace OrderService.Controllers
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> Remove([FromRoute] Guid id) {
-            var result = await commandBroker.InvokeAsync<RemoveOrder, CommandResult<Order>>(new RemoveOrder(id));
+            var result = await commandBroker.InvokeAsync<RemoveOrder, CommandResult>(new RemoveOrder(id));
             return result.Outcome != CommandOutcome.Accepted
                 ? result.ToActionResult() 
                 : new NoContentResult();

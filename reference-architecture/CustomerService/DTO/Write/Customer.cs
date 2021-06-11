@@ -2,6 +2,7 @@ using System;
 
 namespace CustomerService.DTO.Write
 {
+    
     public class Customer
     {
         public Guid Id { get; set; }

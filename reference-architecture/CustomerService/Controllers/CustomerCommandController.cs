@@ -53,7 +53,7 @@
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> Remove([FromRoute] Guid id) {
-            var result = await commandBroker.InvokeAsync<RemoveCustomer, CommandResult<Domain.CustomerAggregate.Customer>>(new RemoveCustomer(id));
+            var result = await commandBroker.InvokeAsync<RemoveCustomer, CommandResult>(new RemoveCustomer(id));
             return result.Outcome != CommandOutcome.Accepted
                 ? result.ToActionResult() 
                 : new NoContentResult();

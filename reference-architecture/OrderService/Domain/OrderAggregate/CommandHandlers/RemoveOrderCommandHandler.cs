@@ -7,7 +7,7 @@
     using Microsoft.Extensions.Logging;
     using Repositories;
 
-    public class RemoveOrderCommandHandler : ICommandHandler<RemoveOrder, CommandResult<Order>> {
+    public class RemoveOrderCommandHandler : ICommandHandler<RemoveOrder, CommandResult> {
 
         private readonly ILogger<RemoveOrderCommandHandler> logger;
 
@@ -19,12 +19,12 @@
             this.logger = logger;
         }
 
-        public async Task<CommandResult<Order>> Handle(RemoveOrder request, CancellationToken cancellationToken) {
+        public async Task<CommandResult> Handle(RemoveOrder request, CancellationToken cancellationToken) {
             // Persist entity
             logger.LogInformation("Handling command: {CommandName}", nameof(RemoveOrder));
             await repository.RemoveOrder(request.OrderId);
 
-            return new CommandResult<Order>(CommandOutcome.Accepted);
+            return new CommandResult(CommandOutcome.Accepted);
         }
 
     }

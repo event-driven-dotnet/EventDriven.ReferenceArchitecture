@@ -8,7 +8,7 @@ using OrderService.Repositories;
 
 namespace OrderService.Integration.EventHandlers
 {
-    public class CustomerAddressUpdatedEventHandler : IntegrationEventHandler<CustomerAddressUpdated>
+    public class  CustomerAddressUpdatedEventHandler : IntegrationEventHandler<CustomerAddressUpdated>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;

@@ -1,9 +1,11 @@
-using System;
+namespace CustomerService.DTO.Read {
 
-namespace CustomerService.DTO.Read
-{
-    public class CustomerView
-    {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
+    [ExcludeFromCodeCoverage]
+    public class CustomerView {
+
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -13,5 +15,7 @@ namespace CustomerService.DTO.Read
         public string Country { get; set; }
         public string PostalCode { get; set; }
         public string ETag { get; set; }
+
     }
+
 }

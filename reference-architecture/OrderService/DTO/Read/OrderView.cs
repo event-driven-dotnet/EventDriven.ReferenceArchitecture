@@ -1,9 +1,11 @@
-using System;
+namespace OrderService.DTO.Read {
 
-namespace OrderService.DTO.Read
-{
-    public class OrderView
-    {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
+    [ExcludeFromCodeCoverage]
+    public class OrderView {
+
         public Guid Id { get; set; }
         public Guid CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
@@ -15,5 +17,7 @@ namespace OrderService.DTO.Read
         public string PostalCode { get; set; }
         public OrderState OrderState { get; set; }
         public string ETag { get; set; }
+
     }
+
 }
