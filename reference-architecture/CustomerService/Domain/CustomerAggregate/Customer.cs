@@ -10,10 +10,8 @@ namespace CustomerService.Domain.CustomerAggregate
 
     using EventDriven.CQRS.Abstractions.Commands;
 
-    public class Customer : 
-        Entity,
-        ICommandProcessor<CreateCustomer, CommandResult<Customer>>,
-        IEventApplier<CustomerCreated>
+    public class Customer : Entity,
+                            ICustomerAggregate
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

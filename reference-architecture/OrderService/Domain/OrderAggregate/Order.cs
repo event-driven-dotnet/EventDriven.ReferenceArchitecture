@@ -7,17 +7,9 @@ using OrderService.Domain.OrderAggregate.Events;
 
 namespace OrderService.Domain.OrderAggregate
 {
-
-    using EventDriven.CQRS.Abstractions.Commands;
-
-    public class Order : 
-        Entity,
-        ICommandProcessor<CreateOrder, CommandResult<Order>>,
-        IEventApplier<OrderCreated>,
-        ICommandProcessor<ShipOrder, CommandResult<Order>>,
-        IEventApplier<OrderShipped>,
-        ICommandProcessor<CancelOrder, CommandResult<Order>>,
-        IEventApplier<OrderCancelled>
+    
+    public class Order : Entity,
+                         IOrderAggregate
     {
         public Guid CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
