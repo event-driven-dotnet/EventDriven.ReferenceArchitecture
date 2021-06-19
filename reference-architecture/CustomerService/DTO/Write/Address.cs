@@ -1,9 +1,11 @@
-namespace CustomerService.DTO.Write {
+using System.Diagnostics.CodeAnalysis;
 
-    using System.Diagnostics.CodeAnalysis;
+namespace CustomerService.DTO.Write
+{
 
     [ExcludeFromCodeCoverage]
-    public class Address {
+    public class Address
+    {
 
         public string Street { get; set; }
         public string City { get; set; }

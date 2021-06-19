@@ -1,45 +1,51 @@
-﻿namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers {
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
+using EventDriven.CQRS.Abstractions.Commands;
+using Microsoft.Extensions.Logging;
+using Moq;
+using OrderService.Domain.OrderAggregate;
+using OrderService.Domain.OrderAggregate.CommandHandlers;
+using OrderService.Domain.OrderAggregate.Commands;
+using OrderService.Repositories;
+using OrderService.Tests.Fakes;
+using OrderService.Utils;
+using Xunit;
 
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using AutoMapper;
-    using EventDriven.CQRS.Abstractions.Commands;
-    using Fakes;
-    using Microsoft.Extensions.Logging;
-    using Moq;
-    using OrderService.Domain.OrderAggregate;
-    using OrderService.Domain.OrderAggregate.CommandHandlers;
-    using OrderService.Domain.OrderAggregate.Commands;
-    using OrderService.Repositories;
-    using Utils;
-    using Xunit;
+namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
+{
 
-    public class CancelOrderCommandHandlerTests {
+    public class CancelOrderCommandHandlerTests
+    {
 
-        private readonly Mock<IOrderRepository> repositoryMoq;
-        private readonly Mock<ILogger<CancelOrderCommandHandler>> loggerMoq;
-        private readonly IMapper mapper;
+        private readonly Mock<ILogger<CancelOrderCommandHandler>> _loggerMoq;
+        private readonly IMapper _mapper;
 
-        public CancelOrderCommandHandlerTests() {
-            repositoryMoq = new Mock<IOrderRepository>();
-            loggerMoq = new Mock<ILogger<CancelOrderCommandHandler>>();
-            mapper = BaseUtils.GetMapper();
+        private readonly Mock<IOrderRepository> _repositoryMoq;
+
+        public CancelOrderCommandHandlerTests()
+        {
+            _repositoryMoq = new Mock<IOrderRepository>();
+            _loggerMoq = new Mock<ILogger<CancelOrderCommandHandler>>();
+            _mapper = BaseUtils.GetMapper();
         }
 
         [Fact]
-        public void WhenInstantiated_ThenShouldBeOfCorrectType() {
-            var handler = new CancelOrderCommandHandler(repositoryMoq.Object, loggerMoq.Object);
+        public void WhenInstantiated_ThenShouldBeOfCorrectType()
+        {
+            var handler = new CancelOrderCommandHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
             Assert.NotNull(handler);
             Assert.IsType<CancelOrderCommandHandler>(handler);
         }
 
         [Fact]
-        public async Task WhenOrderDoesNotExist_ThenShouldReturnNotFound() {
-            repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
-                         .ReturnsAsync((Order) null);
-            var handler = new CancelOrderCommandHandler(repositoryMoq.Object, loggerMoq.Object);
+        public async Task WhenOrderDoesNotExist_ThenShouldReturnNotFound()
+        {
+            _repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
+                          .ReturnsAsync((Order) null);
+            var handler = new CancelOrderCommandHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
             var result = await handler.Handle(new CancelOrder(Guid.Empty, string.Empty), CancellationToken.None);
 
@@ -48,13 +54,14 @@
         }
 
         [Fact]
-        public async Task WhenOrderIsCancelled_ThenResultingOrderStateShouldBeSetToCancelled() {
-            var order = mapper.Map<Order>(Orders.Order1);
-            repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
-                         .ReturnsAsync(order);
-            repositoryMoq.Setup(x => x.UpdateOrderState(It.IsAny<Order>(), It.IsAny<OrderState>()))
-                         .ReturnsAsync(order);
-            var handler = new CancelOrderCommandHandler(repositoryMoq.Object, loggerMoq.Object);
+        public async Task WhenOrderIsCancelled_ThenResultingOrderStateShouldBeSetToCancelled()
+        {
+            var order = _mapper.Map<Order>(Orders.Order1);
+            _repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
+                          .ReturnsAsync(order);
+            _repositoryMoq.Setup(x => x.UpdateOrderState(It.IsAny<Order>(), It.IsAny<OrderState>()))
+                          .ReturnsAsync(order);
+            var handler = new CancelOrderCommandHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
             var result = await handler.Handle(new CancelOrder(order.Id, order.ETag), CancellationToken.None);
 
@@ -63,13 +70,14 @@
         }
 
         [Fact]
-        public async Task WhenConcurrencyExceptionOccurs_ThenShouldReturnConflict() {
-            var order = mapper.Map<Order>(Orders.Order1);
-            repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
-                         .ReturnsAsync(order);
-            repositoryMoq.Setup(x => x.UpdateOrderState(It.IsAny<Order>(), It.IsAny<OrderState>()))
-                         .ThrowsAsync(new ConcurrencyException());
-            var handler = new CancelOrderCommandHandler(repositoryMoq.Object, loggerMoq.Object);
+        public async Task WhenConcurrencyExceptionOccurs_ThenShouldReturnConflict()
+        {
+            var order = _mapper.Map<Order>(Orders.Order1);
+            _repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
+                          .ReturnsAsync(order);
+            _repositoryMoq.Setup(x => x.UpdateOrderState(It.IsAny<Order>(), It.IsAny<OrderState>()))
+                          .ThrowsAsync(new ConcurrencyException());
+            var handler = new CancelOrderCommandHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
             var result = await handler.Handle(new CancelOrder(order.Id, order.ETag), CancellationToken.None);
 

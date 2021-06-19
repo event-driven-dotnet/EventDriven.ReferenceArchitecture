@@ -1,13 +1,16 @@
-namespace OrderService {
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
-    using System.Diagnostics.CodeAnalysis;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Hosting;
+namespace OrderService
+{
 
     [ExcludeFromCodeCoverage]
-    public class Program {
+    public class Program
+    {
 
-        public static void Main(string[] args) {
+        public static void Main(string[] args)
+        {
             CreateHostBuilder(args)
                .Build()
                .Run();

@@ -1,9 +1,11 @@
-namespace OrderService.Configuration {
+using System.Diagnostics.CodeAnalysis;
 
-    using System.Diagnostics.CodeAnalysis;
+namespace OrderService.Configuration
+{
 
     [ExcludeFromCodeCoverage]
-    public class OrderDatabaseSettings {
+    public class OrderDatabaseSettings
+    {
 
         public string OrdersCollectionName { get; set; }
         public string ConnectionString { get; set; }

@@ -1,40 +1,45 @@
-﻿namespace OrderService.Domain.OrderAggregate.CommandHandlers {
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using EventDriven.CQRS.Abstractions.Commands;
+using Microsoft.Extensions.Logging;
+using OrderService.Domain.OrderAggregate.Commands;
+using OrderService.Domain.OrderAggregate.Events;
+using OrderService.Repositories;
 
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Commands;
-    using EventDriven.CQRS.Abstractions.Commands;
-    using Events;
-    using Microsoft.Extensions.Logging;
-    using Repositories;
+namespace OrderService.Domain.OrderAggregate.CommandHandlers
+{
 
-    public class CreateOrderCommandHandler : ICommandHandler<CreateOrder, CommandResult<Order>> {
+    public class CreateOrderCommandHandler : ICommandHandler<CreateOrder, CommandResult<Order>>
+    {
 
-        private readonly ILogger<CreateOrderCommandHandler> logger;
+        private readonly ILogger<CreateOrderCommandHandler> _logger;
 
-        private readonly IOrderRepository repository;
+        private readonly IOrderRepository _repository;
 
         public CreateOrderCommandHandler(IOrderRepository repository,
-                                         ILogger<CreateOrderCommandHandler> logger) {
-            this.repository = repository;
-            this.logger = logger;
+                                         ILogger<CreateOrderCommandHandler> logger)
+        {
+            _repository = repository;
+            _logger = logger;
         }
 
-        public async Task<CommandResult<Order>> Handle(CreateOrder request, CancellationToken cancellationToken) {
+        public async Task<CommandResult<Order>> Handle(CreateOrder request, CancellationToken cancellationToken)
+        {
             // Process command
-            logger.LogInformation("Handling command: {CommandName}", nameof(CreateOrder));
+            _logger.LogInformation("Handling command: {CommandName}", nameof(CreateOrder));
             var events = request.Order.Process(request);
 
             // Apply events
-            var domainEvent = events.OfType<OrderCreated>().SingleOrDefault();
+            var domainEvent = events.OfType<OrderCreated>()
+                                    .SingleOrDefault();
 
             if (domainEvent == null) return new CommandResult<Order>(CommandOutcome.NotHandled);
 
             request.Order.Apply(domainEvent);
 
             // Persist entity
-            var entity = await repository.AddOrder(request.Order);
+            var entity = await _repository.AddOrder(request.Order);
 
             if (entity == null) return new CommandResult<Order>(CommandOutcome.InvalidCommand);
 

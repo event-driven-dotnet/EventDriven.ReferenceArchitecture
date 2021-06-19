@@ -1,11 +1,13 @@
-namespace OrderService.DTO.Write {
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
+namespace OrderService.DTO.Write
+{
 
     [ExcludeFromCodeCoverage]
-    public class Order {
+    public class Order
+    {
 
         public Guid Id { get; set; }
         public Guid CustomerId { get; set; }

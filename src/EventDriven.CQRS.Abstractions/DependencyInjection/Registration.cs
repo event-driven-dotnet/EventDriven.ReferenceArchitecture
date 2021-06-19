@@ -1,18 +1,19 @@
-﻿namespace EventDriven.CQRS.Abstractions.DependencyInjection {
+﻿using System.Reflection;
+using EventDriven.CQRS.Abstractions.Commands;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
-    using System.Linq;
-    using System.Reflection;
-    using Commands;
-    using MediatR;
-    using Microsoft.Extensions.DependencyInjection;
-    
+namespace EventDriven.CQRS.Abstractions.DependencyInjection
+{
+
     /// <summary>
-    /// For registration of dependencies.
+    ///     For registration of dependencies.
     /// </summary>
-    public static class Registration {
+    public static class Registration
+    {
 
         /// <summary>
-        /// Register required dependencies with the service provider
+        ///     Register required dependencies with the service provider
         /// </summary>
         /// <param name="services"></param>
         /// <param name="assemblies">Assemblies which contain command definitions</param>

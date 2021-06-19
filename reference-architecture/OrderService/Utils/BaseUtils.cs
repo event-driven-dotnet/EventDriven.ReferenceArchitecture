@@ -1,14 +1,15 @@
-﻿namespace OrderService.Utils {
+﻿using AutoMapper;
+using OrderService.Mapping;
 
-    using AutoMapper;
-    using Mapping;
+namespace OrderService.Utils
+{
 
-    public static class BaseUtils {
+    public static class BaseUtils
+    {
 
-        public static IMapper GetMapper() {
-            var config = new MapperConfiguration(cfg => {
-                                                     cfg.AddProfile(typeof(AutoMapperProfile));
-                                                 });
+        public static IMapper GetMapper()
+        {
+            var config = new MapperConfiguration(cfg => { cfg.AddProfile(typeof(AutoMapperProfile)); });
 
             return config.CreateMapper();
         }

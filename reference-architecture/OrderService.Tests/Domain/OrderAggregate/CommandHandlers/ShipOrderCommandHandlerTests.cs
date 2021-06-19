@@ -1,45 +1,50 @@
-﻿namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers {
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
+using EventDriven.CQRS.Abstractions.Commands;
+using Microsoft.Extensions.Logging;
+using Moq;
+using OrderService.Domain.OrderAggregate;
+using OrderService.Domain.OrderAggregate.CommandHandlers;
+using OrderService.Domain.OrderAggregate.Commands;
+using OrderService.Repositories;
+using OrderService.Tests.Fakes;
+using OrderService.Utils;
+using Xunit;
 
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using AutoMapper;
-    using EventDriven.CQRS.Abstractions.Commands;
-    using Fakes;
-    using Microsoft.Extensions.Logging;
-    using Moq;
-    using OrderService.Domain.OrderAggregate;
-    using OrderService.Domain.OrderAggregate.CommandHandlers;
-    using OrderService.Domain.OrderAggregate.Commands;
-    using OrderService.Repositories;
-    using Utils;
-    using Xunit;
+namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
+{
 
-    public class ShipOrderCommandHandlerTests {
+    public class ShipOrderCommandHandlerTests
+    {
 
-        private readonly Mock<ILogger<ShipOrderCommandHandler>> loggerMoq;
-        private readonly Mock<IOrderRepository> repositoryMoq;
-        private readonly IMapper mapper;
+        private readonly Mock<ILogger<ShipOrderCommandHandler>> _loggerMoq;
+        private readonly IMapper _mapper;
+        private readonly Mock<IOrderRepository> _repositoryMoq;
 
-        public ShipOrderCommandHandlerTests() {
-            repositoryMoq = new Mock<IOrderRepository>();
-            loggerMoq = new Mock<ILogger<ShipOrderCommandHandler>>();
-            mapper = BaseUtils.GetMapper();
+        public ShipOrderCommandHandlerTests()
+        {
+            _repositoryMoq = new Mock<IOrderRepository>();
+            _loggerMoq = new Mock<ILogger<ShipOrderCommandHandler>>();
+            _mapper = BaseUtils.GetMapper();
         }
-        
+
         [Fact]
-        public void WhenInstantiated_ThenShouldBeOfCorrectType() {
-            var handler = new ShipOrderCommandHandler(repositoryMoq.Object, loggerMoq.Object);
+        public void WhenInstantiated_ThenShouldBeOfCorrectType()
+        {
+            var handler = new ShipOrderCommandHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
             Assert.NotNull(handler);
             Assert.IsType<ShipOrderCommandHandler>(handler);
         }
 
         [Fact]
-        public async Task WhenOrderDoesNotExist_ThenShouldReturnNotFound() {
-            repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
-                         .ReturnsAsync((Order) null);
-            var handler = new ShipOrderCommandHandler(repositoryMoq.Object, loggerMoq.Object);
+        public async Task WhenOrderDoesNotExist_ThenShouldReturnNotFound()
+        {
+            _repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
+                          .ReturnsAsync((Order) null);
+            var handler = new ShipOrderCommandHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
             var result = await handler.Handle(new ShipOrder(Guid.Empty, string.Empty), CancellationToken.None);
 
@@ -48,13 +53,14 @@
         }
 
         [Fact]
-        public async Task WhenOrderFailsToUpdate_ThenShouldReturnNotFound() {
-            var order = mapper.Map<Order>(Orders.Order1);
-            repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
-                         .ReturnsAsync(order);
-            repositoryMoq.Setup(x => x.UpdateOrderState(It.IsAny<Order>(), It.IsAny<OrderState>()))
-                         .ReturnsAsync((Order) null);
-            var handler = new ShipOrderCommandHandler(repositoryMoq.Object, loggerMoq.Object);
+        public async Task WhenOrderFailsToUpdate_ThenShouldReturnNotFound()
+        {
+            var order = _mapper.Map<Order>(Orders.Order1);
+            _repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
+                          .ReturnsAsync(order);
+            _repositoryMoq.Setup(x => x.UpdateOrderState(It.IsAny<Order>(), It.IsAny<OrderState>()))
+                          .ReturnsAsync((Order) null);
+            var handler = new ShipOrderCommandHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
             var result = await handler.Handle(new ShipOrder(Guid.Empty, string.Empty), CancellationToken.None);
 
@@ -63,13 +69,14 @@
         }
 
         [Fact]
-        public async Task WhenConcurrencyExceptionOccurs_ThenShouldReturnConflict() {
-            var order = mapper.Map<Order>(Orders.Order1);
-            repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
-                         .ReturnsAsync(order);
-            repositoryMoq.Setup(x => x.UpdateOrderState(It.IsAny<Order>(), It.IsAny<OrderState>()))
-                         .ThrowsAsync(new ConcurrencyException());
-            var handler = new ShipOrderCommandHandler(repositoryMoq.Object, loggerMoq.Object);
+        public async Task WhenConcurrencyExceptionOccurs_ThenShouldReturnConflict()
+        {
+            var order = _mapper.Map<Order>(Orders.Order1);
+            _repositoryMoq.Setup(x => x.GetOrder(It.IsAny<Guid>()))
+                          .ReturnsAsync(order);
+            _repositoryMoq.Setup(x => x.UpdateOrderState(It.IsAny<Order>(), It.IsAny<OrderState>()))
+                          .ThrowsAsync(new ConcurrencyException());
+            var handler = new ShipOrderCommandHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
             var result = await handler.Handle(new ShipOrder(Guid.Empty, string.Empty), CancellationToken.None);
 

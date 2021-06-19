@@ -2,9 +2,11 @@
 
 namespace EventDriven.CQRS.Abstractions.Entities
 {
+
     /// <inheritdoc />
     public abstract class Entity : IEntity
     {
+
         /// <inheritdoc />
         public Guid Id { get; set; }
 
@@ -18,7 +20,7 @@ namespace EventDriven.CQRS.Abstractions.Entities
         public EntityState State { get; set; } = EntityState.Active;
 
         /// <summary>
-        /// Set entity state to Deleted.
+        ///     Set entity state to Deleted.
         /// </summary>
         protected void MarkDeleted()
         {
@@ -26,11 +28,13 @@ namespace EventDriven.CQRS.Abstractions.Entities
         }
 
         /// <summary>
-        /// Set entity state to Frozen.
+        ///     Set entity state to Frozen.
         /// </summary>
         protected void Freeze()
         {
             State = EntityState.Frozen;
         }
+
     }
+
 }

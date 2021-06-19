@@ -1,9 +1,10 @@
-namespace Common.Integration.Events {
+using System;
+using System.Diagnostics.CodeAnalysis;
+using Common.Integration.Models;
+using EventDriven.EventBus.Abstractions;
 
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using EventDriven.EventBus.Abstractions;
-    using Models;
+namespace Common.Integration.Events
+{
 
     [ExcludeFromCodeCoverage]
     public record CustomerAddressUpdated(Guid CustomerId, Address ShippingAddress) : IntegrationEvent;

@@ -1,14 +1,16 @@
-﻿namespace EventDriven.CQRS.Abstractions.Commands {
+﻿using System.Threading.Tasks;
 
-    using System.Threading.Tasks;
+namespace EventDriven.CQRS.Abstractions.Commands
+{
 
     /// <summary>
-    /// Broker of commands.
+    ///     Broker of commands.
     /// </summary>
-    public interface ICommandBroker {
+    public interface ICommandBroker
+    {
 
         /// <summary>
-        /// Function to execute the provided command by sending them to the appropriate handler.
+        ///     Function to execute the provided command by sending them to the appropriate handler.
         /// </summary>
         /// <param name="command"></param>
         /// <typeparam name="TCommand"></typeparam>
@@ -18,7 +20,7 @@
                                                                        where TCommand : ICommand<TResult>;
 
         /// <summary>
-        /// Function to execute the provided command by sending them to the appropriate handler.
+        ///     Function to execute the provided command by sending them to the appropriate handler.
         /// </summary>
         /// <param name="command"></param>
         /// <typeparam name="TCommand"></typeparam>
@@ -26,7 +28,8 @@
         /// <returns></returns>
         TResult Invoke<TCommand, TResult>(TCommand command) where TResult : CommandResult
                                                             where TCommand : ICommand<TResult> =>
-            InvokeAsync<TCommand, TResult>(command).Result;
+            InvokeAsync<TCommand, TResult>(command)
+               .Result;
 
     }
 

@@ -1,9 +1,10 @@
-﻿namespace OrderService.Domain.OrderAggregate {
+﻿using EventDriven.CQRS.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Events;
+using OrderService.Domain.OrderAggregate.Commands;
+using OrderService.Domain.OrderAggregate.Events;
 
-    using Commands;
-    using EventDriven.CQRS.Abstractions.Commands;
-    using EventDriven.CQRS.Abstractions.Events;
-    using Events;
+namespace OrderService.Domain.OrderAggregate
+{
 
     public interface IOrderAggregate : ICommandProcessor<CreateOrder, CommandResult<Order>>,
                                        IEventApplier<OrderCreated>,

@@ -1,35 +1,41 @@
-﻿namespace OrderService.Tests.Integration.EventHandlers {
+﻿using System;
+using System.Threading.Tasks;
+using AutoFixture;
+using AutoMapper;
+using Common.Integration.Events;
+using EventDriven.EventBus.Abstractions;
+using Microsoft.Extensions.Logging;
+using Moq;
+using OrderService.Domain.OrderAggregate;
+using OrderService.Integration.EventHandlers;
+using OrderService.Repositories;
+using OrderService.Utils;
+using Xunit;
+using Address = Common.Integration.Models.Address;
 
-    using System;
-    using System.Threading.Tasks;
-    using AutoFixture;
-    using AutoMapper;
-    using Common.Integration.Events;
-    using EventDriven.EventBus.Abstractions;
-    using Microsoft.Extensions.Logging;
-    using Moq;
-    using OrderService.Domain.OrderAggregate;
-    using OrderService.Integration.EventHandlers;
-    using OrderService.Repositories;
-    using Utils;
-    using Xunit;
+namespace OrderService.Tests.Integration.EventHandlers
+{
 
-    public class CustomerAddressUpdatedEventHandlerTests {
+    public class CustomerAddressUpdatedEventHandlerTests
+    {
 
-        private readonly Mock<IOrderRepository> repositoryMoq;
-        private readonly IMapper mapper;
-        private readonly Mock<ILogger<CustomerAddressUpdatedEventHandler>> logger;
-        private readonly Fixture fixture = new Fixture();
+        private readonly Fixture _fixture = new();
+        private readonly Mock<ILogger<CustomerAddressUpdatedEventHandler>> _logger;
+        private readonly IMapper _mapper;
 
-        public CustomerAddressUpdatedEventHandlerTests() {
-            repositoryMoq = new Mock<IOrderRepository>();
-            mapper = BaseUtils.GetMapper();
-            logger = new Mock<ILogger<CustomerAddressUpdatedEventHandler>>();
+        private readonly Mock<IOrderRepository> _repositoryMoq;
+
+        public CustomerAddressUpdatedEventHandlerTests()
+        {
+            _repositoryMoq = new Mock<IOrderRepository>();
+            _mapper = BaseUtils.GetMapper();
+            _logger = new Mock<ILogger<CustomerAddressUpdatedEventHandler>>();
         }
 
         [Fact]
-        public void WhenInstantiated_ThenShouldBeOfCorrectType() {
-            var handler = new CustomerAddressUpdatedEventHandler(repositoryMoq.Object, mapper, logger.Object);
+        public void WhenInstantiated_ThenShouldBeOfCorrectType()
+        {
+            var handler = new CustomerAddressUpdatedEventHandler(_repositoryMoq.Object, _mapper, _logger.Object);
 
             Assert.NotNull(handler);
             Assert.IsAssignableFrom<IntegrationEventHandler<CustomerAddressUpdated>>(handler);
@@ -37,15 +43,16 @@
         }
 
         [Fact]
-        public async Task WhenEventIsHandled_ThenOrderAddressShouldGetUpdated() {
-            var address = fixture.Create<Common.Integration.Models.Address>();
+        public async Task WhenEventIsHandled_ThenOrderAddressShouldGetUpdated()
+        {
+            var address = _fixture.Create<Address>();
             var updatedEvent = new CustomerAddressUpdated(Guid.NewGuid(), address);
             var addressWasUpdated = false;
-            repositoryMoq.Setup(x => x.GetCustomerOrders(It.IsAny<Guid>()))
-                         .ReturnsAsync(new[] {fixture.Create<Order>()});
-            repositoryMoq.Setup(x => x.UpdateOrderAddress(It.IsAny<Guid>(), It.IsAny<Address>()))
-                         .Callback<Guid, Address>((o, a) => { addressWasUpdated = true; });
-            var handler = new CustomerAddressUpdatedEventHandler(repositoryMoq.Object, mapper, logger.Object);
+            _repositoryMoq.Setup(x => x.GetCustomerOrders(It.IsAny<Guid>()))
+                          .ReturnsAsync(new[] { _fixture.Create<Order>() });
+            _repositoryMoq.Setup(x => x.UpdateOrderAddress(It.IsAny<Guid>(), It.IsAny<OrderService.Domain.OrderAggregate.Address>()))
+                          .Callback<Guid, OrderService.Domain.OrderAggregate.Address>((o, a) => { addressWasUpdated = true; });
+            var handler = new CustomerAddressUpdatedEventHandler(_repositoryMoq.Object, _mapper, _logger.Object);
 
             await handler.HandleAsync(updatedEvent);
 

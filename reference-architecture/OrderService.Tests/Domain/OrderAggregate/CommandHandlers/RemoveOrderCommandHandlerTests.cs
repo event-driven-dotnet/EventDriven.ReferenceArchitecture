@@ -1,37 +1,42 @@
-﻿namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers {
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using EventDriven.CQRS.Abstractions.Commands;
+using Microsoft.Extensions.Logging;
+using Moq;
+using OrderService.Domain.OrderAggregate.CommandHandlers;
+using OrderService.Domain.OrderAggregate.Commands;
+using OrderService.Repositories;
+using Xunit;
 
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventDriven.CQRS.Abstractions.Commands;
-    using Microsoft.Extensions.Logging;
-    using Moq;
-    using OrderService.Domain.OrderAggregate.CommandHandlers;
-    using OrderService.Domain.OrderAggregate.Commands;
-    using OrderService.Repositories;
-    using Xunit;
+namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
+{
 
-    public class RemoveOrderCommandHandlerTests {
+    public class RemoveOrderCommandHandlerTests
+    {
 
-        private readonly Mock<ILogger<RemoveOrderCommandHandler>> loggerMoq;
-        private readonly Mock<IOrderRepository> repositoryMoq;
+        private readonly Mock<ILogger<RemoveOrderCommandHandler>> _loggerMoq;
+        private readonly Mock<IOrderRepository> _repositoryMoq;
 
-        public RemoveOrderCommandHandlerTests() {
-            repositoryMoq = new Mock<IOrderRepository>();
-            loggerMoq = new Mock<ILogger<RemoveOrderCommandHandler>>();
+        public RemoveOrderCommandHandlerTests()
+        {
+            _repositoryMoq = new Mock<IOrderRepository>();
+            _loggerMoq = new Mock<ILogger<RemoveOrderCommandHandler>>();
         }
-        
+
         [Fact]
-        public void WhenInstantiated_ThenShouldBeOfCorrectType() {
-            var handler = new RemoveOrderCommandHandler(repositoryMoq.Object, loggerMoq.Object);
+        public void WhenInstantiated_ThenShouldBeOfCorrectType()
+        {
+            var handler = new RemoveOrderCommandHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
             Assert.NotNull(handler);
             Assert.IsType<RemoveOrderCommandHandler>(handler);
         }
 
         [Fact]
-        public async Task WhenRemoved_ThenShouldReturnAccepted() {
-            var handler = new RemoveOrderCommandHandler(repositoryMoq.Object, loggerMoq.Object);
+        public async Task WhenRemoved_ThenShouldReturnAccepted()
+        {
+            var handler = new RemoveOrderCommandHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
             var result = await handler.Handle(new RemoveOrder(Guid.Empty), CancellationToken.None);
 

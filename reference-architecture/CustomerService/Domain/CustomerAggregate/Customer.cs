@@ -8,16 +8,16 @@ using EventDriven.CQRS.Abstractions.Events;
 namespace CustomerService.Domain.CustomerAggregate
 {
 
-    using EventDriven.CQRS.Abstractions.Commands;
-
     public class Customer : Entity,
                             ICustomerAggregate
     {
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Address ShippingAddress { get; set; }
 
         public IEnumerable<IDomainEvent> Process(CreateCustomer command)
+
             // To process command, return one or more domain events
             => new List<IDomainEvent>
             {
@@ -25,7 +25,10 @@ namespace CustomerService.Domain.CustomerAggregate
             };
 
         public void Apply(CustomerCreated domainEvent) =>
+
             // Set Id
-            Id = domainEvent.EntityId != default(Guid) ? domainEvent.EntityId : Guid.NewGuid();
+            Id = domainEvent.EntityId != default ? domainEvent.EntityId : Guid.NewGuid();
+
     }
+
 }

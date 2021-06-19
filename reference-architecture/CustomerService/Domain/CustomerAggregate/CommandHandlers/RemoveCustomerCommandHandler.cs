@@ -1,28 +1,31 @@
-﻿namespace CustomerService.Domain.CustomerAggregate.CommandHandlers {
+﻿using System.Threading;
+using System.Threading.Tasks;
+using CustomerService.Domain.CustomerAggregate.Commands;
+using CustomerService.Repositories;
+using EventDriven.CQRS.Abstractions.Commands;
+using Microsoft.Extensions.Logging;
 
-    
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Commands;
-    using EventDriven.CQRS.Abstractions.Commands;
-    using Microsoft.Extensions.Logging;
-    using Repositories;
+namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
+{
 
-    public class RemoveCustomerCommandHandler : ICommandHandler<RemoveCustomer, CommandResult> {
+    public class RemoveCustomerCommandHandler : ICommandHandler<RemoveCustomer, CommandResult>
+    {
 
-        private readonly ILogger<RemoveCustomerCommandHandler> logger;
-        private readonly ICustomerRepository repository;
+        private readonly ILogger<RemoveCustomerCommandHandler> _logger;
+        private readonly ICustomerRepository _repository;
 
-        public RemoveCustomerCommandHandler(ILogger<RemoveCustomerCommandHandler> logger, 
-                                            ICustomerRepository repository) {
-            this.logger = logger;
-            this.repository = repository;
+        public RemoveCustomerCommandHandler(ILogger<RemoveCustomerCommandHandler> logger,
+                                            ICustomerRepository repository)
+        {
+            _logger = logger;
+            _repository = repository;
         }
 
-        public async Task<CommandResult> Handle(RemoveCustomer request, CancellationToken cancellationToken) {
+        public async Task<CommandResult> Handle(RemoveCustomer request, CancellationToken cancellationToken)
+        {
             // Persist entity
-            logger.LogInformation($"Handling command: {nameof(RemoveCustomer)}");
-            await repository.Remove(request.CustomerId);
+            _logger.LogInformation($"Handling command: {nameof(RemoveCustomer)}");
+            await _repository.Remove(request.CustomerId);
             return new CommandResult(CommandOutcome.Accepted);
         }
 

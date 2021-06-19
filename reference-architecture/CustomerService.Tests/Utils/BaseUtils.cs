@@ -1,14 +1,15 @@
-﻿namespace CustomerService.Tests.Utils {
+﻿using AutoMapper;
+using CustomerService.Mapping;
 
-    using AutoMapper;
-    using Mapping;
+namespace CustomerService.Tests.Utils
+{
 
-    public static class BaseUtils {
+    public static class BaseUtils
+    {
 
-        public static IMapper GetMapper() {
-            var config = new MapperConfiguration(cfg => {
-                                                     cfg.AddProfile(typeof(AutoMapperProfile));
-                                                 });
+        public static IMapper GetMapper()
+        {
+            var config = new MapperConfiguration(cfg => { cfg.AddProfile(typeof(AutoMapperProfile)); });
 
             return config.CreateMapper();
         }

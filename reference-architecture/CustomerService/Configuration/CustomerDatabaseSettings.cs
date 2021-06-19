@@ -1,9 +1,11 @@
-namespace CustomerService.Configuration {
+using System.Diagnostics.CodeAnalysis;
 
-    using System.Diagnostics.CodeAnalysis;
+namespace CustomerService.Configuration
+{
 
     [ExcludeFromCodeCoverage]
-    public class CustomerDatabaseSettings {
+    public class CustomerDatabaseSettings
+    {
 
         public string CustomersCollectionName { get; set; }
         public string ConnectionString { get; set; }

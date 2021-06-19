@@ -1,10 +1,12 @@
-namespace OrderService.DTO.Read {
+using System;
+using System.Diagnostics.CodeAnalysis;
 
-    using System;
-    using System.Diagnostics.CodeAnalysis;
+namespace OrderService.DTO.Read
+{
 
     [ExcludeFromCodeCoverage]
-    public class OrderView {
+    public class OrderView
+    {
 
         public Guid Id { get; set; }
         public Guid CustomerId { get; set; }

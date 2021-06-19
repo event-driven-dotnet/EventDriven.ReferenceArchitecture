@@ -1,10 +1,12 @@
-namespace CustomerService.DTO.Read {
+using System;
+using System.Diagnostics.CodeAnalysis;
 
-    using System;
-    using System.Diagnostics.CodeAnalysis;
+namespace CustomerService.DTO.Read
+{
 
     [ExcludeFromCodeCoverage]
-    public class CustomerView {
+    public class CustomerView
+    {
 
         public Guid Id { get; set; }
         public string FirstName { get; set; }
