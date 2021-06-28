@@ -9,10 +9,8 @@ using Microsoft.Extensions.Logging;
 
 namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
 {
-
     public class CreateCustomerCommandHandler : ICommandHandler<CreateCustomer, CommandResult<Customer>>
     {
-
         private readonly ILogger<CreateCustomerCommandHandler> _logger;
         private readonly ICustomerRepository _repository;
 
@@ -41,7 +39,5 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
 
             return new CommandResult<Customer>(CommandOutcome.Accepted, entity);
         }
-
     }
-
 }

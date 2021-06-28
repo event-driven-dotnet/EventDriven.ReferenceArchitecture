@@ -2,13 +2,11 @@
 
 namespace EventDriven.CQRS.Abstractions.Entities
 {
-
     /// <summary>
     ///     A type that has an identity with behavior and state that can change over time.
     /// </summary>
     public interface IEntity
     {
-
         /// <summary>
         ///     The ID of the Entity.
         /// </summary>
@@ -29,7 +27,5 @@ namespace EventDriven.CQRS.Abstractions.Entities
         ///     Gets the entity state.
         /// </summary>
         EntityState State { get; set; }
-
     }
-
 }

@@ -13,10 +13,8 @@ using Xunit;
 
 namespace CustomerService.Tests.Controllers
 {
-
     public class CustomerCommandControllerTests
     {
-
         private readonly Mock<ICommandBroker> _commandBrokerMoq;
         private readonly IMapper _mapper;
 
@@ -133,7 +131,5 @@ namespace CustomerService.Tests.Controllers
             Assert.NotNull(actionResult);
             Assert.NotNull(noContentResult);
         }
-
     }
-
 }

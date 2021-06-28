@@ -2,7 +2,6 @@
 
 namespace EventDriven.CQRS.Abstractions.Events
 {
-
     /// <summary>
     ///     A statement of fact about what change has been made to the domain state.
     /// </summary>
@@ -13,5 +12,4 @@ namespace EventDriven.CQRS.Abstractions.Events
                                        string EntityETag = null,
                                        long EntitySequenceNumber = 0)
         : Event, IDomainEvent;
-
 }

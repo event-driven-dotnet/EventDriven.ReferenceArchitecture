@@ -8,10 +8,8 @@ using Xunit;
 
 namespace CustomerService.Tests.Helpers
 {
-
     public class CommandResultExtensionsTests
     {
-
         [Fact]
         public void WhenAccepted_AndEntityIsNotPresent_ThenOkResult()
         {
@@ -71,7 +69,5 @@ namespace CustomerService.Tests.Helpers
             var statusCodeResult = Assert.IsType<StatusCodeResult>(actionResult);
             Assert.Equal(500, statusCodeResult.StatusCode);
         }
-
     }
-
 }

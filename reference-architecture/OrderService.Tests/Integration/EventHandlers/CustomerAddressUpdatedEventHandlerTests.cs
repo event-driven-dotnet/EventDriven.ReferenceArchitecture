@@ -15,10 +15,8 @@ using Address = Common.Integration.Models.Address;
 
 namespace OrderService.Tests.Integration.EventHandlers
 {
-
     public class CustomerAddressUpdatedEventHandlerTests
     {
-
         private readonly Fixture _fixture = new();
         private readonly Mock<ILogger<CustomerAddressUpdatedEventHandler>> _logger;
         private readonly IMapper _mapper;
@@ -58,7 +56,5 @@ namespace OrderService.Tests.Integration.EventHandlers
 
             Assert.True(addressWasUpdated);
         }
-
     }
-
 }

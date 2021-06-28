@@ -4,10 +4,8 @@ using IntegrationAddress = Common.Integration.Models.Address;
 
 namespace OrderService.Mapping
 {
-
     public class AutoMapperProfile : Profile
     {
-
         public AutoMapperProfile()
         {
             CreateMap<Order, DTO.Write.Order>();
@@ -26,7 +24,5 @@ namespace OrderService.Mapping
             CreateMap<Address, IntegrationAddress>()
                .ReverseMap();
         }
-
     }
-
 }

@@ -11,10 +11,8 @@ using Xunit;
 
 namespace CustomerService.Tests.Domain.CustomerAggregate.CommandHandlers
 {
-
     public class CreateCustomerCommandHandlerTests
     {
-
         private readonly Mock<ILogger<CreateCustomerCommandHandler>> _loggerMoq;
         private readonly Mock<ICustomerRepository> _repositoryMoq;
 
@@ -70,7 +68,5 @@ namespace CustomerService.Tests.Domain.CustomerAggregate.CommandHandlers
                 cmdResult.Entities[0]
                          .Id);
         }
-
     }
-
 }

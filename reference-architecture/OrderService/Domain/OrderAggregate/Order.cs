@@ -7,11 +7,9 @@ using OrderService.Domain.OrderAggregate.Events;
 
 namespace OrderService.Domain.OrderAggregate
 {
-
     public class Order : Entity,
                          IOrderAggregate
     {
-
         public Guid CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
         public List<OrderItem> OrderItems { get; set; }
@@ -60,7 +58,5 @@ namespace OrderService.Domain.OrderAggregate
             OrderState = OrderState.Cancelled;
             ETag = domainEvent.ETag;
         }
-
     }
-
 }

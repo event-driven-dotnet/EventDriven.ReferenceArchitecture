@@ -8,10 +8,8 @@ using OrderService.Repositories;
 
 namespace OrderService.Integration.EventHandlers
 {
-
     public class CustomerAddressUpdatedEventHandler : IntegrationEventHandler<CustomerAddressUpdated>
     {
-
         private readonly ILogger<CustomerAddressUpdatedEventHandler> _logger;
         private readonly IMapper _mapper;
         private readonly IOrderRepository _orderRepository;
@@ -36,7 +34,5 @@ namespace OrderService.Integration.EventHandlers
                 await _orderRepository.UpdateOrderAddress(order.Id, shippingAddress);
             }
         }
-
     }
-
 }

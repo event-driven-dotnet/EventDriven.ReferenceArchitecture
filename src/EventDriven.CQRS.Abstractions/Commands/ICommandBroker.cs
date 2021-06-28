@@ -2,13 +2,11 @@
 
 namespace EventDriven.CQRS.Abstractions.Commands
 {
-
     /// <summary>
     ///     Broker of commands.
     /// </summary>
     public interface ICommandBroker
     {
-
         /// <summary>
         ///     Function to execute the provided command by sending them to the appropriate handler.
         /// </summary>
@@ -30,7 +28,5 @@ namespace EventDriven.CQRS.Abstractions.Commands
                                                             where TCommand : ICommand<TResult> =>
             InvokeAsync<TCommand, TResult>(command)
                .Result;
-
     }
-
 }

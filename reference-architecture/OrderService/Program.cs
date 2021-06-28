@@ -4,11 +4,9 @@ using Microsoft.Extensions.Hosting;
 
 namespace OrderService
 {
-
     [ExcludeFromCodeCoverage]
     public class Program
     {
-
         public static void Main(string[] args)
         {
             CreateHostBuilder(args)
@@ -19,7 +17,5 @@ namespace OrderService
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
-
     }
-
 }

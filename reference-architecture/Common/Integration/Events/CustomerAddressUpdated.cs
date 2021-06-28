@@ -5,8 +5,6 @@ using EventDriven.EventBus.Abstractions;
 
 namespace Common.Integration.Events
 {
-
     [ExcludeFromCodeCoverage]
     public record CustomerAddressUpdated(Guid CustomerId, Address ShippingAddress) : IntegrationEvent;
-
 }

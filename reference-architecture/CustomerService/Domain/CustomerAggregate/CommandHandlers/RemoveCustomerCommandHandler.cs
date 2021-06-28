@@ -7,10 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
 {
-
     public class RemoveCustomerCommandHandler : ICommandHandler<RemoveCustomer, CommandResult>
     {
-
         private readonly ILogger<RemoveCustomerCommandHandler> _logger;
         private readonly ICustomerRepository _repository;
 
@@ -28,7 +26,5 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
             await _repository.Remove(request.CustomerId);
             return new CommandResult(CommandOutcome.Accepted);
         }
-
     }
-
 }

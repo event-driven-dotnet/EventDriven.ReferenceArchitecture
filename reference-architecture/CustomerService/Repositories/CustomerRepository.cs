@@ -7,10 +7,8 @@ using URF.Core.Abstractions;
 
 namespace CustomerService.Repositories
 {
-
     public class CustomerRepository : ICustomerRepository
     {
-
         private readonly IDocumentRepository<Customer> _documentRepository;
         private readonly ILogger<CustomerRepository> _logger;
 
@@ -54,7 +52,5 @@ namespace CustomerService.Repositories
 
         public async Task<int> Remove(Guid id) =>
             await _documentRepository.DeleteOneAsync(e => e.Id == id);
-
     }
-
 }

@@ -8,12 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerService.Controllers
 {
-
     [Route("api/customer")]
     [ApiController]
     public class CustomerQueryController : ControllerBase
     {
-
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _repository;
 
@@ -43,7 +41,5 @@ namespace CustomerService.Controllers
             var result = _mapper.Map<CustomerView>(customer);
             return Ok(result);
         }
-
     }
-
 }

@@ -5,8 +5,6 @@ using EventDriven.CQRS.Abstractions.Events;
 
 namespace CustomerService.Domain.CustomerAggregate
 {
-
     public interface ICustomerAggregate : ICommandProcessor<CreateCustomer, CommandResult<Customer>>,
                                           IEventApplier<CustomerCreated> { }
-
 }

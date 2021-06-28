@@ -9,10 +9,8 @@ using OrderService.Repositories;
 
 namespace OrderService.Domain.OrderAggregate.CommandHandlers
 {
-
     public class CreateOrderCommandHandler : ICommandHandler<CreateOrder, CommandResult<Order>>
     {
-
         private readonly ILogger<CreateOrderCommandHandler> _logger;
 
         private readonly IOrderRepository _repository;
@@ -45,7 +43,5 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
 
             return new CommandResult<Order>(CommandOutcome.Accepted, entity);
         }
-
     }
-
 }

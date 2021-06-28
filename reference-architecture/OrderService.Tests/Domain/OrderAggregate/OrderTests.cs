@@ -11,10 +11,8 @@ using Xunit;
 
 namespace OrderService.Tests.Domain.OrderAggregate
 {
-
     public class OrderTests
     {
-
         private readonly IMapper _mapper;
 
         public OrderTests() => _mapper = BaseUtils.GetMapper();
@@ -102,7 +100,5 @@ namespace OrderService.Tests.Domain.OrderAggregate
 
             Assert.Equal(OrderState.Cancelled, order.OrderState);
         }
-
     }
-
 }

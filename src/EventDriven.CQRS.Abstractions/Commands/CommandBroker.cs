@@ -5,11 +5,9 @@ using MediatR;
 
 namespace EventDriven.CQRS.Abstractions.Commands
 {
-
     /// <inheritdoc />
     public class CommandBroker : ICommandBroker
     {
-
         private readonly IMediator _mediatr;
 
         /// <summary>
@@ -35,7 +33,5 @@ namespace EventDriven.CQRS.Abstractions.Commands
                     TResult;
             }
         }
-
     }
-
 }

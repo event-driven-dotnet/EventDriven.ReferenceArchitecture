@@ -7,10 +7,8 @@ using OrderService.Repositories;
 
 namespace OrderService.Domain.OrderAggregate.CommandHandlers
 {
-
     public class UpdateOrderCommandHandler : ICommandHandler<UpdateOrder, CommandResult<Order>>
     {
-
         private readonly ILogger<UpdateOrderCommandHandler> _logger;
 
         private readonly IOrderRepository _repository;
@@ -36,7 +34,5 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
                 return new CommandResult<Order>(CommandOutcome.Accepted, entity);
             } catch (ConcurrencyException) { return new CommandResult<Order>(CommandOutcome.Conflict); }
         }
-
     }
-
 }

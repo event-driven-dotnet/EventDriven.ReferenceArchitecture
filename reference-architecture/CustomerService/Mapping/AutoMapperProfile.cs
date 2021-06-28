@@ -6,10 +6,8 @@ using Integration = Common.Integration.Models;
 
 namespace CustomerService.Mapping
 {
-
     public class AutoMapperProfile : Profile
     {
-
         public AutoMapperProfile()
         {
             CreateMap<Entity.Customer, Customer>();
@@ -32,7 +30,5 @@ namespace CustomerService.Mapping
             CreateMap<Entity.Address, Integration.Address>()
                .ReverseMap();
         }
-
     }
-
 }

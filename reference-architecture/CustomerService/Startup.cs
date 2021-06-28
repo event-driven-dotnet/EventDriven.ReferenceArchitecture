@@ -17,11 +17,9 @@ using URF.Core.Mongo;
 
 namespace CustomerService
 {
-
     [ExcludeFromCodeCoverage]
     public class Startup
     {
-
         public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
@@ -93,7 +91,5 @@ namespace CustomerService
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
-
     }
-
 }

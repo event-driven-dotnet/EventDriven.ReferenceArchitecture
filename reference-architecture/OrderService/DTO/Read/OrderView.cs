@@ -3,11 +3,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace OrderService.DTO.Read
 {
-
     [ExcludeFromCodeCoverage]
     public class OrderView
     {
-
         public Guid Id { get; set; }
         public Guid CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
@@ -19,7 +17,5 @@ namespace OrderService.DTO.Read
         public string PostalCode { get; set; }
         public OrderState OrderState { get; set; }
         public string ETag { get; set; }
-
     }
-
 }

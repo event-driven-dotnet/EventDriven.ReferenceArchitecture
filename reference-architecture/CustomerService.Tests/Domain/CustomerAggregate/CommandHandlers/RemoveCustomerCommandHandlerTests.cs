@@ -11,10 +11,8 @@ using Xunit;
 
 namespace CustomerService.Tests.Domain.CustomerAggregate.CommandHandlers
 {
-
     public class RemoveCustomerCommandHandlerTests
     {
-
         private readonly Mock<ILogger<RemoveCustomerCommandHandler>> _loggerMoq;
 
         private readonly Mock<ICustomerRepository> _repositoryMoq;
@@ -43,7 +41,5 @@ namespace CustomerService.Tests.Domain.CustomerAggregate.CommandHandlers
 
             Assert.Equal(CommandOutcome.Accepted, cmdResult.Outcome);
         }
-
     }
-
 }

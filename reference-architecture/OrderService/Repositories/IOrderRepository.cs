@@ -5,10 +5,8 @@ using OrderService.Domain.OrderAggregate;
 
 namespace OrderService.Repositories
 {
-
     public interface IOrderRepository
     {
-
         Task<IEnumerable<Order>> GetOrders();
         Task<IEnumerable<Order>> GetCustomerOrders(Guid customerId);
         Task<Order> GetOrder(Guid id);
@@ -17,7 +15,5 @@ namespace OrderService.Repositories
         Task<Order> UpdateOrderAddress(Guid orderId, Address address);
         Task<int> RemoveOrder(Guid id);
         Task<Order> UpdateOrderState(Order entity, OrderState orderState);
-
     }
-
 }

@@ -7,11 +7,9 @@ using EventDriven.CQRS.Abstractions.Events;
 
 namespace CustomerService.Domain.CustomerAggregate
 {
-
     public class Customer : Entity,
                             ICustomerAggregate
     {
-
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Address ShippingAddress { get; set; }
@@ -28,7 +26,5 @@ namespace CustomerService.Domain.CustomerAggregate
 
             // Set Id
             Id = domainEvent.EntityId != default ? domainEvent.EntityId : Guid.NewGuid();
-
     }
-
 }

@@ -6,13 +6,11 @@ using OrderState = OrderService.DTO.Read.OrderState;
 
 namespace OrderService.Tests.Fakes
 {
-
     using ReadOrderState = OrderState;
     using WriteOrderState = DTO.Write.OrderState;
 
     public static class Orders
     {
-
         public static Order Order1 => new()
         {
             Id = Guid.Parse("22eea083-6f0d-48f2-8c82-65ac850e5aad"),
@@ -56,12 +54,10 @@ namespace OrderService.Tests.Fakes
             },
             OrderState = WriteOrderState.Created
         };
-
     }
 
     public static class OrderViews
     {
-
         public static OrderView Order1 => new()
         {
             Id = Guid.Parse("22eea083-6f0d-48f2-8c82-65ac850e5aad"),
@@ -89,7 +85,5 @@ namespace OrderService.Tests.Fakes
             PostalCode = "70023",
             OrderState = ReadOrderState.Created
         };
-
     }
-
 }

@@ -4,10 +4,8 @@ using CustomerService.DTO.Write;
 
 namespace CustomerService.Tests.Fakes
 {
-
     public static class Customers
     {
-
         public static Customer Customer1 => new()
         {
             Id = Guid.Parse("22eea083-6f0d-48f2-8c82-65ac850e5aad"),
@@ -52,12 +50,10 @@ namespace CustomerService.Tests.Fakes
                 PostalCode = "98765"
             }
         };
-
     }
 
     public static class CustomerViews
     {
-
         public static CustomerView Customer1 => new()
         {
             Id = Guid.Parse("22eea083-6f0d-48f2-8c82-65ac850e5aad"),
@@ -93,7 +89,5 @@ namespace CustomerService.Tests.Fakes
             Country = "USA",
             PostalCode = "98765"
         };
-
     }
-
 }

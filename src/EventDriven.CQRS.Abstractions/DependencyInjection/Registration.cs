@@ -5,13 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventDriven.CQRS.Abstractions.DependencyInjection
 {
-
     /// <summary>
     ///     For registration of dependencies.
     /// </summary>
     public static class Registration
     {
-
         /// <summary>
         ///     Register required dependencies with the service provider
         /// </summary>
@@ -21,7 +19,5 @@ namespace EventDriven.CQRS.Abstractions.DependencyInjection
         public static IServiceCollection AddCqrs(this IServiceCollection services, params Assembly[] assemblies) =>
             services.AddScoped<ICommandBroker, CommandBroker>()
                     .AddMediatR(assemblies);
-
     }
-
 }

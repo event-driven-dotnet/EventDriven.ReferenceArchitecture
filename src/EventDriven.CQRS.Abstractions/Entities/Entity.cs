@@ -2,11 +2,9 @@
 
 namespace EventDriven.CQRS.Abstractions.Entities
 {
-
     /// <inheritdoc />
     public abstract class Entity : IEntity
     {
-
         /// <inheritdoc />
         public Guid Id { get; set; }
 
@@ -34,7 +32,5 @@ namespace EventDriven.CQRS.Abstractions.Entities
         {
             State = EntityState.Frozen;
         }
-
     }
-
 }

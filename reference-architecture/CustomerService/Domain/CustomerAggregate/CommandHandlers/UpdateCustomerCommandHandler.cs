@@ -10,10 +10,8 @@ using Microsoft.Extensions.Logging;
 
 namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
 {
-
     public class UpdateCustomerCommandHandler : ICommandHandler<UpdateCustomer, CommandResult<Customer>>
     {
-
         private readonly IEventBus _eventBus;
 
         private readonly ILogger<UpdateCustomerCommandHandler> _logger;
@@ -58,7 +56,5 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
                 return new CommandResult<Customer>(CommandOutcome.Accepted, entity);
             } catch (ConcurrencyException) { return new CommandResult<Customer>(CommandOutcome.Conflict); }
         }
-
     }
-
 }

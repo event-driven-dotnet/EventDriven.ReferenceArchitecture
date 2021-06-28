@@ -15,10 +15,8 @@ using Xunit;
 
 namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
 {
-
     public class CancelOrderCommandHandlerTests
     {
-
         private readonly Mock<ILogger<CancelOrderCommandHandler>> _loggerMoq;
         private readonly IMapper _mapper;
 
@@ -84,7 +82,5 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
             Assert.NotNull(result);
             Assert.Equal(CommandOutcome.Conflict, result.Outcome);
         }
-
     }
-
 }

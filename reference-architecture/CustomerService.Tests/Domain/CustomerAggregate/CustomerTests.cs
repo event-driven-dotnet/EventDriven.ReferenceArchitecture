@@ -8,10 +8,8 @@ using Xunit;
 
 namespace CustomerService.Tests.Domain.CustomerAggregate
 {
-
     public class CustomerTests
     {
-
         [Fact]
         public void WhenInstantiated_ThenShouldBeOfCorrectType()
         {
@@ -49,7 +47,5 @@ namespace CustomerService.Tests.Domain.CustomerAggregate
 
             Assert.Equal(customerCreated.EntityId, customer.Id);
         }
-
     }
-
 }

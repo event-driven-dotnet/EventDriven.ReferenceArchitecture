@@ -13,10 +13,8 @@ using Xunit;
 
 namespace CustomerService.Tests.Repositories
 {
-
     public class CustomerRepositoryTests
     {
-
         private readonly Mock<IDocumentRepository<Customer>> _documentRepositoryMoq;
         private readonly Fixture _fixture = new();
         private readonly Mock<ILogger<CustomerRepository>> _logger;
@@ -177,7 +175,5 @@ namespace CustomerService.Tests.Repositories
             Assert.NotNull(result);
             Assert.Equal(customer.Id, result.Id);
         }
-
     }
-
 }

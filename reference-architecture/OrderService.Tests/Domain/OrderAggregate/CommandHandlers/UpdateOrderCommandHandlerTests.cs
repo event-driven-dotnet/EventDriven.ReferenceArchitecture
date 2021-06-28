@@ -14,10 +14,8 @@ using Xunit;
 
 namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
 {
-
     public class UpdateOrderCommandHandlerTests
     {
-
         private readonly Mock<ILogger<UpdateOrderCommandHandler>> _loggerMoq;
         private readonly IMapper _mapper;
 
@@ -79,7 +77,5 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
             Assert.Equal(CommandOutcome.Accepted, result.Outcome);
             Assert.Equal(order.Id, result.Entity.Id);
         }
-
     }
-
 }

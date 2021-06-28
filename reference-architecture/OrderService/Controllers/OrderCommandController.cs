@@ -9,12 +9,10 @@ using OrderService.Helpers;
 
 namespace OrderService.Controllers
 {
-
     [Route("api/order")]
     [ApiController]
     public class OrderCommandController : ControllerBase
     {
-
         private readonly ICommandBroker _commandBroker;
         private readonly IMapper _mapper;
 
@@ -88,7 +86,5 @@ namespace OrderService.Controllers
             var orderOut = _mapper.Map<Order>(result.Entity);
             return result.ToActionResult(orderOut);
         }
-
     }
-
 }

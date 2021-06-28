@@ -9,12 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerService.Controllers
 {
-
     [Route("api/customer")]
     [ApiController]
     public class CustomerCommandController : ControllerBase
     {
-
         private readonly ICommandBroker _commandBroker;
         private readonly IMapper _mapper;
 
@@ -60,7 +58,5 @@ namespace CustomerService.Controllers
             var result = await _commandBroker.InvokeAsync<RemoveCustomer, CommandResult>(new RemoveCustomer(id));
             return result.Outcome != CommandOutcome.Accepted ? result.ToActionResult() : new NoContentResult();
         }
-
     }
-
 }

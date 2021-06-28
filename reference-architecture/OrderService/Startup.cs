@@ -18,11 +18,9 @@ using URF.Core.Mongo;
 
 namespace OrderService
 {
-
     [ExcludeFromCodeCoverage]
     public class Startup
     {
-
         public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
@@ -109,7 +107,5 @@ namespace OrderService
                 });
             });
         }
-
     }
-
 }

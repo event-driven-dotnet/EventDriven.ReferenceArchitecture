@@ -10,12 +10,10 @@ using OrderState = OrderService.DTO.Read.OrderState;
 
 namespace OrderService.Controllers
 {
-
     [Route("api/order")]
     [ApiController]
     public class OrderQueryController : ControllerBase
     {
-
         private readonly IOrderRepository _repository;
 
         public OrderQueryController(IOrderRepository repository) => _repository = repository;
@@ -65,7 +63,5 @@ namespace OrderService.Controllers
                 OrderState = (OrderState) o.OrderState,
                 ETag = o.ETag
             });
-
     }
-
 }

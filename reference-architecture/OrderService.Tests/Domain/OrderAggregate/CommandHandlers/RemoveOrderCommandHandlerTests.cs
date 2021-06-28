@@ -11,10 +11,8 @@ using Xunit;
 
 namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
 {
-
     public class RemoveOrderCommandHandlerTests
     {
-
         private readonly Mock<ILogger<RemoveOrderCommandHandler>> _loggerMoq;
         private readonly Mock<IOrderRepository> _repositoryMoq;
 
@@ -43,7 +41,5 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
             Assert.NotNull(result);
             Assert.Equal(CommandOutcome.Accepted, result.Outcome);
         }
-
     }
-
 }

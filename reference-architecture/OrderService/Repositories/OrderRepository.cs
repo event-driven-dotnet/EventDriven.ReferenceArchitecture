@@ -7,10 +7,8 @@ using URF.Core.Abstractions;
 
 namespace OrderService.Repositories
 {
-
     public class OrderRepository : IOrderRepository
     {
-
         private readonly IDocumentRepository<Order> _documentRepository;
         private readonly ILogger<OrderRepository> _logger;
 
@@ -81,7 +79,5 @@ namespace OrderService.Repositories
             entity.OrderState = orderState;
             return await _documentRepository.FindOneAndReplaceAsync(e => e.Id == entity.Id, entity);
         }
-
     }
-
 }

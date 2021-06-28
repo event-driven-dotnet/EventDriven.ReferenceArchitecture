@@ -7,10 +7,8 @@ using OrderService.Repositories;
 
 namespace OrderService.Domain.OrderAggregate.CommandHandlers
 {
-
     public class RemoveOrderCommandHandler : ICommandHandler<RemoveOrder, CommandResult>
     {
-
         private readonly ILogger<RemoveOrderCommandHandler> _logger;
 
         private readonly IOrderRepository _repository;
@@ -30,7 +28,5 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
 
             return new CommandResult(CommandOutcome.Accepted);
         }
-
     }
-
 }

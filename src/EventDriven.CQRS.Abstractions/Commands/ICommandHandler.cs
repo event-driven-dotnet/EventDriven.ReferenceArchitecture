@@ -2,7 +2,6 @@
 
 namespace EventDriven.CQRS.Abstractions.Commands
 {
-
     /// <summary>
     ///     Command Handler
     /// </summary>
@@ -11,5 +10,4 @@ namespace EventDriven.CQRS.Abstractions.Commands
     public interface ICommandHandler<in TRequest, TResponse> : IRequestHandler<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
         where TResponse : CommandResult { }
-
 }

@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OrderService.Helpers
 {
-
     public static class CommandResultExtensions
     {
-
         public static ActionResult ToActionResult(this CommandResult result, object entity = null)
         {
             switch (result.Outcome)
@@ -24,7 +22,5 @@ namespace OrderService.Helpers
                     return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
-
     }
-
 }

@@ -17,10 +17,8 @@ using Xunit;
 
 namespace CustomerService.Tests.Domain.CustomerAggregate.CommandHandlers
 {
-
     public class UpdateCustomerCommandHandlerTests
     {
-
         private readonly Mock<IEventBus> _eventBusMoq;
         private readonly Fixture _fixture = new();
 
@@ -135,7 +133,5 @@ namespace CustomerService.Tests.Domain.CustomerAggregate.CommandHandlers
                     .With(x => x.ShippingAddress)
                     .With(x => x.Id)
                     .Create();
-
     }
-
 }

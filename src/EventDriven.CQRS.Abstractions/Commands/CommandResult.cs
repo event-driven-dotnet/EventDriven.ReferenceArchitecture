@@ -4,7 +4,6 @@ using EventDriven.CQRS.Abstractions.Entities;
 
 namespace EventDriven.CQRS.Abstractions.Commands
 {
-
     /// <summary>
     ///     Represents the result of dispatching a command.
     /// </summary>
@@ -17,7 +16,6 @@ namespace EventDriven.CQRS.Abstractions.Commands
     public record CommandResult<TEntity> : CommandResult
         where TEntity : Entity
     {
-
         /// <inheritdoc />
         public CommandResult(CommandOutcome outcome,
                              params TEntity[] entities) : base(outcome)
@@ -42,7 +40,5 @@ namespace EventDriven.CQRS.Abstractions.Commands
         ///     Entity associated with the result.
         /// </summary>
         public TEntity Entity => Entities.FirstOrDefault();
-
     }
-
 }

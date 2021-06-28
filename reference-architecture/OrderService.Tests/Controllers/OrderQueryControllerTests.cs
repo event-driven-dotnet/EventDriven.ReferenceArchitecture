@@ -14,10 +14,8 @@ using Xunit;
 
 namespace OrderService.Tests.Controllers
 {
-
     public class OrderQueryControllerTests
     {
-
         private readonly IMapper _mapper;
 
         private readonly Mock<IOrderRepository> _repositoryMoq;
@@ -91,7 +89,5 @@ namespace OrderService.Tests.Controllers
 
             Assert.Equal(OrderViews.Order1.Id, value.Id);
         }
-
     }
-
 }

@@ -9,10 +9,8 @@ using OrderService.Repositories;
 
 namespace OrderService.Domain.OrderAggregate.CommandHandlers
 {
-
     public class CancelOrderCommandHandler : ICommandHandler<CancelOrder, CommandResult<Order>>
     {
-
         private readonly ILogger<CancelOrderCommandHandler> _logger;
 
         private readonly IOrderRepository _repository;
@@ -52,7 +50,5 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
                 return new CommandResult<Order>(CommandOutcome.Accepted, order);
             } catch (ConcurrencyException) { return new CommandResult<Order>(CommandOutcome.Conflict); }
         }
-
     }
-
 }

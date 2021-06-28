@@ -14,10 +14,8 @@ using Xunit;
 
 namespace CustomerService.Tests.Controllers
 {
-
     public class CustomerQueryControllerTests
     {
-
         private readonly IMapper _mapper;
         private readonly Mock<ICustomerRepository> _repositoryMoq;
 
@@ -87,7 +85,5 @@ namespace CustomerService.Tests.Controllers
             Assert.NotNull(actionResult);
             Assert.NotNull(notFoundResult);
         }
-
     }
-
 }

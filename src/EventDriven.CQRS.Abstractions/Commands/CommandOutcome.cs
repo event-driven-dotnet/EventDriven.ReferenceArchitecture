@@ -1,12 +1,10 @@
 ﻿namespace EventDriven.CQRS.Abstractions.Commands
 {
-
     /// <summary>
     ///     Outcome of a command.
     /// </summary>
     public enum CommandOutcome
     {
-
         /// <summary>
         ///     Only if the command was accepted
         /// </summary>
@@ -36,7 +34,5 @@
         ///     Entity was not found.
         /// </summary>
         NotFound
-
     }
-
 }

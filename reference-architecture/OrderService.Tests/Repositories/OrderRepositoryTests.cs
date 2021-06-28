@@ -15,10 +15,8 @@ using Xunit;
 
 namespace OrderService.Tests.Repositories
 {
-
     public class OrderRepositoryTests
     {
-
         private readonly Mock<IDocumentRepository<Order>> _documentRepositoryMoq;
         private readonly Fixture _fixture = new();
         private readonly Mock<ILogger<OrderRepository>> _logger;
@@ -185,7 +183,5 @@ namespace OrderService.Tests.Repositories
             Assert.Equal(2, order.SequenceNumber);
             Assert.Equal(OrderState.Shipped, result.OrderState);
         }
-
     }
-
 }
