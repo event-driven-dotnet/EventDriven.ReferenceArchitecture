@@ -9,12 +9,11 @@ namespace CustomerService.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
-        private readonly ILogger<CustomerRepository> _logger;
         private readonly IDocumentRepository<Customer> _documentRepository;
+        private readonly ILogger<CustomerRepository> _logger;
 
-        public CustomerRepository(
-            IDocumentRepository<Customer> documentRepository,
-            ILogger<CustomerRepository> logger)
+        public CustomerRepository(IDocumentRepository<Customer> documentRepository,
+                                  ILogger<CustomerRepository> logger)
         {
             _documentRepository = documentRepository;
             _logger = logger;
@@ -30,8 +29,10 @@ namespace CustomerService.Repositories
         {
             var existing = await _documentRepository.FindOneAsync(e => e.Id == entity.Id);
             if (existing != null) return null;
+
             entity.SequenceNumber = 1;
-            entity.ETag = Guid.NewGuid().ToString();
+            entity.ETag = Guid.NewGuid()
+                              .ToString();
             return await _documentRepository.InsertOneAsync(entity);
         }
 
@@ -39,10 +40,13 @@ namespace CustomerService.Repositories
         {
             var existing = await Get(entity.Id);
             if (existing == null) return null;
-            if (string.Compare(entity.ETag, existing.ETag, StringComparison.OrdinalIgnoreCase) != 0 )
+
+            if (string.Compare(entity.ETag, existing.ETag, StringComparison.OrdinalIgnoreCase) != 0)
                 throw new ConcurrencyException();
+
             entity.SequenceNumber = existing.SequenceNumber + 1;
-            entity.ETag = Guid.NewGuid().ToString();
+            entity.ETag = Guid.NewGuid()
+                              .ToString();
             return await _documentRepository.FindOneAndReplaceAsync(e => e.Id == entity.Id, entity);
         }
 

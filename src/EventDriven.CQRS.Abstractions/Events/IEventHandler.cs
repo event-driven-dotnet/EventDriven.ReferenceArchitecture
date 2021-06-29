@@ -3,13 +3,13 @@
 namespace EventDriven.CQRS.Abstractions.Events
 {
     /// <summary>
-    /// Event handler.
+    ///     Event handler.
     /// </summary>
     /// <typeparam name="TEvent">The type of event.</typeparam>
     public interface IEventHandler<in TEvent> where TEvent : class, IDomainEvent
     {
         /// <summary>
-        /// Handles an event.
+        ///     Handles an event.
         /// </summary>
         /// <param name="domainEvent">The event.</param>
         /// <returns>True if handled successfully.</returns>

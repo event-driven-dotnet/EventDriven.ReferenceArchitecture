@@ -3,7 +3,7 @@
 namespace EventDriven.CQRS.Abstractions.Events
 {
     /// <summary>
-    /// A statement of fact about what change has been made to the domain state.
+    ///     A statement of fact about what change has been made to the domain state.
     /// </summary>
     /// <param name="Source">The source of the event.</param>
     public abstract record Event(string Source = null) : IEvent
