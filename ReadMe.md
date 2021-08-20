@@ -14,7 +14,7 @@ An event-driven approach to Command Query Responsibility Segregation.
   - [Initialize Dapr](https://docs.dapr.io/getting-started/install-dapr-selfhost/)
 
 ## Packages
-- [EventDriven.CQRS](https://www.nuget.org/packages/EventDriven.CQRS)
+- [EventDriven.CQRS.Abstractions](https://www.nuget.org/packages/EventDriven.CQRS.Abstractions)
 
 ## Introduction
 
