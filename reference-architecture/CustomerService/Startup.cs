@@ -1,8 +1,7 @@
-using System.Diagnostics.CodeAnalysis;
 using CustomerService.Configuration;
 using CustomerService.Domain.CustomerAggregate;
+using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.Repositories;
-using EventDriven.CQRS.Abstractions.DependencyInjection;
 using EventDriven.EventBus.Dapr;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,10 +16,12 @@ using URF.Core.Mongo;
 
 namespace CustomerService
 {
-    [ExcludeFromCodeCoverage]
     public class Startup
     {
-        public Startup(IConfiguration configuration) => Configuration = configuration;
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         public IConfiguration Configuration { get; }
 
@@ -30,28 +31,23 @@ namespace CustomerService
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1",
-                    new OpenApiInfo
-                    {
-                        Title = "CustomerService",
-                        Version = "v1"
-                    });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CustomerService", Version = "v1" });
             });
 
             // Configuration
-            services.Configure<CustomerDatabaseSettings>(Configuration.GetSection(nameof(CustomerDatabaseSettings)));
-            services.AddSingleton(sp => sp.GetRequiredService<IOptions<CustomerDatabaseSettings>>()
-                                          .Value);
+            services.Configure<CustomerDatabaseSettings>(
+                Configuration.GetSection(nameof(CustomerDatabaseSettings)));
+            services.AddSingleton(sp =>
+                sp.GetRequiredService<IOptions<CustomerDatabaseSettings>>().Value);
 
             // Registrations
             services.AddAutoMapper(typeof(Startup));
-            services.AddCqrs(typeof(Startup).Assembly);
+            services.AddSingleton<CustomerCommandHandler>();
             services.AddSingleton(sp =>
             {
                 var settings = sp.GetRequiredService<CustomerDatabaseSettings>();
                 var client = new MongoClient(settings.ConnectionString);
                 var database = client.GetDatabase(settings.DatabaseName);
-
                 return database.GetCollection<Customer>(settings.CustomersCollectionName);
             });
             services.AddSingleton<IDocumentRepository<Customer>, DocumentRepository<Customer>>();
@@ -59,22 +55,19 @@ namespace CustomerService
 
             // Configuration
             var eventBusOptions = new DaprEventBusOptions();
-            Configuration.GetSection(nameof(DaprEventBusOptions))
-                         .Bind(eventBusOptions);
+            Configuration.GetSection(nameof(DaprEventBusOptions)).Bind(eventBusOptions);
             var eventBusSchemaOptions = new DaprEventBusSchemaOptions();
-            Configuration.GetSection(nameof(DaprEventBusSchemaOptions))
-                         .Bind(eventBusSchemaOptions);
+            Configuration.GetSection(nameof(DaprEventBusSchemaOptions)).Bind(eventBusSchemaOptions);
 
             // Add Dapr event bus
-            services.AddDaprEventBus(eventBusOptions.PubSubName,
-                options =>
-                {
-                    options.UseSchemaRegistry = eventBusSchemaOptions.UseSchemaRegistry;
-                    options.SchemaRegistryType = eventBusSchemaOptions.SchemaRegistryType;
-                    options.MongoStateStoreOptions = eventBusSchemaOptions.MongoStateStoreOptions;
-                    options.SchemaValidatorType = eventBusSchemaOptions.SchemaValidatorType;
-                    options.AddSchemaOnPublish = eventBusSchemaOptions.AddSchemaOnPublish;
-                });
+            services.AddDaprEventBus(eventBusOptions.PubSubName, options =>
+            {
+                options.UseSchemaRegistry = eventBusSchemaOptions.UseSchemaRegistry;
+                options.SchemaRegistryType = eventBusSchemaOptions.SchemaRegistryType;
+                options.MongoStateStoreOptions = eventBusSchemaOptions.MongoStateStoreOptions;
+                options.SchemaValidatorType = eventBusSchemaOptions.SchemaValidatorType;
+                options.AddSchemaOnPublish = eventBusSchemaOptions.AddSchemaOnPublish;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,7 +82,10 @@ namespace CustomerService
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

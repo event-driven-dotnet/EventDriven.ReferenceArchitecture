@@ -12,8 +12,8 @@ namespace CustomerService.Controllers
     [ApiController]
     public class CustomerQueryController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly ICustomerRepository _repository;
+        private readonly IMapper _mapper;
 
         public CustomerQueryController(ICustomerRepository repository, IMapper mapper)
         {
@@ -37,7 +37,6 @@ namespace CustomerService.Controllers
         {
             var customer = await _repository.Get(id);
             if (customer == null) return NotFound();
-
             var result = _mapper.Map<CustomerView>(customer);
             return Ok(result);
         }

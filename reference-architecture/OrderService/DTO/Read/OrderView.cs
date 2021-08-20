@@ -1,9 +1,7 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace OrderService.DTO.Read
 {
-    [ExcludeFromCodeCoverage]
     public class OrderView
     {
         public Guid Id { get; set; }

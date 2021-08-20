@@ -28,7 +28,6 @@ The **EventDriven.CQRS.Abstractions** library contains interfaces and abstract b
 The **Reference Architecture** projects demonstrate how to apply these concepts to two microservices: `CustomerService` and `OrderService`. In addition, each service has *separate controllers for read and write operations*, thus segregating command and query responsibilities, with different sets of models, or Data Transfer Objects (DTO's).
 - **Query Controller**: Uses repository to retrieve entities and converts them to DTO's with AutoMapper.
 - **Command Controller**: Converts DTO's to domain entities using AutoMapper. Then hands control over to a command handler for executing business logic.
-- **Command Broker**: Dispatches the command object to the correct command handler.  
 - **Command Handler**: Uses a domain entity to process commands which generate one or more domain events, then requests entity to apply the domain events in order to mutate entity state. Persists entity state to a state store and optionally publishes an integration event which is handled by another microservice.
 - **Repository**: Persists entity state to a database.
 - **Event Bus**: Used to publish integration events, as well as subscribe to events using an event handler. Dapr is used to abstract away the underlying pub/sub implementation. The default is Redis (for local development), but Dapr can be configured to use other components, such as AWS SNS+SQS.
@@ -88,9 +87,9 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
 
 1. Add **Domain** and **CustomerAggregate** folders to the project, then add a `Customer` class that extends `Entity`.
    - Add properties representing entity state.
-   - Create commands that are C# records and extend an `ICommand` interface with the result type as the generic.
+   - Create commands that are C# records and extend a `Command` base class.
     ```csharp
-    public record CreateCustomer(Customer Customer) : ICommand<CommandResult<Customer>>;
+    public record CreateCustomer(Customer Customer) : Command.Create(Customer.Id);
     ```
   - Create domain events that extend `DomainEvent`.
     ```csharp
@@ -113,7 +112,7 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
    - Inject `ICustomerRepository`, `IEventBus` and `IMapper` into the ctor.
    - In the handler for `CreateCustomer`, write code to process the command, apply events, and persist the entity.
     ```csharp
-    public async Task<CommandResult<Customer>> Handle(CreateCustomer request, CancellationToken cancellationToken)
+    public async Task<CommandResult<Customer>> Handle(CreateCustomer command)
     {
         // Process command
         _logger.LogInformation("Handling command: {commandName}", nameof(CreateCustomer));
@@ -138,7 +137,7 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
     ```
    - In the `UpdateCustomer` handler, see if the shipping address has changed, and if so, publish a `CustomerAddressUpdated` integration event, so that the order service can update the shipping address in the customer's orders.
     ```csharp
-    public async Task<CommandResult<Customer>> Handle(UpdateCustomer request, CancellationToken cancellationToken)
+    public async Task<CommandResult<Customer>> Handle(UpdateCustomer command)
     {
         // Compare shipping addresses
         _logger.LogInformation("Handling command: {commandName}", nameof(UpdateCustomer));
@@ -168,7 +167,7 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
         }
     }
     ```
-3. Add a `CustomerCommandController` to the project that injects `ICommandBroker` into the ctor.
+3. Add a `CustomerCommandController` to the project that injects `CustomerCommandHandler` into the ctor.
    - Add Post, Put and Delete actions which accept a `Customer` DTO, map it to a `Customer` entity and invoke the appropriate command handler.
 4. Add a `CustomerQueryController` to the project that injects a `ICustomerRepository` into the ctor.
    - Use the repository to retrieve entities, then map those to `Customer` DTO objects.

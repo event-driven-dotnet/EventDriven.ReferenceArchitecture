@@ -12,14 +12,14 @@ namespace OrderService.Repositories
         private readonly IDocumentRepository<Order> _documentRepository;
         private readonly ILogger<OrderRepository> _logger;
 
-        public OrderRepository(IDocumentRepository<Order> documentRepository,
-                               ILogger<OrderRepository> logger)
+        public OrderRepository(
+            IDocumentRepository<Order> documentRepository,
+            ILogger<OrderRepository> logger)
         {
             _documentRepository = documentRepository;
             _logger = logger;
         }
-
-        public async Task<IEnumerable<Order>> GetOrders() =>
+        public async Task<IEnumerable<Order>> GetOrders() => 
             await _documentRepository.FindManyAsync();
 
         public async Task<IEnumerable<Order>> GetCustomerOrders(Guid customerId) =>
@@ -32,10 +32,8 @@ namespace OrderService.Repositories
         {
             var existing = await _documentRepository.FindOneAsync(e => e.Id == entity.Id);
             if (existing != null) return null;
-
             entity.SequenceNumber = 1;
-            entity.ETag = Guid.NewGuid()
-                              .ToString();
+            entity.ETag = Guid.NewGuid().ToString();
             return await _documentRepository.InsertOneAsync(entity);
         }
 
@@ -43,13 +41,10 @@ namespace OrderService.Repositories
         {
             var existing = await GetOrder(entity.Id);
             if (existing == null) return null;
-
-            if (string.Compare(entity.ETag, existing.ETag, StringComparison.OrdinalIgnoreCase) != 0)
+            if (string.Compare(entity.ETag, existing.ETag, StringComparison.OrdinalIgnoreCase) != 0 )
                 throw new ConcurrencyException();
-
             entity.SequenceNumber = existing.SequenceNumber + 1;
-            entity.ETag = Guid.NewGuid()
-                              .ToString();
+            entity.ETag = Guid.NewGuid().ToString();
             return await _documentRepository.FindOneAndReplaceAsync(e => e.Id == entity.Id, entity);
         }
 
@@ -57,7 +52,6 @@ namespace OrderService.Repositories
         {
             var existing = await GetOrder(orderId);
             if (existing == null) return null;
-
             existing.ShippingAddress = address;
             return await _documentRepository.FindOneAndReplaceAsync(e => e.Id == orderId, existing);
         }
@@ -69,13 +63,10 @@ namespace OrderService.Repositories
         {
             var existing = await GetOrder(entity.Id);
             if (existing == null) return null;
-
-            if (string.Compare(entity.ETag, existing.ETag, StringComparison.OrdinalIgnoreCase) != 0)
+            if (string.Compare(entity.ETag, existing.ETag, StringComparison.OrdinalIgnoreCase) != 0 )
                 throw new ConcurrencyException();
-
             entity.SequenceNumber++;
-            entity.ETag = Guid.NewGuid()
-                              .ToString();
+            entity.ETag = Guid.NewGuid().ToString();
             entity.OrderState = orderState;
             return await _documentRepository.FindOneAndReplaceAsync(e => e.Id == entity.Id, entity);
         }

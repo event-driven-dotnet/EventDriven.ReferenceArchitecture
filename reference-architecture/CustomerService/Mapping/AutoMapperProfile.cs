@@ -1,6 +1,4 @@
 using AutoMapper;
-using CustomerService.DTO.Read;
-using CustomerService.DTO.Write;
 using Entity = CustomerService.Domain.CustomerAggregate;
 using Integration = Common.Integration.Models;
 
@@ -10,25 +8,18 @@ namespace CustomerService.Mapping
     {
         public AutoMapperProfile()
         {
-            CreateMap<Entity.Customer, Customer>();
-            CreateMap<Entity.Customer, Customer>()
-               .ReverseMap();
-            CreateMap<Entity.Address, Address>();
-            CreateMap<Entity.Address, Address>()
-               .ReverseMap();
+            CreateMap<Entity.Customer, DTO.Write.Customer>();
+            CreateMap<Entity.Customer, DTO.Write.Customer>().ReverseMap();
+            CreateMap<Entity.Address, DTO.Write.Address>();
+            CreateMap<Entity.Address, DTO.Write.Address>().ReverseMap();
 
-            CreateMap<Entity.Customer, CustomerView>()
-               .IncludeMembers(c => c.ShippingAddress);
-            CreateMap<Entity.Customer, CustomerView>()
-               .IncludeMembers(c => c.ShippingAddress)
-               .ReverseMap();
-            CreateMap<Entity.Address, CustomerView>();
-            CreateMap<Entity.Address, CustomerView>()
-               .ReverseMap();
-
+            CreateMap<Entity.Customer, DTO.Read.CustomerView>().IncludeMembers(c => c.ShippingAddress);
+            CreateMap<Entity.Customer, DTO.Read.CustomerView>().IncludeMembers(c => c.ShippingAddress).ReverseMap();
+            CreateMap<Entity.Address, DTO.Read.CustomerView>();
+            CreateMap<Entity.Address, DTO.Read.CustomerView>().ReverseMap();
+            
             CreateMap<Entity.Address, Integration.Address>();
-            CreateMap<Entity.Address, Integration.Address>()
-               .ReverseMap();
+            CreateMap<Entity.Address, Integration.Address>().ReverseMap();
         }
     }
 }

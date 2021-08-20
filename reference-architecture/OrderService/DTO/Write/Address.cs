@@ -1,8 +1,5 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace OrderService.DTO.Write
 {
-    [ExcludeFromCodeCoverage]
     public class Address
     {
         public string Street { get; set; }

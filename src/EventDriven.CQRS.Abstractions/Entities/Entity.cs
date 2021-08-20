@@ -18,7 +18,7 @@ namespace EventDriven.CQRS.Abstractions.Entities
         public EntityState State { get; set; } = EntityState.Active;
 
         /// <summary>
-        ///     Set entity state to Deleted.
+        /// Set entity state to Deleted.
         /// </summary>
         protected void MarkDeleted()
         {
@@ -26,7 +26,7 @@ namespace EventDriven.CQRS.Abstractions.Entities
         }
 
         /// <summary>
-        ///     Set entity state to Frozen.
+        /// Set entity state to Frozen.
         /// </summary>
         protected void Freeze()
         {

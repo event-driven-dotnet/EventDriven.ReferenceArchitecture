@@ -1,8 +1,5 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace OrderService.Configuration
 {
-    [ExcludeFromCodeCoverage]
     public class OrderDatabaseSettings
     {
         public string OrdersCollectionName { get; set; }

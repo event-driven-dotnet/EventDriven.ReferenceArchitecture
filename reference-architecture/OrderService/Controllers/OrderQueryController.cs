@@ -16,7 +16,10 @@ namespace OrderService.Controllers
     {
         private readonly IOrderRepository _repository;
 
-        public OrderQueryController(IOrderRepository repository) => _repository = repository;
+        public OrderQueryController(IOrderRepository repository)
+        {
+            _repository = repository;
+        }
 
         // GET api/order
         [HttpGet]
@@ -26,7 +29,7 @@ namespace OrderService.Controllers
             var result = GetOrderViews(orders);
             return Ok(result);
         }
-
+        
         // GET api/order/customer/id
         [HttpGet]
         [Route("customer/{id}")]
@@ -43,8 +46,8 @@ namespace OrderService.Controllers
         public async Task<IActionResult> GetOrder([FromRoute] Guid id)
         {
             var order = await _repository.GetOrder(id);
-            var result = GetOrderViews(Enumerable.Repeat(order, 1))
-               .Single();
+            var result = GetOrderViews
+                (Enumerable.Repeat(order, 1)).Single();
             return Ok(result);
         }
 

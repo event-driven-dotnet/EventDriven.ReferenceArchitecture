@@ -12,7 +12,6 @@ namespace OrderService.Helpers
             {
                 case CommandOutcome.Accepted:
                     if (entity != null) return new OkObjectResult(entity);
-
                     return new OkResult();
                 case CommandOutcome.Conflict:
                     return new ConflictResult();

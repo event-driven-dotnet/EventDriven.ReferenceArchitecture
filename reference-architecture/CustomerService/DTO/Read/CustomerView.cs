@@ -1,9 +1,7 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace CustomerService.DTO.Read
 {
-    [ExcludeFromCodeCoverage]
     public class CustomerView
     {
         public Guid Id { get; set; }

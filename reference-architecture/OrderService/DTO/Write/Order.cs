@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace OrderService.DTO.Write
 {
-    [ExcludeFromCodeCoverage]
     public class Order
     {
         public Guid Id { get; set; }

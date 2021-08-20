@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.CQRS.Abstractions.Entities;
 using EventDriven.CQRS.Abstractions.Events;
 using OrderService.Domain.OrderAggregate.Commands;
@@ -7,8 +8,14 @@ using OrderService.Domain.OrderAggregate.Events;
 
 namespace OrderService.Domain.OrderAggregate
 {
-    public class Order : Entity,
-                         IOrderAggregate
+    public class Order : 
+        Entity,
+        ICommandProcessor<CreateOrder>,
+        IEventApplier<OrderCreated>,
+        ICommandProcessor<ShipOrder>,
+        IEventApplier<OrderShipped>,
+        ICommandProcessor<CancelOrder>,
+        IEventApplier<OrderCancelled>
     {
         public Guid CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
@@ -17,7 +24,6 @@ namespace OrderService.Domain.OrderAggregate
         public OrderState OrderState { get; set; }
 
         public IEnumerable<IDomainEvent> Process(CreateOrder command)
-
             // To process command, return one or more domain events
             => new List<IDomainEvent>
             {
@@ -25,12 +31,10 @@ namespace OrderService.Domain.OrderAggregate
             };
 
         public void Apply(OrderCreated domainEvent) =>
-
             // Set Id
-            Id = domainEvent.EntityId != default ? domainEvent.EntityId : Guid.NewGuid();
+            Id = domainEvent.EntityId != default(Guid) ? domainEvent.EntityId : Guid.NewGuid();
 
         public IEnumerable<IDomainEvent> Process(ShipOrder command)
-
             // To process command, return one or more domain events
             => new List<IDomainEvent>
             {
@@ -45,11 +49,10 @@ namespace OrderService.Domain.OrderAggregate
         }
 
         public IEnumerable<IDomainEvent> Process(CancelOrder command)
-
             // To process command, return one or more domain events
             => new List<IDomainEvent>
             {
-                new OrderCancelled(command.EntityId, command.ETag)
+                new OrderCancelled(command.EntityId, command.EntityEtag)
             };
 
         public void Apply(OrderCancelled domainEvent)
