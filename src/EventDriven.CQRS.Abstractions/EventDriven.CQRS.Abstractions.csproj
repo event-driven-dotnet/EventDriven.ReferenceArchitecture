@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageVersion>1.0.0-beta3</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <Authors>Tony Sneed</Authors>
     <Description>An event-driven approach to Command Query Responsibility Segregation.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -13,16 +13,9 @@
     <RepositoryUrl>https://github.com/event-driven-dotnet/EventDriven.CQRS.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>ddd cqrs event-driven event-driven-architecture</PackageTags>
-    <PackageReleaseNotes>https://github.com/event-driven-dotnet/EventDriven.CQRS/releases/tag/v1.0.0-beta3</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/event-driven-dotnet/EventDriven.CQRS/releases/tag/v1.1.0</PackageReleaseNotes>
     <PackageId>EventDriven.CQRS.Abstractions</PackageId>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DocumentationFile>bin\Debug\net5.0\EventDriven.CQRS.Abstractions.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DocumentationFile>bin\Release\net5.0\EventDriven.CQRS.Abstractions.xml</DocumentationFile>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
