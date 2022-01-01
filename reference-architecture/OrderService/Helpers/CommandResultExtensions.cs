@@ -1,4 +1,4 @@
-using EventDriven.CQRS.Abstractions.Commands;
+using EventDriven.DDD.Abstractions.Commands;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

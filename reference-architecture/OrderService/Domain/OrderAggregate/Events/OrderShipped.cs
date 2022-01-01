@@ -1,5 +1,5 @@
 ﻿using System;
-using EventDriven.CQRS.Abstractions.Events;
+using EventDriven.DDD.Abstractions.Events;
 
 namespace OrderService.Domain.OrderAggregate.Events
 {

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using EventDriven.CQRS.Abstractions.Commands;
-using EventDriven.CQRS.Abstractions.Entities;
-using EventDriven.CQRS.Abstractions.Events;
+using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.DDD.Abstractions.Entities;
+using EventDriven.DDD.Abstractions.Events;
 using OrderService.Domain.OrderAggregate.Commands;
 using OrderService.Domain.OrderAggregate.Events;
 
@@ -52,7 +52,7 @@ namespace OrderService.Domain.OrderAggregate
             // To process command, return one or more domain events
             => new List<IDomainEvent>
             {
-                new OrderCancelled(command.EntityId, command.EntityEtag)
+                new OrderCancelled(command.EntityId, command.ETag)
             };
 
         public void Apply(OrderCancelled domainEvent)

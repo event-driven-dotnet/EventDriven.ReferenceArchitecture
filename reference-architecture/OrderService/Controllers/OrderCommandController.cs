@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using EventDriven.CQRS.Abstractions.Commands;
+using EventDriven.DDD.Abstractions.Commands;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.CommandHandlers;

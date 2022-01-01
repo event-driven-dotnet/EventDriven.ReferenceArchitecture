@@ -5,7 +5,7 @@ using Common.Integration.Events;
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Domain.CustomerAggregate.Events;
 using CustomerService.Repositories;
-using EventDriven.CQRS.Abstractions.Commands;
+using EventDriven.DDD.Abstractions.Commands;
 using EventDriven.EventBus.Abstractions;
 using Microsoft.Extensions.Logging;
 using Integration = Common.Integration;

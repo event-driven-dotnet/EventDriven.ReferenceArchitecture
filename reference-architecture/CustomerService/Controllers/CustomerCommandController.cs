@@ -5,7 +5,7 @@ using CustomerService.Domain.CustomerAggregate;
 using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Helpers;
-using EventDriven.CQRS.Abstractions.Commands;
+using EventDriven.DDD.Abstractions.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerService.Controllers

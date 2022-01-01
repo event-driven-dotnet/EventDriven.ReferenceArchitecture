@@ -1,7 +1,7 @@
 using System;
-using EventDriven.CQRS.Abstractions.Commands;
+using EventDriven.DDD.Abstractions.Commands;
 
 namespace CustomerService.Domain.CustomerAggregate.Commands
 {
-    public record RemoveCustomer(Guid EntityId) : Command.Remove(EntityId);
+    public record RemoveCustomer(Guid EntityId) : Command(EntityId);
 }

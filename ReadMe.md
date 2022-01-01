@@ -13,17 +13,9 @@ An event-driven approach to Command Query Responsibility Segregation.
   - [Install Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
   - [Initialize Dapr](https://docs.dapr.io/getting-started/install-dapr-selfhost/)
 
-## Packages
-- [EventDriven.CQRS.Abstractions](https://www.nuget.org/packages/EventDriven.CQRS.Abstractions)
-
 ## Introduction
 
 This project builds on the principles of [Domain Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) to provide a set of abstractions and reference architecture for implementing the [Command Query Responsibility Segregation](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs) pattern, also known as as CQRS. Because entities process commands by emitting domain events, adding [event sourcing](https://microservices.io/patterns/data/event-sourcing.html) at a later time will be relatively straightforward.
-
-The **EventDriven.CQRS.Abstractions** library contains interfaces and abstract base classes to support these concepts:
-- **Entity**: A type that has an identity with behavior and state that can change over time.
-- **Command**: An object that is sent to the domain for a state change which is handled by a command handler.
-- **Event**: A statement of fact about what change has been made to the domain state.
 
 The **Reference Architecture** projects demonstrate how to apply these concepts to two microservices: `CustomerService` and `OrderService`. In addition, each service has *separate controllers for read and write operations*, thus segregating command and query responsibilities, with different sets of models, or Data Transfer Objects (DTO's).
 - **Query Controller**: Uses repository to retrieve entities and converts them to DTO's with AutoMapper.
@@ -38,7 +30,7 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
   <img width="600" src="images/event-driven-cqrs-ref-arch.png">
 </p>
 
-### Usage: Reference Architecture Projects
+### Reference Architecture
 
 1. Run Dapr Dashboard.
    - Then open http://localhost:8080 to view containers after executing `dapr run` commands.
@@ -81,9 +73,9 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
    - Switch to the Debug tab and select "with Dapr" configuration.
    - Set breakpoints as needed and press F5 to start debugging.
 
-### Usage: EventDriven.CQRS.Abstractions
+### Development Guide
 
-> This section describes how to build the Customer and Order services from scratch using the **EventDriven.CQRS.Abstractions** package. For your own project substitute `Customer` and `Order` for your own aggregate entites and related classes.
+> This section describes how to build the Customer and Order services from scratch using the **EventDriven.DDD.Abstractions** package. For your own project substitute `Customer` and `Order` for your own aggregate entites and related classes.
 
 1. Add **Domain** and **CustomerAggregate** folders to the project, then add a `Customer` class that extends `Entity`.
    - Add properties representing entity state.
@@ -129,7 +121,7 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
         return new CommandResult<Customer>(CommandOutcome.Accepted, entity);
     }
     ```
-   - Create a **Common** class library project and add the package **EventDriven.CQRS.Abstractions**.
+   - Create a **Common** class library project and add the package **EventDriven.DDD.Abstractions**.
      - Reference the Common project from the CustomerService project.
      - Create a `CustomerAddressUpdated` record that extends `IntegrationEvent`.
     ```csharp
