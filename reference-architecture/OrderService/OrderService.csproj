@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="EventDriven.DDD.Abstractions" Version="1.0.0" />
+    <PackageReference Include="EventDriven.DDD.Abstractions" Version="1.1.0-beta1" />
     <PackageReference Include="EventDriven.EventBus.Dapr" Version="1.1.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
