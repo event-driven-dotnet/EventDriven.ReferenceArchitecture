@@ -27,7 +27,7 @@ namespace OrderService.Domain.OrderAggregate
             // To process command, return one or more domain events
             => new List<IDomainEvent>
             {
-                new OrderCreated(command.Order)
+                new OrderCreated(command.Entity)
             };
 
         public void Apply(OrderCreated domainEvent) =>

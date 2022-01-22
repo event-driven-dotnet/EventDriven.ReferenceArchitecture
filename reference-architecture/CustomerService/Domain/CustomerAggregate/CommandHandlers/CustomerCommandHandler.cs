@@ -38,15 +38,15 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
         {
             // Process command
             _logger.LogInformation("Handling command: {CommandName}", nameof(CreateCustomer));
-            var events = command.Customer.Process(command);
+            var events = command.Entity.Process(command);
             
             // Apply events
             var domainEvent = events.OfType<CustomerCreated>().SingleOrDefault();
             if (domainEvent == null) return new CommandResult<Customer>(CommandOutcome.NotHandled);
-            command.Customer.Apply(domainEvent);
+            command.Entity.Apply(domainEvent);
             
             // Persist entity
-            var entity = await _repository.Add(command.Customer);
+            var entity = await _repository.Add(command.Entity);
             if (entity == null) return new CommandResult<Customer>(CommandOutcome.InvalidCommand);
             return new CommandResult<Customer>(CommandOutcome.Accepted, entity);
         }
@@ -56,12 +56,12 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
             // Compare shipping addresses
             _logger.LogInformation("Handling command: {CommandName}", nameof(UpdateCustomer));
             var existing = await _repository.Get(command.EntityId);
-            var addressChanged = command.Customer.ShippingAddress != existing.ShippingAddress;
+            var addressChanged = command.Entity.ShippingAddress != existing.ShippingAddress;
             
             try
             {
                 // Persist entity
-                var entity = await _repository.Update(command.Customer);
+                var entity = await _repository.Update(command.Entity);
                 if (entity == null) return new CommandResult<Customer>(CommandOutcome.NotFound);
                 
                 // Publish events

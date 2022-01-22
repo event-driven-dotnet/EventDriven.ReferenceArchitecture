@@ -21,7 +21,7 @@ namespace CustomerService.Domain.CustomerAggregate
             // To process command, return one or more domain events
             => new List<IDomainEvent>
             {
-                new CustomerCreated(command.Customer)
+                new CustomerCreated(command.Entity)
             };
 
         public void Apply(CustomerCreated domainEvent) =>

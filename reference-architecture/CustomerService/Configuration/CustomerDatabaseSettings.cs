@@ -1,9 +1,11 @@
+using EventDriven.DependencyInjection.URF.Mongo;
+
 namespace CustomerService.Configuration
 {
-    public class CustomerDatabaseSettings
+    public class CustomerDatabaseSettings : IMongoDbSettings
     {
-        public string CustomersCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
+        public string CollectionName { get; set; }
     }
 }

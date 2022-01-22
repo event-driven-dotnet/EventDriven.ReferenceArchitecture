@@ -30,15 +30,15 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
         {
             // Process command
             _logger.LogInformation("Handling command: {CommandName}", nameof(CreateOrder));
-            var events = command.Order.Process(command);
+            var events = command.Entity.Process(command);
             
             // Apply events
             var domainEvent = events.OfType<OrderCreated>().SingleOrDefault();
             if (domainEvent == null) return new CommandResult<Order>(CommandOutcome.NotHandled);
-            command.Order.Apply(domainEvent);
+            command.Entity.Apply(domainEvent);
             
             // Persist entity
-            var entity = await _repository.AddOrder(command.Order);
+            var entity = await _repository.AddOrder(command.Entity);
             if (entity == null) return new CommandResult<Order>(CommandOutcome.InvalidCommand);
             return new CommandResult<Order>(CommandOutcome.Accepted, entity);
         }
@@ -50,7 +50,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
             try
             {
                 // Persist entity
-                var entity = await _repository.UpdateOrder(command.Order);
+                var entity = await _repository.UpdateOrder(command.Entity);
                 if (entity == null) return new CommandResult<Order>(CommandOutcome.NotFound);
                 return new CommandResult<Order>(CommandOutcome.Accepted, entity);
             }
