@@ -10,11 +10,11 @@ namespace OrderService.Domain.OrderAggregate
 {
     public class Order : 
         Entity,
-        ICommandProcessor<CreateOrder>,
+        ICommandProcessor<CreateOrder, OrderCreated>,
         IEventApplier<OrderCreated>,
-        ICommandProcessor<ShipOrder>,
+        ICommandProcessor<ShipOrder, OrderShipped>,
         IEventApplier<OrderShipped>,
-        ICommandProcessor<CancelOrder>,
+        ICommandProcessor<CancelOrder, OrderCancelled>,
         IEventApplier<OrderCancelled>
     {
         public Guid CustomerId { get; set; }
@@ -23,23 +23,17 @@ namespace OrderService.Domain.OrderAggregate
         public Address ShippingAddress { get; set; }
         public OrderState OrderState { get; set; }
 
-        public IEnumerable<IDomainEvent> Process(CreateOrder command)
+        public OrderCreated Process(CreateOrder command)
             // To process command, return one or more domain events
-            => new List<IDomainEvent>
-            {
-                new OrderCreated(command.Entity)
-            };
+            => new(command.Entity);
 
         public void Apply(OrderCreated domainEvent) =>
             // Set Id
             Id = domainEvent.EntityId != default(Guid) ? domainEvent.EntityId : Guid.NewGuid();
 
-        public IEnumerable<IDomainEvent> Process(ShipOrder command)
+        public OrderShipped Process(ShipOrder command)
             // To process command, return one or more domain events
-            => new List<IDomainEvent>
-            {
-                new OrderShipped(command.EntityId, command.ETag)
-            };
+            => new OrderShipped(command.EntityId, command.ETag);
 
         public void Apply(OrderShipped domainEvent)
         {
@@ -48,12 +42,9 @@ namespace OrderService.Domain.OrderAggregate
             ETag = domainEvent.ETag;
         }
 
-        public IEnumerable<IDomainEvent> Process(CancelOrder command)
+        public OrderCancelled Process(CancelOrder command)
             // To process command, return one or more domain events
-            => new List<IDomainEvent>
-            {
-                new OrderCancelled(command.EntityId, command.ETag)
-            };
+            => new(command.EntityId, command.ETag);
 
         public void Apply(OrderCancelled domainEvent)
         {

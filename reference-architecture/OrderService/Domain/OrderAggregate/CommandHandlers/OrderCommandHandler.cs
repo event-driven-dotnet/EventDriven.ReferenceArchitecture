@@ -1,9 +1,7 @@
-using System.Linq;
 using System.Threading.Tasks;
 using EventDriven.DDD.Abstractions.Commands;
 using Microsoft.Extensions.Logging;
 using OrderService.Domain.OrderAggregate.Commands;
-using OrderService.Domain.OrderAggregate.Events;
 using OrderService.Repositories;
 
 namespace OrderService.Domain.OrderAggregate.CommandHandlers
@@ -30,11 +28,9 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
         {
             // Process command
             _logger.LogInformation("Handling command: {CommandName}", nameof(CreateOrder));
-            var events = command.Entity.Process(command);
+            var domainEvent = command.Entity.Process(command);
             
             // Apply events
-            var domainEvent = events.OfType<OrderCreated>().SingleOrDefault();
-            if (domainEvent == null) return new CommandResult<Order>(CommandOutcome.NotHandled);
             command.Entity.Apply(domainEvent);
             
             // Persist entity
@@ -74,11 +70,9 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
             _logger.LogInformation("Handling command: {CommandName}", nameof(ShipOrder));
             var entity = await _repository.GetOrder(command.EntityId);
             if (entity == null) return new CommandResult<Order>(CommandOutcome.NotFound);
-            var events = entity.Process(command);
+            var domainEvent = entity.Process(command);
             
             // Apply events
-            var domainEvent = events.OfType<OrderShipped>().SingleOrDefault();
-            if (domainEvent == null) return new CommandResult<Order>(CommandOutcome.NotHandled);
             entity.Apply(domainEvent);
             
             try
@@ -100,11 +94,9 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
             _logger.LogInformation("Handling command: {CommandName}", nameof(CancelOrder));
             var entity = await _repository.GetOrder(command.EntityId);
             if (entity == null) return new CommandResult<Order>(CommandOutcome.NotFound);
-            var events = entity.Process(command);
+            var domainEvent = entity.Process(command);
             
             // Apply events
-            var domainEvent = events.OfType<OrderCancelled>().SingleOrDefault();
-            if (domainEvent == null) return new CommandResult<Order>(CommandOutcome.NotHandled);
             entity.Apply(domainEvent);
             
             try

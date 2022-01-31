@@ -1,9 +1,7 @@
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Common.Integration.Events;
 using CustomerService.Domain.CustomerAggregate.Commands;
-using CustomerService.Domain.CustomerAggregate.Events;
 using CustomerService.Repositories;
 using EventDriven.DDD.Abstractions.Commands;
 using EventDriven.EventBus.Abstractions;
@@ -38,11 +36,9 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
         {
             // Process command
             _logger.LogInformation("Handling command: {CommandName}", nameof(CreateCustomer));
-            var events = command.Entity.Process(command);
+            var domainEvent = command.Entity.Process(command);
             
             // Apply events
-            var domainEvent = events.OfType<CustomerCreated>().SingleOrDefault();
-            if (domainEvent == null) return new CommandResult<Customer>(CommandOutcome.NotHandled);
             command.Entity.Apply(domainEvent);
             
             // Persist entity

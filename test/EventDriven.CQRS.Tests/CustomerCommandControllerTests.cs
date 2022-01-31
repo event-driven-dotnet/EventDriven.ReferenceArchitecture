@@ -6,6 +6,7 @@ using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.DTO.Write;
 using CustomerService.Mapping;
 using EventDriven.CQRS.Tests.Fakes;
+using EventDriven.EventBus.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
@@ -27,7 +28,7 @@ namespace EventDriven.CQRS.Tests
         {
             // Arrange
             var handler = new CustomerCommandHandler(
-                new FakeCustomerRepository(), new FakeEventBus(),
+                new FakeCustomerRepository(), new FakeEventBus(new EventBusOptions()),
                 _mapper, new NullLogger<CustomerCommandHandler>());
             var controller = new CustomerCommandController(handler, _mapper);
             
@@ -37,8 +38,8 @@ namespace EventDriven.CQRS.Tests
             // Assert
             var createdResult = Assert.IsType<CreatedResult>(actionResult);
             var value = (Customer)createdResult.Value;
-            Assert.Equal(Customers.Customer1.Id, value.Id);
-            Assert.NotEqual(default(Guid).ToString(), value.ETag);
+            Assert.Equal(Customers.Customer1.Id, value?.Id);
+            Assert.NotEqual(default(Guid).ToString(), value?.ETag);
         }
         
         [Fact]
@@ -46,11 +47,11 @@ namespace EventDriven.CQRS.Tests
         {
             // Arrange
             var handler = new CustomerCommandHandler(
-                new FakeCustomerRepository(), new FakeEventBus(), 
+                new FakeCustomerRepository(), new FakeEventBus(new EventBusOptions()), 
                 _mapper, new NullLogger<CustomerCommandHandler>());
             var controller = new CustomerCommandController(handler, _mapper);
             var customer = (await controller.Create(Customers.Customer1) as CreatedResult)?.Value as Customer;
-            customer.ShippingAddress.City = "Los Angeles";
+            customer!.ShippingAddress.City = "Los Angeles";
             
             // Act
             var actionResult = await controller.Update(customer);
@@ -58,8 +59,8 @@ namespace EventDriven.CQRS.Tests
             // Assert
             var objectResult = Assert.IsType<OkObjectResult>(actionResult);
             var value = (Customer)objectResult.Value;
-            Assert.Equal(customer.Id, value.Id);
-            Assert.NotEqual(customer.ETag, value.ETag);
+            Assert.Equal(customer.Id, value?.Id);
+            Assert.NotEqual(customer.ETag, value?.ETag);
         }
 
         [Fact]
@@ -68,13 +69,13 @@ namespace EventDriven.CQRS.Tests
             // Arrange
             var repository = new FakeCustomerRepository();
             var handler = new CustomerCommandHandler(
-                repository, new FakeEventBus(),
+                repository, new FakeEventBus(new EventBusOptions()),
                 _mapper, new NullLogger<CustomerCommandHandler>());
             var controller = new CustomerCommandController(handler, _mapper);
             var customer = (await controller.Create(Customers.Customer1) as CreatedResult)?.Value as Customer;
             
             // Act
-            var actionResult = await controller.Remove(customer.Id);
+            var actionResult = await controller.Remove(customer!.Id);
             
             // Assert
             Assert.IsType<NoContentResult>(actionResult);
