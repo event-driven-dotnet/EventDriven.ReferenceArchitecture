@@ -6,7 +6,6 @@ using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.DTO.Write;
 using CustomerService.Mapping;
 using EventDriven.CQRS.Tests.Fakes;
-using EventDriven.EventBus.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
@@ -28,7 +27,7 @@ namespace EventDriven.CQRS.Tests
         {
             // Arrange
             var handler = new CustomerCommandHandler(
-                new FakeCustomerRepository(), new FakeEventBus(new EventBusOptions()),
+                new FakeCustomerRepository(), new FakeEventBus(),
                 _mapper, new NullLogger<CustomerCommandHandler>());
             var controller = new CustomerCommandController(handler, _mapper);
             
@@ -47,7 +46,7 @@ namespace EventDriven.CQRS.Tests
         {
             // Arrange
             var handler = new CustomerCommandHandler(
-                new FakeCustomerRepository(), new FakeEventBus(new EventBusOptions()), 
+                new FakeCustomerRepository(), new FakeEventBus(), 
                 _mapper, new NullLogger<CustomerCommandHandler>());
             var controller = new CustomerCommandController(handler, _mapper);
             var customer = (await controller.Create(Customers.Customer1) as CreatedResult)?.Value as Customer;
@@ -69,7 +68,7 @@ namespace EventDriven.CQRS.Tests
             // Arrange
             var repository = new FakeCustomerRepository();
             var handler = new CustomerCommandHandler(
-                repository, new FakeEventBus(new EventBusOptions()),
+                repository, new FakeEventBus(),
                 _mapper, new NullLogger<CustomerCommandHandler>());
             var controller = new CustomerCommandController(handler, _mapper);
             var customer = (await controller.Create(Customers.Customer1) as CreatedResult)?.Value as Customer;

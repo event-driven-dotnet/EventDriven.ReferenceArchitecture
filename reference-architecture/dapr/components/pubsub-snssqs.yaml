@@ -1,7 +1,7 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: snssqs-pubsub
+  name: pubsub-snssqs
 spec:
   type: pubsub.snssqs
   version: v1

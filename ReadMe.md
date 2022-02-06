@@ -46,7 +46,7 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
     dapr run --app-id order-service --app-port 5150 --components-path ../dapr/components -- dotnet run
     ```
 4. Create some customers.
-   - Open http://localhost:5000/swagger
+   - Open http://localhost:5656/swagger
    - Execute posts using contents of **customers.json**.
    - Copy post response, modify fields, then execute puts.
      - Make sure to copy `etag` value from last response, or you will get a concurrency error.
@@ -54,6 +54,7 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
    - Execute gets to retrieve customers.
    - View customers database collections using Robo 3T.
 5. Create some orders.
+   - Open http://localhost:5757/swagger
    - Execute posts using contents of **orders.json**.
    - Copy post response, modify fields, then execute puts.
      - Make sure to copy `etag` value from last response, or you will get a concurrency error.
@@ -63,15 +64,12 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
 6. Update the address of a customer who has order.
    - Note the address is also updated for the customer's orders.
    - Observe log messages in terminal when integration events are published and handled.
-7. To **debug** services, you will need to use **Visual Studio Code** with the *Dapr extension*.
-   - Open instances of VS Code at both CustomerService and OrderService.
-   - If .vscode folder not present:
-     - First create build and debug artifacts.
-     - Then from the task palette run `Dapr: Scaffold Dapr Tasks`.
-       - Enter values for launch, app id (customer-service) and port (5000).
-       - Enter values for launch, app id (order-service) and port (5050).
-   - Switch to the Debug tab and select "with Dapr" configuration.
-   - Set breakpoints as needed and press F5 to start debugging.
+7. To **debug** services, you can use [tye](https://github.com/dotnet/tye) with the *Dapr extension*.
+   - Open a terminal at the reference-architecture folder.
+   - Run `tye run --debug *`
+   - Set breakpoints in each project.
+   - Attach the debugger to each process.
+   - Open http://localhost:8000 to view the Tye Dashboard.
 
 ### Development Guide
 

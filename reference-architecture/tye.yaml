@@ -11,7 +11,9 @@ name: cqrs-ref-arch
 
 # dapr extension
 extensions:
-- name: dapr
+  - name: dapr
+    log-level: debug
+    components-path: "dapr/components"
 
 # define multiple services here
 # project: app.csproj # msbuild project path (relative to this file)
@@ -24,11 +26,11 @@ extensions:
 # bindings: # optional array of bindings (ports, connection strings)
 # - port: 8080 # number port of the binding
 services:
-# - name: customer-service
-#   project: CustomerService/CustomerService.csproj
-#   bindings:
-#   - port: 5000
-- name: order-service
-  project: OrderService/OrderService.csproj
-  bindings:
-  - port: 5050
+  - name: customer-service
+    project: CustomerService/CustomerService.csproj
+    bindings:
+      - port: 5656
+  - name: order-service
+    project: OrderService/OrderService.csproj
+    bindings:
+      - port: 5757

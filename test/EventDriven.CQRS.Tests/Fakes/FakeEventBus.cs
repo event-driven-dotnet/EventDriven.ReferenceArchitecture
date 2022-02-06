@@ -1,14 +1,9 @@
 using System.Threading.Tasks;
-using EventDriven.EventBus.Abstractions;
 
 namespace EventDriven.CQRS.Tests.Fakes
 {
     public class FakeEventBus : EventBus.Abstractions.EventBus
     {
-        public FakeEventBus(EventBusOptions eventBusOptions) : base(eventBusOptions)
-        {
-        }
-
         public override Task PublishAsync<TIntegrationEvent>(
             TIntegrationEvent @event,
             string topic = null,

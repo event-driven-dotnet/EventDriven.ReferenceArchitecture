@@ -8,7 +8,7 @@
       "street": "123 This Street",
       "city": "Freemont",
       "state": "CA",
-      "country": "USA[\n  {\n    \"id\": \"22eea083-6f0d-48f2-8c82-65ac850e5aad\",\n    \"eTag\": \"\",\n    \"firstName\": \"Elon\",\n    \"lastName\": \"Musk\",\n    \"shippingAddress\": {\n      \"street\": \"123 This Street\",\n      \"city\": \"Freemont\",\n      \"state\": \"CA\",\n      \"country\": \"USA\",\n      \"postalCode\": \"90045\"\n    }\n  },\n  {\n    \"id\": \"848f5790-3981-4862-bb7e-a8566aa07026\",\n    \"eTag\": \"\",\n    \"firstName\": \"Jeff\",\n    \"lastName\": \"Bezos\",\n    \"shippingAddress\": {\n      \"street\": \"123 That Street\",\n      \"city\": \"Seattle\",\n      \"state\": \"WA\",\n      \"country\": \"USA\",\n      \"postalCode\": \"54321\"\n    }\n  },\n  {\n    \"id\": \"1c44eea7-400a-4f6f-ab99-5e8c853ea363\",\n    \"eTag\": \"\",\n    \"firstName\": \"Mark\",\n    \"lastName\": \"Zuckerberg\",\n    \"shippingAddress\": {\n      \"street\": \"123 Other Street\",\n      \"city\": \"Palo Alto\",\n      \"state\": \"CA\",\n      \"country\": \"USA\",\n      \"postalCode\": \"98765\"\n    }\n  }\n]",
+      "country": "USA",
       "postalCode": "90045"
     }
   },

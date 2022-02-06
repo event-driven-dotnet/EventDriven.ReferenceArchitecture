@@ -22,6 +22,6 @@ namespace CustomerService.Domain.CustomerAggregate
 
         public void Apply(CustomerCreated domainEvent) =>
             // Set Id
-            Id = domainEvent.EntityId != default(Guid) ? domainEvent.EntityId : Guid.NewGuid();
+            Id = domainEvent.EntityId != default ? domainEvent.EntityId : Guid.NewGuid();
     }
 }

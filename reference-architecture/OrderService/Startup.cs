@@ -41,6 +41,9 @@ namespace OrderService
 
             // Add Dapr event bus
             services.AddDaprEventBus(Configuration, true);
+            
+            // Add Dapr Mongo event cache
+            services.AddDaprMongoEventCache(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

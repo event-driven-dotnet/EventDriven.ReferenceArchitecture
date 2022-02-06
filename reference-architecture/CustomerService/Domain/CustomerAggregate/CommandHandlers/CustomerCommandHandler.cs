@@ -52,6 +52,7 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers
             // Compare shipping addresses
             _logger.LogInformation("Handling command: {CommandName}", nameof(UpdateCustomer));
             var existing = await _repository.Get(command.EntityId);
+            if (existing == null) return new CommandResult<Customer>(CommandOutcome.NotHandled);
             var addressChanged = command.Entity.ShippingAddress != existing.ShippingAddress;
             
             try
