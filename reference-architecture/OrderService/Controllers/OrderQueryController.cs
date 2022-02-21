@@ -25,7 +25,7 @@ namespace OrderService.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrders()
         {
-            var orders = await _repository.GetOrders();
+            var orders = await _repository.GetAsync();
             var result = GetOrderViews(orders);
             return Ok(result);
         }
@@ -35,7 +35,7 @@ namespace OrderService.Controllers
         [Route("customer/{id}")]
         public async Task<IActionResult> GetOrders([FromRoute] Guid id)
         {
-            var orders = await _repository.GetCustomerOrders(id);
+            var orders = await _repository.GetByCustomerAsync(id);
             var result = GetOrderViews(orders);
             return Ok(result);
         }
@@ -45,7 +45,7 @@ namespace OrderService.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetOrder([FromRoute] Guid id)
         {
-            var order = await _repository.GetOrder(id);
+            var order = await _repository.GetAsync(id);
             var result = GetOrderViews
                 (Enumerable.Repeat(order, 1)).Single();
             return Ok(result);

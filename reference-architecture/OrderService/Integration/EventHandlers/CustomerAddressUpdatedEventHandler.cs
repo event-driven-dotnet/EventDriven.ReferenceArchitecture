@@ -26,11 +26,11 @@ namespace OrderService.Integration.EventHandlers
         public override async Task HandleAsync(CustomerAddressUpdated @event)
         {
             _logger.LogInformation("Handling CustomerAddressUpdated event");
-            var orders = await _orderRepository.GetCustomerOrders(@event.CustomerId);
+            var orders = await _orderRepository.GetByCustomerAsync(@event.CustomerId);
             foreach (var order in orders)
             {
                 var shippingAddress = _mapper.Map<Address>(@event.ShippingAddress);
-                await _orderRepository.UpdateOrderAddress(order.Id, shippingAddress);
+                await _orderRepository.UpdateAddressAsync(order.Id, shippingAddress);
             }
         }
     }

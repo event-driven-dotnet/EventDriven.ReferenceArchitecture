@@ -11,15 +11,15 @@ namespace EventDriven.CQRS.Tests.Fakes
     {
         private readonly Dictionary<Guid, Customer> _entities = new();
 
-        public Task<IEnumerable<Customer>> Get() =>
+        public Task<IEnumerable<Customer>> GetAsync() =>
             Task.FromResult(_entities.Values.AsEnumerable());
 
-        public Task<Customer> Get(Guid id) =>
+        public Task<Customer> GetAsync(Guid id) =>
             _entities.TryGetValue(id, out var entity)
                 ? Task.FromResult(entity)
                 : Task.FromResult<Customer>(null);
 
-        public Task<Customer> Add(Customer entity)
+        public Task<Customer> AddAsync(Customer entity)
         {
             if (_entities.ContainsKey(entity.Id))
                 return Task.FromResult<Customer>(null);
@@ -29,7 +29,7 @@ namespace EventDriven.CQRS.Tests.Fakes
             return Task.FromResult(entity);
         }
 
-        public Task<Customer> Update(Customer entity)
+        public Task<Customer> UpdateAsync(Customer entity)
         {
             if (!_entities.TryGetValue(entity.Id, out var existing))
                 return Task.FromResult<Customer>(null);
@@ -43,7 +43,7 @@ namespace EventDriven.CQRS.Tests.Fakes
             return Task.FromResult(existing);
         }
 
-        public Task<int> Remove(Guid id)
+        public Task<int> RemoveAsync(Guid id)
         {
             if (!_entities.ContainsKey(id))
                 return Task.FromResult(0);

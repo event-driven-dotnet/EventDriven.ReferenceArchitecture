@@ -76,7 +76,7 @@ namespace EventDriven.CQRS.Tests
             
             // Assert
             Assert.IsType<NoContentResult>(actionResult);
-            var value = await repository.GetOrder(order.Id);
+            var value = await repository.GetAsync(order.Id);
             Assert.Null(value);
         }
         

@@ -34,7 +34,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
             command.Entity.Apply(domainEvent);
             
             // Persist entity
-            var entity = await _repository.AddOrder(command.Entity);
+            var entity = await _repository.AddAsync(command.Entity);
             if (entity == null) return new CommandResult<Order>(CommandOutcome.InvalidCommand);
             return new CommandResult<Order>(CommandOutcome.Accepted, entity);
         }
@@ -46,7 +46,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
             try
             {
                 // Persist entity
-                var entity = await _repository.UpdateOrder(command.Entity);
+                var entity = await _repository.UpdateAsync(command.Entity);
                 if (entity == null) return new CommandResult<Order>(CommandOutcome.NotFound);
                 return new CommandResult<Order>(CommandOutcome.Accepted, entity);
             }
@@ -60,7 +60,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
         {
             // Persist entity
             _logger.LogInformation("Handling command: {CommandName}", nameof(RemoveOrder));
-            await _repository.RemoveOrder(command.EntityId);
+            await _repository.RemoveAsync(command.EntityId);
             return new CommandResult<Order>(CommandOutcome.Accepted);
         }
 
@@ -68,7 +68,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
         {
             // Process command
             _logger.LogInformation("Handling command: {CommandName}", nameof(ShipOrder));
-            var entity = await _repository.GetOrder(command.EntityId);
+            var entity = await _repository.GetAsync(command.EntityId);
             if (entity == null) return new CommandResult<Order>(CommandOutcome.NotFound);
             var domainEvent = entity.Process(command);
             
@@ -78,7 +78,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
             try
             {
                 // Persist entity
-                var order = await _repository.UpdateOrderState(entity, OrderState.Shipped);
+                var order = await _repository.UpdateOrderStateAsync(entity, OrderState.Shipped);
                 if (order == null) return new CommandResult<Order>(CommandOutcome.NotFound);
                 return new CommandResult<Order>(CommandOutcome.Accepted, order);
             }
@@ -92,7 +92,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
         {
             // Process command
             _logger.LogInformation("Handling command: {CommandName}", nameof(CancelOrder));
-            var entity = await _repository.GetOrder(command.EntityId);
+            var entity = await _repository.GetAsync(command.EntityId);
             if (entity == null) return new CommandResult<Order>(CommandOutcome.NotFound);
             var domainEvent = entity.Process(command);
             
@@ -102,7 +102,7 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers
             try
             {
                 // Persist entity
-                var order = await _repository.UpdateOrderState(entity, OrderState.Cancelled);
+                var order = await _repository.UpdateOrderStateAsync(entity, OrderState.Cancelled);
                 if (order == null) return new CommandResult<Order>(CommandOutcome.NotFound);
                 return new CommandResult<Order>(CommandOutcome.Accepted, order);
             }

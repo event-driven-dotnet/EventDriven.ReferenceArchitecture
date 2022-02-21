@@ -12,20 +12,20 @@ namespace EventDriven.CQRS.Tests.Fakes
     {
         private readonly Dictionary<Guid, Order> _entities = new();
 
-        public Task<IEnumerable<Order>> GetOrders() =>
+        public Task<IEnumerable<Order>> GetAsync() =>
             Task.FromResult(_entities.Values.AsEnumerable());
 
-        public Task<IEnumerable<Order>> GetCustomerOrders(Guid customerId) =>
+        public Task<IEnumerable<Order>> GetByCustomerAsync(Guid customerId) =>
             Task.FromResult(_entities.Values.AsEnumerable().Where(o => o.CustomerId == customerId));
 
-        public Task<Order> GetOrder(Guid id)
+        public Task<Order> GetAsync(Guid id)
         {
             if (_entities.TryGetValue(id, out var entity))
                 return Task.FromResult(entity);
             else return Task.FromResult<Order>(null);
         }
 
-        public Task<Order> AddOrder(Order entity)
+        public Task<Order> AddAsync(Order entity)
         {
             if (_entities.ContainsKey(entity.Id))
                 return Task.FromResult<Order>(null);
@@ -35,7 +35,7 @@ namespace EventDriven.CQRS.Tests.Fakes
             return Task.FromResult(entity);
         }
 
-        public Task<Order> UpdateOrder(Order entity)
+        public Task<Order> UpdateAsync(Order entity)
         {
             if (!_entities.TryGetValue(entity.Id, out var existing))
                 return Task.FromResult<Order>(null);
@@ -51,7 +51,7 @@ namespace EventDriven.CQRS.Tests.Fakes
             return Task.FromResult(existing);
         }
 
-        public Task<Order> UpdateOrderAddress(Guid orderId, Address address)
+        public Task<Order> UpdateAddressAsync(Guid orderId, Address address)
         {
             if (!_entities.TryGetValue(orderId, out var existing))
                 return Task.FromResult<Order>(null);
@@ -59,7 +59,7 @@ namespace EventDriven.CQRS.Tests.Fakes
             return Task.FromResult(existing);
         }
 
-        public Task<int> RemoveOrder(Guid id)
+        public Task<int> RemoveAsync(Guid id)
         {
             if (!_entities.ContainsKey(id))
                 return Task.FromResult(0);
@@ -67,7 +67,7 @@ namespace EventDriven.CQRS.Tests.Fakes
             return Task.FromResult(result);
         }
 
-        public Task<Order> UpdateOrderState(Order entity, OrderState orderState)
+        public Task<Order> UpdateOrderStateAsync(Order entity, OrderState orderState)
         {
             if (!_entities.TryGetValue(entity.Id, out var existing))
                 return Task.FromResult<Order>(null);
