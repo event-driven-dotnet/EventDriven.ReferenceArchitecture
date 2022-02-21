@@ -37,13 +37,13 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
     ```
     dapr dashboard
     ```
-2. Use Dapr to run the customer service.
+2. Use Tye or Dapr to run the customer service.
     ```
-    dapr run --app-id customer-service --app-port 5000 --components-path ../dapr/components -- dotnet run
+    dapr run --app-id customer-service --app-port 5656 --components-path ../dapr/components -- dotnet run
     ```
 3. Use Dapr to run the order service.
     ```
-    dapr run --app-id order-service --app-port 5150 --components-path ../dapr/components -- dotnet run
+    dapr run --app-id order-service --app-port 5757 --components-path ../dapr/components -- dotnet run
     ```
 4. Create some customers.
    - Open http://localhost:5656/swagger
