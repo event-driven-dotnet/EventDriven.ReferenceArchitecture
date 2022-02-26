@@ -1,6 +1,5 @@
-using System.Threading.Tasks;
 using EventDriven.DDD.Abstractions.Commands;
-using Microsoft.Extensions.Logging;
+using EventDriven.DDD.Abstractions.Repositories;
 using OrderService.Domain.OrderAggregate.Commands;
 using OrderService.Repositories;
 

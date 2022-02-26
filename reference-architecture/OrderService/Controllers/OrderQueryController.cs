@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OrderService.Domain.OrderAggregate;
 using OrderService.DTO.Read;
 using OrderService.Repositories;
@@ -51,10 +47,10 @@ namespace OrderService.Controllers
             return Ok(result);
         }
 
-        private IEnumerable<OrderView> GetOrderViews(IEnumerable<Order> orders) =>
+        private IEnumerable<OrderView> GetOrderViews(IEnumerable<Order?> orders) =>
             orders.Select(o => new OrderView
             {
-                Id = o.Id,
+                Id = o!.Id,
                 CustomerId = o.CustomerId,
                 OrderDate = o.OrderDate,
                 OrderTotal = o.OrderItems.Sum(i => i.ProductPrice),

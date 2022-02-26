@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using EventDriven.DDD.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Entities;
 using EventDriven.DDD.Abstractions.Events;
@@ -19,8 +17,8 @@ namespace OrderService.Domain.OrderAggregate
     {
         public Guid CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
-        public List<OrderItem> OrderItems { get; set; }
-        public Address ShippingAddress { get; set; }
+        public List<OrderItem> OrderItems { get; set; } = null!;
+        public Address ShippingAddress { get; set; } = null!;
         public OrderState OrderState { get; set; }
 
         public OrderCreated Process(CreateOrder command)

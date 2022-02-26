@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using EventDriven.DDD.Abstractions.Repositories;
 using MongoDB.Driver;
 using OrderService.Domain.OrderAggregate;
 using URF.Core.Mongo;
@@ -18,10 +16,10 @@ namespace OrderService.Repositories
         public async Task<IEnumerable<Order>> GetByCustomerAsync(Guid customerId) =>
             await FindManyAsync(e => e.CustomerId == customerId);
 
-        public async Task<Order> GetAsync(Guid id) =>
+        public async Task<Order?> GetAsync(Guid id) =>
             await FindOneAsync(e => e.Id == id);
 
-        public async Task<Order> AddAsync(Order entity)
+        public async Task<Order?> AddAsync(Order entity)
         {
             var existing = await FindOneAsync(e => e.Id == entity.Id);
             if (existing != null) return null;
@@ -29,7 +27,7 @@ namespace OrderService.Repositories
             return await InsertOneAsync(entity);
         }
 
-        public async Task<Order> UpdateAsync(Order entity)
+        public async Task<Order?> UpdateAsync(Order entity)
         {
             var existing = await GetAsync(entity.Id);
             if (existing == null) return null;
@@ -39,7 +37,7 @@ namespace OrderService.Repositories
             return await FindOneAndReplaceAsync(e => e.Id == entity.Id, entity);
         }
 
-        public async Task<Order> UpdateAddressAsync(Guid orderId, Address address)
+        public async Task<Order?> UpdateAddressAsync(Guid orderId, Address address)
         {
             var existing = await GetAsync(orderId);
             if (existing == null) return null;
@@ -50,7 +48,7 @@ namespace OrderService.Repositories
         public async Task<int> RemoveAsync(Guid id) =>
             await DeleteOneAsync(e => e.Id == id);
 
-        public async Task<Order> UpdateOrderStateAsync(Order entity, OrderState orderState)
+        public async Task<Order?> UpdateOrderStateAsync(Order entity, OrderState orderState)
         {
             var existing = await GetAsync(entity.Id);
             if (existing == null) return null;

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using EventDriven.DDD.Abstractions.Commands;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Domain.OrderAggregate;

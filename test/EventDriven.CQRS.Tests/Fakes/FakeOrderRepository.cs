@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EventDriven.DDD.Abstractions.Repositories;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Repositories;
 

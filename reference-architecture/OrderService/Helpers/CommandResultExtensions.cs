@@ -1,12 +1,11 @@
 using EventDriven.DDD.Abstractions.Commands;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace OrderService.Helpers
 {
     public static class CommandResultExtensions
     {
-        public static ActionResult ToActionResult(this CommandResult result, object entity = null)
+        public static ActionResult ToActionResult(this CommandResult result, object? entity = null)
         {
             switch (result.Outcome)
             {

@@ -1,7 +1,5 @@
-using System.Threading.Tasks;
 using AutoMapper;
 using EventDriven.EventBus.Abstractions;
-using Microsoft.Extensions.Logging;
 using Common.Integration.Events;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Repositories;

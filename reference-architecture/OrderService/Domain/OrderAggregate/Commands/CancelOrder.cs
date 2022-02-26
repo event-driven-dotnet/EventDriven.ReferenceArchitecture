@@ -1,4 +1,3 @@
-using System;
 using EventDriven.DDD.Abstractions.Commands;
 
 namespace OrderService.Domain.OrderAggregate.Commands
