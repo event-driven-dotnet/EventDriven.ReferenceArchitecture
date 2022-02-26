@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Repositories;
-using ConcurrencyException = CustomerService.Repositories.ConcurrencyException;
 
 namespace EventDriven.CQRS.Tests.Fakes
 {

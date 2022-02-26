@@ -1,11 +1,10 @@
-using System.Threading.Tasks;
 using AutoMapper;
 using Common.Integration.Events;
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Repositories;
 using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.DDD.Abstractions.Repositories;
 using EventDriven.EventBus.Abstractions;
-using Microsoft.Extensions.Logging;
 using Integration = Common.Integration;
 
 namespace CustomerService.Domain.CustomerAggregate.CommandHandlers

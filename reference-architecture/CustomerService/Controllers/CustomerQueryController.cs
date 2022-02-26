@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CustomerService.DTO.Read;
 using CustomerService.Repositories;
 using Microsoft.AspNetCore.Mvc;

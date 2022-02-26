@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CustomerService.Domain.CustomerAggregate;
 using CustomerService.Repositories;
+using EventDriven.DDD.Abstractions.Repositories;
 
 namespace EventDriven.CQRS.Tests.Fakes
 {

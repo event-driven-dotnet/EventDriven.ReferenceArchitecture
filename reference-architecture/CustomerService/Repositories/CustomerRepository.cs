@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CustomerService.Domain.CustomerAggregate;
+﻿using CustomerService.Domain.CustomerAggregate;
+using EventDriven.DDD.Abstractions.Repositories;
 using MongoDB.Driver;
 using URF.Core.Mongo;
 
@@ -16,10 +14,10 @@ namespace CustomerService.Repositories
         public async Task<IEnumerable<Customer>> GetAsync() =>
             await FindManyAsync();
 
-        public async Task<Customer> GetAsync(Guid id) =>
+        public async Task<Customer?> GetAsync(Guid id) =>
             await FindOneAsync(e => e.Id == id);
 
-        public async Task<Customer> AddAsync(Customer entity)
+        public async Task<Customer?> AddAsync(Customer entity)
         {
             var existing = await FindOneAsync(e => e.Id == entity.Id);
             if (existing != null) return null;
@@ -27,7 +25,7 @@ namespace CustomerService.Repositories
             return await InsertOneAsync(entity);
         }
 
-        public async Task<Customer> UpdateAsync(Customer entity)
+        public async Task<Customer?> UpdateAsync(Customer entity)
         {
             var existing = await GetAsync(entity.Id);
             if (existing == null) return null;

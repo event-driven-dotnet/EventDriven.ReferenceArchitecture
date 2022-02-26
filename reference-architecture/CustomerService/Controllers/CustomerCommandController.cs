@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CustomerService.Domain.CustomerAggregate;
 using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.Domain.CustomerAggregate.Commands;

@@ -1,4 +1,3 @@
-using System;
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Domain.CustomerAggregate.Events;
 using EventDriven.DDD.Abstractions.Commands;
@@ -12,9 +11,9 @@ namespace CustomerService.Domain.CustomerAggregate
         ICommandProcessor<CreateCustomer, CustomerCreated>,
         IEventApplier<CustomerCreated>
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Address ShippingAddress { get; set; }
+        public string FirstName { get; set; } = null!;
+        public string LastName { get; set; } = null!;
+        public Address ShippingAddress { get; set; } = null!;
 
         public CustomerCreated Process(CreateCustomer command)
             // To process command, return one or more domain events
