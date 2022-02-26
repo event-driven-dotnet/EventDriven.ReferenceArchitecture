@@ -11,6 +11,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{269CD137-4093-4100-B33E-808586D335F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "reference-architecture", "reference-architecture", "{C4FD0AF1-927A-4860-A634-7CE342807692}"
+	ProjectSection(SolutionItems) = preProject
+		reference-architecture\tye.yaml = reference-architecture\tye.yaml
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventDriven.CQRS.Tests", "test\EventDriven.CQRS.Tests\EventDriven.CQRS.Tests.csproj", "{9809006C-2F6B-44A1-8AE2-BC449368D209}"
 EndProject
