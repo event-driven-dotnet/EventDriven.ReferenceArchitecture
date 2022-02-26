@@ -36,7 +36,7 @@ namespace EventDriven.CQRS.Tests
             // Assert
             var createdResult = Assert.IsType<CreatedResult>(actionResult);
             var value = (Order)createdResult.Value;
-            Assert.Equal(Customers.Customer1.Id, value.Id);
+            Assert.Equal(Customers.Customer1.Id, value!.Id);
             Assert.NotEqual(default(Guid).ToString(), value.ETag);
         }
         
@@ -48,7 +48,7 @@ namespace EventDriven.CQRS.Tests
                 new NullLogger<OrderCommandHandler>());
             var controller = new OrderCommandController(handler, _mapper);
             var order = (await controller.Create(Orders.Order1) as CreatedResult)?.Value as Order;
-            order.ShippingAddress.City = "Los Angeles";
+            order!.ShippingAddress.City = "Los Angeles";
             
             // Act
             var actionResult = await controller.Update(order);
@@ -56,7 +56,7 @@ namespace EventDriven.CQRS.Tests
             // Assert
             var objectResult = Assert.IsType<OkObjectResult>(actionResult);
             var value = (Order)objectResult.Value;
-            Assert.Equal(order.Id, value.Id);
+            Assert.Equal(order.Id, value!.Id);
             Assert.Equal(order.ShippingAddress.City, value.ShippingAddress.City);
             Assert.NotEqual(order.ETag, value.ETag);
         }
@@ -72,7 +72,7 @@ namespace EventDriven.CQRS.Tests
             var order = (await controller.Create(Orders.Order1) as CreatedResult)?.Value as Order;
             
             // Act
-            var actionResult = await controller.Remove(order.Id);
+            var actionResult = await controller.Remove(order!.Id);
             
             // Assert
             Assert.IsType<NoContentResult>(actionResult);
@@ -90,12 +90,12 @@ namespace EventDriven.CQRS.Tests
             var order = (await controller.Create(Orders.Order1) as CreatedResult)?.Value as Order;
             
             // Act
-            var actionResult = await controller.Ship(order.Id, order.ETag);
+            var actionResult = await controller.Ship(order!.Id, order.ETag);
             
             // Assert
             var objectResult = Assert.IsType<OkObjectResult>(actionResult);
             var value = (Order)objectResult.Value;
-            Assert.Equal(Orders.Order1.Id, value.Id);
+            Assert.Equal(Orders.Order1.Id, value!.Id);
             Assert.Equal(OrderState.Shipped, value.OrderState);
             Assert.NotEqual(order.ETag, value.ETag);
         }
@@ -110,12 +110,12 @@ namespace EventDriven.CQRS.Tests
             var order = (await controller.Create(Orders.Order1) as CreatedResult)?.Value as Order;
             
             // Act
-            var actionResult = await controller.Cancel(order.Id, order.ETag);
+            var actionResult = await controller.Cancel(order!.Id, order.ETag);
             
             // Assert
             var objectResult = Assert.IsType<OkObjectResult>(actionResult);
             var value = (Order)objectResult.Value;
-            Assert.Equal(Orders.Order1.Id, value.Id);
+            Assert.Equal(Orders.Order1.Id, value!.Id);
             Assert.Equal(OrderState.Cancelled, value.OrderState);
             Assert.NotEqual(order.ETag, value.ETag);
         }

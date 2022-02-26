@@ -29,7 +29,6 @@ namespace EventDriven.CQRS.Tests.Fakes
         {
             if (_entities.ContainsKey(entity.Id))
                 return Task.FromResult<Order>(null);
-            entity.SequenceNumber = 1;
             entity.ETag = Guid.NewGuid().ToString();
             _entities.Add(entity.Id, entity);
             return Task.FromResult(entity);
@@ -41,7 +40,6 @@ namespace EventDriven.CQRS.Tests.Fakes
                 return Task.FromResult<Order>(null);
             if (string.Compare(entity.ETag, existing.ETag, StringComparison.OrdinalIgnoreCase) != 0 )
                 throw new ConcurrencyException();
-            existing.SequenceNumber++;
             existing.ETag = Guid.NewGuid().ToString();
             existing.CustomerId = entity.CustomerId;
             existing.OrderDate = entity.OrderDate;
@@ -73,7 +71,6 @@ namespace EventDriven.CQRS.Tests.Fakes
                 return Task.FromResult<Order>(null);
             if (string.Compare(entity.ETag, existing.ETag, StringComparison.OrdinalIgnoreCase) != 0 )
                 throw new ConcurrencyException();
-            existing.SequenceNumber++;
             existing.ETag = Guid.NewGuid().ToString();
             existing.OrderState = orderState;
             return Task.FromResult(existing);

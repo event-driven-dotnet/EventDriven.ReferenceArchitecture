@@ -1,5 +1,4 @@
 using EventDriven.DependencyInjection.URF.Mongo;
-using EventDriven.EventBus.Dapr;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

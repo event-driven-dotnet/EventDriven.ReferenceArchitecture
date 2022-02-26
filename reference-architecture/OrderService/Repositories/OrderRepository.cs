@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using OrderService.Domain.OrderAggregate;
-using URF.Core.Abstractions;
 using URF.Core.Mongo;
 
 namespace OrderService.Repositories
@@ -27,7 +25,6 @@ namespace OrderService.Repositories
         {
             var existing = await FindOneAsync(e => e.Id == entity.Id);
             if (existing != null) return null;
-            entity.SequenceNumber = 1;
             entity.ETag = Guid.NewGuid().ToString();
             return await InsertOneAsync(entity);
         }
@@ -38,7 +35,6 @@ namespace OrderService.Repositories
             if (existing == null) return null;
             if (string.Compare(entity.ETag, existing.ETag, StringComparison.OrdinalIgnoreCase) != 0 )
                 throw new ConcurrencyException();
-            entity.SequenceNumber = existing.SequenceNumber + 1;
             entity.ETag = Guid.NewGuid().ToString();
             return await FindOneAndReplaceAsync(e => e.Id == entity.Id, entity);
         }
@@ -60,7 +56,6 @@ namespace OrderService.Repositories
             if (existing == null) return null;
             if (string.Compare(entity.ETag, existing.ETag, StringComparison.OrdinalIgnoreCase) != 0 )
                 throw new ConcurrencyException();
-            entity.SequenceNumber++;
             entity.ETag = Guid.NewGuid().ToString();
             entity.OrderState = orderState;
             return await FindOneAndReplaceAsync(e => e.Id == entity.Id, entity);

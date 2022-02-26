@@ -40,7 +40,7 @@ namespace EventDriven.CQRS.Tests
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var value = (IEnumerable<OrderView>)okResult.Value;
-            Assert.Collection(value,
+            Assert.Collection(value!,
                 c => Assert.Equal(OrderViews.Order1.Id, c.Id),
                 c => Assert.Equal(OrderViews.Order2.Id, c.Id));
         }
@@ -62,7 +62,7 @@ namespace EventDriven.CQRS.Tests
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var value = (OrderView)okResult.Value;
-            Assert.Equal(OrderViews.Order1.Id, value.Id);
+            Assert.Equal(OrderViews.Order1.Id, value!.Id);
         }
     }
 }
