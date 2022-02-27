@@ -1,4 +1,3 @@
-using System;
 using Common.Integration.Models;
 using EventDriven.EventBus.Abstractions;
 

@@ -1,16 +1,14 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using OrderService.Controllers;
 using OrderService.Domain.OrderAggregate.CommandHandlers;
 using OrderService.DTO.Read;
 using OrderService.Mapping;
-using EventDriven.CQRS.Tests.Fakes;
+using EventDriven.ReferenceArchitecture.Tests.Fakes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 
-namespace EventDriven.CQRS.Tests
+namespace EventDriven.ReferenceArchitecture.Tests
 {
     public class OrderQueryControllerTests
     {
@@ -39,8 +37,8 @@ namespace EventDriven.CQRS.Tests
             
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
-            var value = (IEnumerable<OrderView>)okResult.Value;
-            Assert.Collection(value!,
+            var value = (IEnumerable<OrderView>)okResult.Value!;
+            Assert.Collection(value,
                 c => Assert.Equal(OrderViews.Order1.Id, c.Id),
                 c => Assert.Equal(OrderViews.Order2.Id, c.Id));
         }
@@ -61,8 +59,8 @@ namespace EventDriven.CQRS.Tests
             
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
-            var value = (OrderView)okResult.Value;
-            Assert.Equal(OrderViews.Order1.Id, value!.Id);
+            var value = (OrderView)okResult.Value!;
+            Assert.Equal(OrderViews.Order1.Id, value.Id);
         }
     }
 }

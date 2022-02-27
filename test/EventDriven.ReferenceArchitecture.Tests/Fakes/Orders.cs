@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
 using OrderService.DTO.Read;
 using OrderService.DTO.Write;
 using Address = OrderService.DTO.Write.Address;
 using ReadOrderState = OrderService.DTO.Read.OrderState;
 using WriteOrderState = OrderService.DTO.Write.OrderState;
 
-namespace EventDriven.CQRS.Tests.Fakes
+namespace EventDriven.ReferenceArchitecture.Tests.Fakes
 {
     public static class Orders
     {

@@ -1,8 +1,7 @@
-using System;
 using CustomerService.DTO.Read;
 using CustomerService.DTO.Write;
 
-namespace EventDriven.CQRS.Tests.Fakes
+namespace EventDriven.ReferenceArchitecture.Tests.Fakes
 {
     public static class Customers
     {

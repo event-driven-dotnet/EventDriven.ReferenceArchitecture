@@ -1,16 +1,14 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using CustomerService.Controllers;
 using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.DTO.Read;
 using CustomerService.Mapping;
-using EventDriven.CQRS.Tests.Fakes;
+using EventDriven.ReferenceArchitecture.Tests.Fakes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 
-namespace EventDriven.CQRS.Tests
+namespace EventDriven.ReferenceArchitecture.Tests
 {
     public class CustomerQueryControllerTests
     {
@@ -40,8 +38,8 @@ namespace EventDriven.CQRS.Tests
             
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
-            var value = (IEnumerable<CustomerView>)okResult.Value;
-            Assert.Collection(value!,
+            var value = (IEnumerable<CustomerView>)okResult.Value!;
+            Assert.Collection(value,
                 c => Assert.Equal(CustomerViews.Customer1.Id, c.Id),
                 c => Assert.Equal(CustomerViews.Customer2.Id, c.Id),
                 c => Assert.Equal(CustomerViews.Customer3.Id, c.Id));
@@ -63,8 +61,8 @@ namespace EventDriven.CQRS.Tests
             
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
-            var value = (CustomerView)okResult.Value;
-            Assert.Equal(CustomerViews.Customer1.Id, value!.Id);
+            var value = (CustomerView)okResult.Value!;
+            Assert.Equal(CustomerViews.Customer1.Id, value.Id);
         }
     }
 }

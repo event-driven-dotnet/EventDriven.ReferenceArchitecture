@@ -1,7 +1,5 @@
-using System;
-using System.Threading.Tasks;
 using AutoMapper;
-using EventDriven.CQRS.Tests.Fakes;
+using EventDriven.ReferenceArchitecture.Tests.Fakes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using OrderService.Controllers;
@@ -10,7 +8,7 @@ using OrderService.DTO.Write;
 using OrderService.Mapping;
 using Xunit;
 
-namespace EventDriven.CQRS.Tests
+namespace EventDriven.ReferenceArchitecture.Tests
 {
     public class OrderCommandControllerTests
     {
@@ -35,8 +33,8 @@ namespace EventDriven.CQRS.Tests
             
             // Assert
             var createdResult = Assert.IsType<CreatedResult>(actionResult);
-            var value = (Order)createdResult.Value;
-            Assert.Equal(Customers.Customer1.Id, value!.Id);
+            var value = (Order)createdResult.Value!;
+            Assert.Equal(Customers.Customer1.Id, value.Id);
             Assert.NotEqual(default(Guid).ToString(), value.ETag);
         }
         
@@ -55,8 +53,8 @@ namespace EventDriven.CQRS.Tests
             
             // Assert
             var objectResult = Assert.IsType<OkObjectResult>(actionResult);
-            var value = (Order)objectResult.Value;
-            Assert.Equal(order.Id, value!.Id);
+            var value = (Order)objectResult.Value!;
+            Assert.Equal(order.Id, value.Id);
             Assert.Equal(order.ShippingAddress.City, value.ShippingAddress.City);
             Assert.NotEqual(order.ETag, value.ETag);
         }
@@ -94,8 +92,8 @@ namespace EventDriven.CQRS.Tests
             
             // Assert
             var objectResult = Assert.IsType<OkObjectResult>(actionResult);
-            var value = (Order)objectResult.Value;
-            Assert.Equal(Orders.Order1.Id, value!.Id);
+            var value = (Order)objectResult.Value!;
+            Assert.Equal(Orders.Order1.Id, value.Id);
             Assert.Equal(OrderState.Shipped, value.OrderState);
             Assert.NotEqual(order.ETag, value.ETag);
         }
@@ -114,8 +112,8 @@ namespace EventDriven.CQRS.Tests
             
             // Assert
             var objectResult = Assert.IsType<OkObjectResult>(actionResult);
-            var value = (Order)objectResult.Value;
-            Assert.Equal(Orders.Order1.Id, value!.Id);
+            var value = (Order)objectResult.Value!;
+            Assert.Equal(Orders.Order1.Id, value.Id);
             Assert.Equal(OrderState.Cancelled, value.OrderState);
             Assert.NotEqual(order.ETag, value.ETag);
         }

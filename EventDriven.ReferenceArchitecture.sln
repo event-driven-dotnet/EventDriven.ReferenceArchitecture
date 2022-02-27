@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "reference-architecture", "r
 		reference-architecture\tye.yaml = reference-architecture\tye.yaml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventDriven.CQRS.Tests", "test\EventDriven.CQRS.Tests\EventDriven.CQRS.Tests.csproj", "{9809006C-2F6B-44A1-8AE2-BC449368D209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventDriven.ReferenceArchitecture.Tests", "test\EventDriven.ReferenceArchitecture.Tests\EventDriven.ReferenceArchitecture.Tests.csproj", "{9809006C-2F6B-44A1-8AE2-BC449368D209}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService", "reference-architecture\CustomerService\CustomerService.csproj", "{48983715-E6DF-462F-AF3C-769C1122794F}"
 EndProject
@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "standby", "standby", "{A045
 		reference-architecture\dapr\standby\pubsub-snssqs.yaml = reference-architecture\dapr\standby\pubsub-snssqs.yaml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventDriven.ReferenceArchitecture.Specs", "test\EventDriven.ReferenceArchitecture.Specs\EventDriven.ReferenceArchitecture.Specs.csproj", "{68B613B3-EB4A-41DB-A61E-1E031C5BFA85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{FC04D111-903D-49FF-84A6-8806C71E2168}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC04D111-903D-49FF-84A6-8806C71E2168}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC04D111-903D-49FF-84A6-8806C71E2168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B613B3-EB4A-41DB-A61E-1E031C5BFA85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B613B3-EB4A-41DB-A61E-1E031C5BFA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B613B3-EB4A-41DB-A61E-1E031C5BFA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B613B3-EB4A-41DB-A61E-1E031C5BFA85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{00BA9501-787E-465C-97D0-F51295D97802} = {F0E48E00-7D72-4614-9C13-90A7B015B06F}
 		{F0E48E00-7D72-4614-9C13-90A7B015B06F} = {C4FD0AF1-927A-4860-A634-7CE342807692}
 		{A045033E-5283-4A6F-87D3-B02194595788} = {F0E48E00-7D72-4614-9C13-90A7B015B06F}
+		{68B613B3-EB4A-41DB-A61E-1E031C5BFA85} = {269CD137-4093-4100-B33E-808586D335F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {427A0D03-63CA-48AE-AA95-D21800101398}

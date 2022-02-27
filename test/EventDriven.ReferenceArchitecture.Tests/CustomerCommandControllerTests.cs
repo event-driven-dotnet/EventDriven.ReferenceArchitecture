@@ -1,16 +1,14 @@
-using System;
-using System.Threading.Tasks;
 using AutoMapper;
 using CustomerService.Controllers;
 using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.DTO.Write;
 using CustomerService.Mapping;
-using EventDriven.CQRS.Tests.Fakes;
+using EventDriven.ReferenceArchitecture.Tests.Fakes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 
-namespace EventDriven.CQRS.Tests
+namespace EventDriven.ReferenceArchitecture.Tests
 {
     public class CustomerCommandControllerTests
     {
@@ -36,9 +34,9 @@ namespace EventDriven.CQRS.Tests
             
             // Assert
             var createdResult = Assert.IsType<CreatedResult>(actionResult);
-            var value = (Customer)createdResult.Value;
-            Assert.Equal(Customers.Customer1.Id, value?.Id);
-            Assert.NotEqual(default(Guid).ToString(), value?.ETag);
+            var value = (Customer)createdResult.Value!;
+            Assert.Equal(Customers.Customer1.Id, value.Id);
+            Assert.NotEqual(default(Guid).ToString(), value.ETag);
         }
         
         [Fact]
@@ -57,9 +55,9 @@ namespace EventDriven.CQRS.Tests
             
             // Assert
             var objectResult = Assert.IsType<OkObjectResult>(actionResult);
-            var value = (Customer)objectResult.Value;
-            Assert.Equal(customer.Id, value?.Id);
-            Assert.NotEqual(customer.ETag, value?.ETag);
+            var value = (Customer)objectResult.Value!;
+            Assert.Equal(customer.Id, value.Id);
+            Assert.NotEqual(customer.ETag, value.ETag);
         }
 
         [Fact]

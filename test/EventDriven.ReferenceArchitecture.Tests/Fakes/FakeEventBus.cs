@@ -1,13 +1,11 @@
-using System.Threading.Tasks;
-
-namespace EventDriven.CQRS.Tests.Fakes
+namespace EventDriven.ReferenceArchitecture.Tests.Fakes
 {
     public class FakeEventBus : EventBus.Abstractions.EventBus
     {
         public override Task PublishAsync<TIntegrationEvent>(
             TIntegrationEvent @event,
-            string topic = null,
-            string prefix = null)
+            string? topic = null,
+            string? prefix = null)
         {
             var topicName = topic ?? @event.GetType().Name;
             if (!Topics.TryGetValue(topicName, out var handlers))

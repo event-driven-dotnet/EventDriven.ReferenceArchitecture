@@ -13,6 +13,9 @@ Reference architecture for using **EventDriven** abstractions and libraries for 
   - [Install Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
   - [Initialize Dapr](https://docs.dapr.io/getting-started/install-dapr-selfhost/)
 - [Microsoft Tye](https://github.com/dotnet/tye/blob/main/docs/getting_started.md) (recommended)
+- [Specflow](https://specflow.org/) IDE Plugin  (recommended)
+  - [Visual Studio](https://docs.specflow.org/projects/getting-started/en/latest/GettingStarted/Step1.html)
+  - [JetBrains Rider](https://docs.specflow.org/projects/specflow/en/latest/Rider/rider-installation.html)
 
 ## Introduction
 
@@ -66,6 +69,11 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
 6. Update the address of a customer who has order.
    - Note the address is also updated for the customer's orders.
    - Observe log messages in terminal when integration events are published and handled.
+
+### Tests
+- **Unit Tests**: EventDriven.ReferenceArchitecture.Tests
+- **User Acceptance Tests**: EventDriven.ReferenceArchitecture.Specs
+  - ReadMe: [Reference Architecture: User Acceptance Tests](test/EventDriven.ReferenceArchitecture.Specs/ReadMe.md)
 
 ### Development Guide
 
