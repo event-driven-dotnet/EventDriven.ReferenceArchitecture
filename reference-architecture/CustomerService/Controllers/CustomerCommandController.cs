@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CustomerService.Domain.CustomerAggregate;
-using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Helpers;
 using EventDriven.DDD.Abstractions.Commands;
@@ -12,12 +11,14 @@ namespace CustomerService.Controllers
     [ApiController]
     public class CustomerCommandController : ControllerBase
     {
-        private readonly CustomerCommandHandler _commandHandler;
+        private readonly ICommandBroker _commandBroker;
         private readonly IMapper _mapper;
 
-        public CustomerCommandController(CustomerCommandHandler commandHandler, IMapper mapper)
+        public CustomerCommandController(
+            ICommandBroker commandBroker,
+            IMapper mapper)
         {
-            _commandHandler = commandHandler;
+            _commandBroker = commandBroker;
             _mapper = mapper;
         }
 
@@ -26,7 +27,7 @@ namespace CustomerService.Controllers
         public async Task<IActionResult> Create([FromBody] DTO.Write.Customer customerDto)
         {
             var customerIn = _mapper.Map<Customer>(customerDto);
-            var result = await _commandHandler.Handle(new CreateCustomer(customerIn));
+            var result = await _commandBroker.SendAsync(new CreateCustomer(customerIn));
 
             if (result.Outcome != CommandOutcome.Accepted)
                 return result.ToActionResult();
@@ -39,7 +40,7 @@ namespace CustomerService.Controllers
         public async Task<IActionResult> Update([FromBody] DTO.Write.Customer customerDto)
         {
             var customerIn = _mapper.Map<Customer>(customerDto);
-            var result = await _commandHandler.Handle(new UpdateCustomer(customerIn));
+            var result = await _commandBroker.SendAsync(new UpdateCustomer(customerIn));
 
             if (result.Outcome != CommandOutcome.Accepted)
                 return result.ToActionResult();
@@ -52,7 +53,7 @@ namespace CustomerService.Controllers
         [Route("{id}")]
         public async Task<IActionResult> Remove([FromRoute] Guid id)
         {
-            var result = await _commandHandler.Handle(new RemoveCustomer(id));
+            var result = await _commandBroker.SendAsync(new RemoveCustomer(id));
             return result.Outcome != CommandOutcome.Accepted
                 ? result.ToActionResult() 
                 : new NoContentResult();

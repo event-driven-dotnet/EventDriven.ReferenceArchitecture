@@ -1,7 +1,7 @@
 using CustomerService.Configuration;
 using CustomerService.Domain.CustomerAggregate;
-using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.Repositories;
+using EventDriven.DDD.Abstractions.Commands;
 using EventDriven.DependencyInjection.URF.Mongo;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,8 +14,10 @@ builder.Services.AddSwaggerGen();
 // Add automapper
 builder.Services.AddAutoMapper(typeof(Program));
 
+// Add commands
+builder.Services.AddCommands(typeof(Program));
+
 // Add database settings
-builder.Services.AddSingleton<CustomerCommandHandler>();
 builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
 builder.Services.AddMongoDbSettings<CustomerDatabaseSettings, Customer>(builder.Configuration);
 

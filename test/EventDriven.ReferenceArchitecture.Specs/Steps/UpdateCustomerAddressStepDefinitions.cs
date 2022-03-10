@@ -12,7 +12,7 @@ using OrderService.Repositories;
 using Xunit;
 using Address = OrderService.Domain.OrderAggregate.Address;
 
-namespace EventDriven.ReferenceArchitecture.Specs;
+namespace EventDriven.ReferenceArchitecture.Specs.Steps;
 
 [Binding]
 public class UpdateCustomerAddressStepDefinitions

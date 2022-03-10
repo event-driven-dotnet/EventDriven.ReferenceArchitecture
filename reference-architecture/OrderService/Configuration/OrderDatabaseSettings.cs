@@ -1,11 +1,10 @@
 using EventDriven.DependencyInjection.URF.Mongo;
 
-namespace OrderService.Configuration
+namespace OrderService.Configuration;
+
+public class OrderDatabaseSettings : IMongoDbSettings
 {
-    public class OrderDatabaseSettings : IMongoDbSettings
-    {
-        public string ConnectionString { get; set; } = null!;
-        public string DatabaseName { get; set; } = null!;
-        public string CollectionName { get; set; } = null!;
-    }
+    public string ConnectionString { get; set; } = null!;
+    public string DatabaseName { get; set; } = null!;
+    public string CollectionName { get; set; } = null!;
 }

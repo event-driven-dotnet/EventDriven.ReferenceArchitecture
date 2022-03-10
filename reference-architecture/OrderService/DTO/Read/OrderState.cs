@@ -1,9 +1,8 @@
-namespace OrderService.DTO.Read
+namespace OrderService.DTO.Read;
+
+public enum OrderState
 {
-    public enum OrderState
-    {
-        Created,
-        Shipped,
-        Cancelled
-    }
+    Created,
+    Shipped,
+    Cancelled
 }

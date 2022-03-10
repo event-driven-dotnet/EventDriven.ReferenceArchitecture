@@ -1,7 +1,7 @@
+using EventDriven.DDD.Abstractions.Commands;
 using EventDriven.DependencyInjection.URF.Mongo;
 using OrderService.Configuration;
 using OrderService.Domain.OrderAggregate;
-using OrderService.Domain.OrderAggregate.CommandHandlers;
 using OrderService.Integration.EventHandlers;
 using OrderService.Repositories;
 
@@ -15,8 +15,10 @@ builder.Services.AddSwaggerGen();
 // Add automapper
 builder.Services.AddAutoMapper(typeof(Program));
 
+// Add commands
+builder.Services.AddCommands(typeof(Program));
+
 // Add database settings
-builder.Services.AddSingleton<OrderCommandHandler>();
 builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
 builder.Services.AddMongoDbSettings<OrderDatabaseSettings, Order>(builder.Configuration);
 builder.Services.AddSingleton<CustomerAddressUpdatedEventHandler>();

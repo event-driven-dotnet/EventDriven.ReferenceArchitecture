@@ -1,9 +1,8 @@
-namespace OrderService.DTO.Write
+namespace OrderService.DTO.Write;
+
+public enum OrderState
 {
-    public enum OrderState
-    {
-        Created,
-        Shipped,
-        Cancelled
-    }
+    Created,
+    Shipped,
+    Cancelled
 }

@@ -1,10 +1,12 @@
-﻿using CustomerService.Domain.CustomerAggregate;
+﻿using System.Diagnostics.CodeAnalysis;
+using CustomerService.Domain.CustomerAggregate;
 using EventDriven.DDD.Abstractions.Repositories;
 using MongoDB.Driver;
 using URF.Core.Mongo;
 
 namespace CustomerService.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public class CustomerRepository : DocumentRepository<Customer>, ICustomerRepository
     {
         public CustomerRepository(IMongoCollection<Customer> collection) : base(collection)

@@ -1,9 +1,8 @@
-namespace OrderService.Domain.OrderAggregate
+namespace OrderService.Domain.OrderAggregate;
+
+public enum OrderState
 {
-    public enum OrderState
-    {
-        Created,
-        Shipped,
-        Cancelled
-    }
+    Created,
+    Shipped,
+    Cancelled
 }

@@ -1,6 +1,5 @@
 using EventDriven.DDD.Abstractions.Commands;
 
-namespace OrderService.Domain.OrderAggregate.Commands
-{
-    public record ShipOrder(Guid EntityId, string ETag) : Command(EntityId);
-}
+namespace OrderService.Domain.OrderAggregate.Commands;
+
+public record ShipOrder(Order Entity) : Command<Order>(Entity);
