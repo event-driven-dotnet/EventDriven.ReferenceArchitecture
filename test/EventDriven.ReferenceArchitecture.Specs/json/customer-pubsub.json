@@ -1,0 +1,13 @@
+{
+  "id": "1c44eea7-400a-4f6f-ab99-5e8c853ea363",
+  "eTag": "d3c97e56-ad93-471f-b652-2d793e513eaf",
+  "firstName": "Mark",
+  "lastName": "Zuckerberg",
+  "shippingAddress": {
+    "street": "123 Other Street",
+    "city": "Palo Alto",
+    "state": "CA",
+    "country": "USA",
+    "postalCode": "98765"
+  }
+}

@@ -1,7 +1,6 @@
 ﻿using CustomerService.Domain.CustomerAggregate;
 using CustomerService.Helpers;
 using CustomerService.Tests.Fakes;
-using CustomerService.Tests.Utils;
 using EventDriven.DDD.Abstractions.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
@@ -24,7 +23,7 @@ public class CommandResultExtensionsTests
     [Fact]
     public void WhenAccepted_AndEntityIsPresent_ThenOkObjectResult()
     {
-        var mapper = BaseUtils.GetMapper();
+        var mapper = MappingHelper.GetMapper();
         var cmdResult = new CommandResult(CommandOutcome.Accepted);
 
         var actionResult = cmdResult.ToActionResult(mapper.Map<Customer>(Customers.Customer1));

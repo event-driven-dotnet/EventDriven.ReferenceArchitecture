@@ -9,7 +9,7 @@ using OrderService.Domain.OrderAggregate.Commands;
 using OrderService.Domain.OrderAggregate.Handlers;
 using OrderService.Repositories;
 using OrderService.Tests.Fakes;
-using OrderService.Tests.Utils;
+using OrderService.Tests.Helpers;
 using Xunit;
 
 namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers;
@@ -25,7 +25,7 @@ public class UpdateOrderHandlerTests
     {
         _repositoryMoq = new Mock<IOrderRepository>();
         _loggerMoq = new Mock<ILogger<UpdateOrderHandler>>();
-        _mapper = BaseUtils.GetMapper();
+        _mapper = MappingHelper.GetMapper();
     }
 
     [Fact]

@@ -19,19 +19,22 @@ namespace EventDriven.ReferenceArchitecture.Specs.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class UpdateCustomerAddressFeature : object, Xunit.IClassFixture<UpdateCustomerAddressFeature.FixtureData>, System.IDisposable
+    [Xunit.CollectionAttribute("SpecFlowNonParallelizableFeatures")]
+    [Xunit.TraitAttribute("Category", "notParallel")]
+    public partial class PublishSubscribeFeature : object, Xunit.IClassFixture<PublishSubscribeFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private static string[] featureTags = ((string[])(null));
+        private static string[] featureTags = new string[] {
+                "notParallel"};
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "UpdateCustomerAddress.feature"
+#line 1 "PublishSubscribe.feature"
 #line hidden
         
-        public UpdateCustomerAddressFeature(UpdateCustomerAddressFeature.FixtureData fixtureData, EventDriven_ReferenceArchitecture_Specs_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public PublishSubscribeFeature(PublishSubscribeFeature.FixtureData fixtureData, EventDriven_ReferenceArchitecture_Specs_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +43,7 @@ namespace EventDriven.ReferenceArchitecture.Specs.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Update Customer Address", "Event driven architecture for propagating data from one service to another.", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Publish Subscribe", "\tData propagation between services over an event bus abstraction layer.", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,16 +83,14 @@ namespace EventDriven.ReferenceArchitecture.Specs.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Update a customer address")]
-        [Xunit.TraitAttribute("FeatureTitle", "Update Customer Address")]
-        [Xunit.TraitAttribute("Description", "Update a customer address")]
-        [Xunit.TraitAttribute("Category", "eda")]
-        public void UpdateACustomerAddress()
+        [Xunit.SkippableFactAttribute(DisplayName="Publish customer address updated event")]
+        [Xunit.TraitAttribute("FeatureTitle", "Publish Subscribe")]
+        [Xunit.TraitAttribute("Description", "Publish customer address updated event")]
+        public void PublishCustomerAddressUpdatedEvent()
         {
-            string[] tagsOfScenario = new string[] {
-                    "eda"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a customer address", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish customer address updated event", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -101,19 +102,20 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 6
- testRunner.Given("a customer has been created with \'customer.json\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a customer has been created with \'customer-pubsub.json\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 7
- testRunner.And("orders have been created with \'orders.json\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("orders have been created with \'orders-pubsub.json\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 8
- testRunner.When("I make a PUT request with \'updated-customer.json\' to \'api/customer\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I make a PUT request for \'Customer\' with \'updated-customer-pubsub.json\' to \'api/c" +
+                        "ustomer\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
  testRunner.Then("the response status code should be \'200\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 10
- testRunner.And("the address for orders should equal \'updated-address.json\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the address for orders should equal \'updated-address-pubsub.json\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -126,12 +128,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                UpdateCustomerAddressFeature.FeatureSetup();
+                PublishSubscribeFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                UpdateCustomerAddressFeature.FeatureTearDown();
+                PublishSubscribeFeature.FeatureTearDown();
             }
         }
     }

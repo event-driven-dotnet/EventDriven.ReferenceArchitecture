@@ -5,7 +5,7 @@ using CustomerService.Controllers;
 using CustomerService.Domain.CustomerAggregate;
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Tests.Fakes;
-using CustomerService.Tests.Utils;
+using CustomerService.Tests.Helpers;
 using EventDriven.DDD.Abstractions.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -21,7 +21,7 @@ public class CustomerCommandControllerTests
     public CustomerCommandControllerTests()
     {
         _commandBrokerMoq = new Mock<ICommandBroker>();
-        _mapper = BaseUtils.GetMapper();
+        _mapper = MappingHelper.GetMapper();
     }
 
     [Fact]

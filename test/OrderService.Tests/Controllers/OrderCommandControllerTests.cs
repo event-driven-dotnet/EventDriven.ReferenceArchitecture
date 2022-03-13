@@ -8,7 +8,7 @@ using OrderService.Controllers;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.Commands;
 using OrderService.Tests.Fakes;
-using OrderService.Tests.Utils;
+using OrderService.Tests.Helpers;
 using Xunit;
 
 namespace OrderService.Tests.Controllers;
@@ -21,7 +21,7 @@ public class OrderCommandControllerTests
 
     public OrderCommandControllerTests()
     {
-        _mapper = BaseUtils.GetMapper();
+        _mapper = MappingHelper.GetMapper();
         _commandBrokerMoq = new Mock<ICommandBroker>();
     }
 

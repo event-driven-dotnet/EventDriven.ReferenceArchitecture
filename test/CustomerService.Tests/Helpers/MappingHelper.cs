@@ -1,9 +1,9 @@
-﻿using AutoMapper;
+using AutoMapper;
 using CustomerService.Mapping;
 
-namespace CustomerService.Tests.Utils;
+namespace CustomerService.Tests.Helpers;
 
-public static class BaseUtils
+public static class MappingHelper
 {
     public static IMapper GetMapper()
     {

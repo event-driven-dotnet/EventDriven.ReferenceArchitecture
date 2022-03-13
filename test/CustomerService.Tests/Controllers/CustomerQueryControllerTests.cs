@@ -7,7 +7,7 @@ using CustomerService.Domain.CustomerAggregate;
 using CustomerService.DTO.Read;
 using CustomerService.Repositories;
 using CustomerService.Tests.Fakes;
-using CustomerService.Tests.Utils;
+using CustomerService.Tests.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -21,7 +21,7 @@ public class CustomerQueryControllerTests
 
     public CustomerQueryControllerTests()
     {
-        _mapper = BaseUtils.GetMapper();
+        _mapper = MappingHelper.GetMapper();
         _repositoryMoq = new Mock<ICustomerRepository>();
     }
 

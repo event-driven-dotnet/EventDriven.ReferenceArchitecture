@@ -25,7 +25,8 @@ public class OrderRepository : DocumentRepository<Order>, IOrderRepository
     {
         var existing = await FindOneAsync(e => e.Id == entity.Id);
         if (existing != null) return null;
-        entity.ETag = Guid.NewGuid().ToString();
+        if (string.IsNullOrWhiteSpace(entity.ETag))
+            entity.ETag = Guid.NewGuid().ToString();
         return await InsertOneAsync(entity);
     }
 

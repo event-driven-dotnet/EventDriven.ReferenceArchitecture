@@ -4,7 +4,7 @@ using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.Commands;
 using OrderService.Domain.OrderAggregate.Events;
 using OrderService.Tests.Fakes;
-using OrderService.Tests.Utils;
+using OrderService.Tests.Helpers;
 using Xunit;
 
 namespace OrderService.Tests.Domain.OrderAggregate;
@@ -13,7 +13,7 @@ public class OrderTests
 {
     private readonly IMapper _mapper;
 
-    public OrderTests() => _mapper = BaseUtils.GetMapper();
+    public OrderTests() => _mapper = MappingHelper.GetMapper();
 
     [Fact]
     public void WhenInstantiated_ThenShouldBeOfCorrectType()

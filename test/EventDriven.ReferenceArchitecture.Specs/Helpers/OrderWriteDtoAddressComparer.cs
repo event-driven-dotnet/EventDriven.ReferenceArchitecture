@@ -1,8 +1,8 @@
-using OrderService.Domain.OrderAggregate;
+using OrderService.DTO.Write;
 
 namespace EventDriven.ReferenceArchitecture.Specs.Helpers;
 
-public class AddressComparer : IEqualityComparer<Address>
+public class OrderWriteDtoAddressComparer : IEqualityComparer<Address>
 {
     public bool Equals(Address? x, Address? y)
     {

@@ -1,9 +1,9 @@
 using AutoMapper;
 using OrderService.Mapping;
 
-namespace OrderService.Tests.Utils;
+namespace OrderService.Tests.Helpers;
 
-public static class BaseUtils
+public static class MappingHelper
 {
     public static IMapper GetMapper()
     {

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "ff15b0aa-3a5a-4ef8-a556-e0248a4a820e",
+    "eTag": "a50d5b3e-75ce-4142-ac15-20fc42c1bd98",
+    "firstName": "Bill",
+    "lastName": "Gates",
+    "street": "123 Another Street",
+    "city": "Redmond",
+    "state": "WA",
+    "country": "USA",
+    "postalCode": "98008"
+  },
+  {
+    "id": "848f5790-3981-4862-bb7e-a8566aa07026",
+    "eTag": "c3af610e-a86c-4f43-ac39-73de9d7b5cd6",
+    "firstName": "Jeff",
+    "lastName": "Bezos",
+    "street": "123 That Street",
+    "city": "Seattle",
+    "state": "WA",
+    "country": "USA",
+    "postalCode": "54321"
+  }
+]

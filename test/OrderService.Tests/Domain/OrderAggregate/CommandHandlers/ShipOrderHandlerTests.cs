@@ -10,7 +10,7 @@ using OrderService.Domain.OrderAggregate.Commands;
 using OrderService.Domain.OrderAggregate.Handlers;
 using OrderService.Repositories;
 using OrderService.Tests.Fakes;
-using OrderService.Tests.Utils;
+using OrderService.Tests.Helpers;
 using Xunit;
 
 namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
@@ -25,7 +25,7 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
         {
             _repositoryMoq = new Mock<IOrderRepository>();
             _loggerMoq = new Mock<ILogger<ShipOrderHandler>>();
-            _mapper = BaseUtils.GetMapper();
+            _mapper = MappingHelper.GetMapper();
         }
 
         [Fact]

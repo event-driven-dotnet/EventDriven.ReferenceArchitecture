@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Helpers;
 using OrderService.Tests.Fakes;
-using OrderService.Tests.Utils;
 using Xunit;
 
 namespace OrderService.Tests.Helpers;
@@ -24,7 +23,7 @@ public class CommandResultExtensionsTests
     [Fact]
     public void WhenAccepted_AndEntityIsPresent_ThenOkObjectResult()
     {
-        var mapper = BaseUtils.GetMapper();
+        var mapper = MappingHelper.GetMapper();
         var cmdResult = new CommandResult(CommandOutcome.Accepted);
 
         var actionResult = cmdResult.ToActionResult(mapper.Map<Order>(Orders.Order1));

@@ -7,7 +7,7 @@ using CustomerService.Domain.CustomerAggregate;
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Domain.CustomerAggregate.Handlers;
 using CustomerService.Repositories;
-using CustomerService.Tests.Utils;
+using CustomerService.Tests.Helpers;
 using EventDriven.DDD.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Repositories;
 using EventDriven.EventBus.Abstractions;
@@ -23,7 +23,7 @@ public class UpdateCustomerHandlerTests
     private readonly Fixture _fixture = new();
 
     private readonly Mock<ILogger<UpdateCustomerHandler>> _loggerMock;
-    private readonly IMapper _mapper = BaseUtils.GetMapper();
+    private readonly IMapper _mapper = MappingHelper.GetMapper();
     private readonly Mock<ICustomerRepository> _repositoryMock;
 
     public UpdateCustomerHandlerTests()

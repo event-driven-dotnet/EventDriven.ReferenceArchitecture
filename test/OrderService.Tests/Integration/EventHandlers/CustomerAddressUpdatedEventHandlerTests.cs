@@ -9,7 +9,7 @@ using Moq;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Integration.EventHandlers;
 using OrderService.Repositories;
-using OrderService.Tests.Utils;
+using OrderService.Tests.Helpers;
 using Xunit;
 using Address = Common.Integration.Models.Address;
 
@@ -26,7 +26,7 @@ public class CustomerAddressUpdatedEventHandlerTests
     public CustomerAddressUpdatedEventHandlerTests()
     {
         _repositoryMoq = new Mock<IOrderRepository>();
-        _mapper = BaseUtils.GetMapper();
+        _mapper = MappingHelper.GetMapper();
         _logger = new Mock<ILogger<CustomerAddressUpdatedEventHandler>>();
     }
 

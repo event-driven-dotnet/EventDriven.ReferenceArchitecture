@@ -1,0 +1,26 @@
+{
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "customerId": "22eea083-6f0d-48f2-8c82-65ac850e5aad",
+  "orderDate": "2021-04-15T22:54:44.485Z",
+  "orderItems": [
+    {
+      "productId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "productName": "Americano",
+      "productPrice": 4.50
+    },
+    {
+      "productId": "5a8c5f7f-0781-4d5e-9d9b-41ef2da5f3c3",
+      "productName": "Macchiato",
+      "productPrice": 5.50
+    }
+  ],
+  "shippingAddress": {
+    "street": "123 This Street",
+    "city": "Freemont",
+    "state": "CA",
+    "country": "USA",
+    "postalCode": "90045"
+  },
+  "orderState": 0,
+  "eTag": "4a0f4ae5-c304-4a6a-8d46-efc8e5af5218"
+}

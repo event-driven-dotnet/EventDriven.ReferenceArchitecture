@@ -9,7 +9,7 @@ using OrderService.Domain.OrderAggregate;
 using OrderService.DTO.Read;
 using OrderService.Repositories;
 using OrderService.Tests.Fakes;
-using OrderService.Tests.Utils;
+using OrderService.Tests.Helpers;
 using Xunit;
 
 namespace OrderService.Tests.Controllers;
@@ -23,7 +23,7 @@ public class OrderQueryControllerTests
     public OrderQueryControllerTests()
     {
         _repositoryMoq = new Mock<IOrderRepository>();
-        _mapper = BaseUtils.GetMapper();
+        _mapper = MappingHelper.GetMapper();
     }
 
     [Fact]

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "customerId": "22eea083-6f0d-48f2-8c82-65ac850e5aad",
+    "orderDate": "2021-04-15T22:54:44.485Z",
+    "orderTotal": 6,
+    "street": "123 This Street",
+    "city": "Freemont",
+    "state": "CA",
+    "country": "USA",
+    "postalCode": "90045",
+    "orderState": 0,
+    "eTag": "4a0f4ae5-c304-4a6a-8d46-efc8e5af5218"
+  },
+  {
+    "id": "fd06384d-24cd-4a7f-a5f5-b05ec683bfdd",
+    "customerId": "22eea083-6f0d-48f2-8c82-65ac850e5aad",
+    "orderDate": "2021-04-15T22:54:44.485Z",
+    "orderTotal": 1.5,
+    "street": "123 This Street",
+    "city": "Freemont",
+    "state": "CA",
+    "country": "USA",
+    "postalCode": "90045",
+    "orderState": 0,
+    "eTag": "39a72ea5-d7f8-4b35-b3e3-d4bf9e6879dd"
+  }
+]
