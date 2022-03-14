@@ -34,17 +34,21 @@ Scenario: Update an order
 
 Scenario: Ship an order
     Given an order has been created with 'order-to-ship.json'
-    When I make a PUT request for 'Order' with 'order-to-ship.json' to 'api/order/ship'
+    When I make a PUT request for 'Order' with the following data to 'api/order/ship'
+      | Id                                   | ETag                                 |
+      | dd798647-9c83-4d8f-8102-4d70d0c6c4c3 | 4a0f4ae5-c304-4a6a-8d46-efc8e5af5218 |
     Then the response status code should be '200'
     And the response customer should be 'shipped-order.json'
 
 Scenario: Cancel an order
     Given an order has been created with 'order-to-cancel.json'
-    When I make a PUT request for 'Order' with 'order-to-cancel.json' to 'api/order/ship'
+    When I make a PUT request for 'Order' with the following data to 'api/order/cancel'
+    | Id                                   | ETag                                 |
+    | 775c520f-2fec-4ffd-b5fb-870e605fd05b | 4a0f4ae5-c304-4a6a-8d46-efc8e5af5218 |
     Then the response status code should be '200'
     And the response customer should be 'cancelled-order.json'
 
 Scenario: Remove an order
     Given an order has been created with 'order.json'
-    When I make a DELETE request for 'Order' with id '22eea083-6f0d-48f2-8c82-65ac850e5aad' to 'api/order'
+    When I make a DELETE request for 'Order' with id '3fa85f64-5717-4562-b3fc-2c963f66afa6' to 'api/order'
     Then the response status code should be '204'

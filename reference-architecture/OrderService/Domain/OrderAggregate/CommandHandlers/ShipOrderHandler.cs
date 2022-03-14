@@ -1,27 +1,27 @@
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Repositories;
 using OrderService.Domain.OrderAggregate.Commands;
 using OrderService.Repositories;
 
-namespace OrderService.Domain.OrderAggregate.Handlers;
+namespace OrderService.Domain.OrderAggregate.CommandHandlers;
 
-public class CancelOrderHandler : ICommandHandler<Order, CancelOrder>
+public class ShipOrderHandler : ICommandHandler<Order, ShipOrder>
 {
     private readonly IOrderRepository _repository;
-    private readonly ILogger<CancelOrderHandler> _logger;
+    private readonly ILogger<ShipOrderHandler> _logger;
 
-    public CancelOrderHandler(
+    public ShipOrderHandler(
         IOrderRepository repository,
-        ILogger<CancelOrderHandler> logger)
+        ILogger<ShipOrderHandler> logger)
     {
         _repository = repository;
         _logger = logger;
     }
 
-    public async Task<CommandResult<Order>> Handle(CancelOrder command, CancellationToken cancellationToken)
+    public async Task<CommandResult<Order>> Handle(ShipOrder command, CancellationToken cancellationToken)
     {
         // Process command
-        _logger.LogInformation("Handling command: {CommandName}", nameof(CancelOrder));
+        _logger.LogInformation("Handling command: {CommandName}", nameof(ShipOrder));
         var entity = await _repository.GetAsync(command.EntityId);
         if (entity == null) return new CommandResult<Order>(CommandOutcome.NotFound);
         var domainEvent = entity.Process(command);
@@ -32,7 +32,7 @@ public class CancelOrderHandler : ICommandHandler<Order, CancelOrder>
         try
         {
             // Persist entity
-            var order = await _repository.UpdateOrderStateAsync(entity, OrderState.Cancelled);
+            var order = await _repository.UpdateOrderStateAsync(entity, OrderState.Shipped);
             if (order == null) return new CommandResult<Order>(CommandOutcome.NotFound);
             return new CommandResult<Order>(CommandOutcome.Accepted, order);
         }

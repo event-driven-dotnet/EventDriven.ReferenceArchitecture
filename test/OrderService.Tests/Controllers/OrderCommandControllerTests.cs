@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using OrderService.Controllers;
@@ -16,7 +16,6 @@ namespace OrderService.Tests.Controllers;
 public class OrderCommandControllerTests
 {
     private readonly Mock<ICommandBroker> _commandBrokerMoq;
-
     private readonly IMapper _mapper;
 
     public OrderCommandControllerTests()
@@ -135,7 +134,7 @@ public class OrderCommandControllerTests
         _commandBrokerMoq.Setup(x => x.SendAsync(It.IsAny<ShipOrder>()))
             .ReturnsAsync(new CommandResult<Order>(CommandOutcome.Accepted, orderOut));
 
-        var actionResult = await controller.Ship(orderIn);
+        var actionResult = await controller.Ship(orderIn.Id);
         var okResult = Assert.IsType<OkObjectResult>(actionResult);
 
         Assert.NotNull(actionResult);
@@ -150,7 +149,7 @@ public class OrderCommandControllerTests
             .ReturnsAsync(new CommandResult<Order>(CommandOutcome.NotFound));
         var controller = new OrderCommandController(_commandBrokerMoq.Object, _mapper);
 
-        var actionResult = await controller.Ship(Orders.Order2);
+        var actionResult = await controller.Ship(Orders.Order2.Id);
         var notFoundResult = actionResult as NotFoundResult;
 
         Assert.NotNull(actionResult);
@@ -166,7 +165,7 @@ public class OrderCommandControllerTests
         _commandBrokerMoq.Setup(x => x.SendAsync(It.IsAny<CancelOrder>()))
             .ReturnsAsync(new CommandResult<Order>(CommandOutcome.Accepted, orderOut));
 
-        var actionResult = await controller.Cancel(orderIn);
+        var actionResult = await controller.Cancel(orderIn.Id);
         var okResult = Assert.IsType<OkObjectResult>(actionResult);
 
         Assert.NotNull(actionResult);
@@ -181,7 +180,7 @@ public class OrderCommandControllerTests
             .ReturnsAsync(new CommandResult<Order>(CommandOutcome.NotFound));
         var controller = new OrderCommandController(_commandBrokerMoq.Object, _mapper);
 
-        var actionResult = await controller.Cancel(Orders.Order2);
+        var actionResult = await controller.Cancel(Orders.Order2.Id);
         var notFoundResult = actionResult as NotFoundResult;
 
         Assert.NotNull(actionResult);

@@ -1,8 +1,8 @@
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Repositories;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 
-namespace CustomerService.Domain.CustomerAggregate.Handlers;
+namespace CustomerService.Domain.CustomerAggregate.CommandHandlers;
 
 public class CreateCustomerHandler : ICommandHandler<Customer, CreateCustomer>
 {
@@ -21,11 +21,12 @@ public class CreateCustomerHandler : ICommandHandler<Customer, CreateCustomer>
     {
         // Process command
         _logger.LogInformation("Handling command: {CommandName}", nameof(CreateCustomer));
+        if (command.Entity == null) return new CommandResult<Customer>(CommandOutcome.InvalidCommand);
         var domainEvent = command.Entity.Process(command);
 
         // Apply events
         command.Entity.Apply(domainEvent);
-            
+
         // Persist entity
         var entity = await _repository.AddAsync(command.Entity);
         if (entity == null) return new CommandResult<Customer>(CommandOutcome.InvalidCommand);

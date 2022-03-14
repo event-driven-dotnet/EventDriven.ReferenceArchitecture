@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EventDriven.CQRS.Abstractions.Queries;
+using Microsoft.AspNetCore.Mvc;
 using OrderService.Domain.OrderAggregate;
+using OrderService.Domain.OrderAggregate.Queries;
 using OrderService.DTO.Read;
-using OrderService.Repositories;
 using OrderState = OrderService.DTO.Read.OrderState;
 
 namespace OrderService.Controllers;
@@ -10,44 +11,45 @@ namespace OrderService.Controllers;
 [ApiController]
 public class OrderQueryController : ControllerBase
 {
-    private readonly IOrderRepository _repository;
+    private readonly IQueryBroker _queryBroker;
 
-    public OrderQueryController(IOrderRepository repository)
+    public OrderQueryController(
+        IQueryBroker queryBroker)
     {
-        _repository = repository;
+        _queryBroker = queryBroker;
     }
 
     // GET api/order
     [HttpGet]
     public async Task<IActionResult> GetOrders()
     {
-        var orders = await _repository.GetAsync();
-        var result = GetOrderViews(orders);
+        var orders = await _queryBroker.SendAsync(new GetOrders());
+        var result = MapOrderViews(orders);
         return Ok(result);
     }
-        
+    
     // GET api/order/customer/id
     [HttpGet]
-    [Route("customer/{id}")]
+    [Route("customer/{id:guid}")]
     public async Task<IActionResult> GetOrders([FromRoute] Guid id)
     {
-        var orders = await _repository.GetByCustomerAsync(id);
-        var result = GetOrderViews(orders);
+        var orders = await _queryBroker.SendAsync(new GetOrdersByCustomer(id));
+        var result = MapOrderViews(orders);
         return Ok(result);
     }
 
     // GET api/order/id
     [HttpGet]
-    [Route("{id}")]
+    [Route("{id:guid}")]
     public async Task<IActionResult> GetOrder([FromRoute] Guid id)
     {
-        var order = await _repository.GetAsync(id);
-        var result = GetOrderViews
-            (Enumerable.Repeat(order, 1)).Single();
+        var order = await _queryBroker.SendAsync(new GetOrder(id));
+        if (order == null) return NotFound();
+        var result = MapOrderViews(Enumerable.Repeat(order, 1)).Single();
         return Ok(result);
     }
-
-    private IEnumerable<OrderView> GetOrderViews(IEnumerable<Order?> orders) =>
+    
+    private IEnumerable<OrderView> MapOrderViews(IEnumerable<Order?> orders) =>
         orders.Select(o => new OrderView
         {
             Id = o!.Id,
@@ -59,7 +61,7 @@ public class OrderQueryController : ControllerBase
             State = o.ShippingAddress.State,
             Country = o.ShippingAddress.Country,
             PostalCode = o.ShippingAddress.PostalCode,
-            OrderState = (OrderState) o.OrderState,
-            ETag = o.ETag
+            OrderState = (OrderState)o.OrderState,
+            ETag = o.ETag ?? string.Empty
         });
 }

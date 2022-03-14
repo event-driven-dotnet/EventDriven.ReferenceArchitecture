@@ -1,4 +1,4 @@
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.DependencyInjection;
 using EventDriven.DependencyInjection.URF.Mongo;
 using OrderService.Configuration;
 using OrderService.Domain.OrderAggregate;
@@ -15,8 +15,8 @@ builder.Services.AddSwaggerGen();
 // Add automapper
 builder.Services.AddAutoMapper(typeof(Program));
 
-// Add commands
-builder.Services.AddCommands(typeof(Program));
+// Add command and query handlers
+builder.Services.AddHandlers(typeof(Program));
 
 // Add database settings
 builder.Services.AddSingleton<IOrderRepository, OrderRepository>();

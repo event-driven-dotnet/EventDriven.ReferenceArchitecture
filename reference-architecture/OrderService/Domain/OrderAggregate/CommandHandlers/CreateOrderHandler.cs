@@ -1,8 +1,8 @@
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using OrderService.Domain.OrderAggregate.Commands;
 using OrderService.Repositories;
 
-namespace OrderService.Domain.OrderAggregate.Handlers;
+namespace OrderService.Domain.OrderAggregate.CommandHandlers;
 
 public class CreateOrderHandler : ICommandHandler<Order, CreateOrder>
 {
@@ -21,6 +21,7 @@ public class CreateOrderHandler : ICommandHandler<Order, CreateOrder>
     {
         // Process command
         _logger.LogInformation("Handling command: {CommandName}", nameof(CreateOrder));
+        if (command.Entity == null) return new CommandResult<Order>(CommandOutcome.InvalidCommand);
         var domainEvent = command.Entity.Process(command);
 
         // Apply events

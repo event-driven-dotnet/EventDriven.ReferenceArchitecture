@@ -2,4 +2,4 @@
 
 namespace OrderService.Domain.OrderAggregate.Events;
 
-public record OrderShipped(Order Entity) : DomainEvent<Order>(Entity);
+public record OrderShipped(Guid EntityId) : DomainEvent(EntityId);

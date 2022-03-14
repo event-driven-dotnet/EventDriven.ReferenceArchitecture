@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using Microsoft.Extensions.Logging;
 using Moq;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.Commands;
-using OrderService.Domain.OrderAggregate.Handlers;
+using OrderService.Domain.OrderAggregate.CommandHandlers;
 using OrderService.Repositories;
 using OrderService.Tests.Fakes;
 using OrderService.Tests.Helpers;

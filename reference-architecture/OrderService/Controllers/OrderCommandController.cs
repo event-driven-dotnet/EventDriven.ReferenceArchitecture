@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.Commands;
@@ -50,7 +50,7 @@ public class OrderCommandController : ControllerBase
 
     // DELETE api/order
     [HttpDelete]
-    [Route("{id}")]
+    [Route("{id:guid}")]
     public async Task<IActionResult> Remove([FromRoute] Guid id)
     {
         var result = await _commandBroker.SendAsync(new RemoveOrder(id));
@@ -61,11 +61,10 @@ public class OrderCommandController : ControllerBase
 
     // PUT api/order/ship
     [HttpPut]
-    [Route("ship")]
-    public async Task<IActionResult> Ship([FromBody] DTO.Write.Order orderDto)
+    [Route("ship/{id:guid}/{etag}")]
+    public async Task<IActionResult> Ship([FromRoute] Guid id)
     {
-        var orderIn = _mapper.Map<Order>(orderDto);
-        var result = await _commandBroker.SendAsync(new ShipOrder(orderIn));
+        var result = await _commandBroker.SendAsync(new ShipOrder(id));
 
         if (result.Outcome != CommandOutcome.Accepted)
             return result.ToActionResult();
@@ -75,11 +74,10 @@ public class OrderCommandController : ControllerBase
 
     // PUT api/order/cancel
     [HttpPut]
-    [Route("cancel")]
-    public async Task<IActionResult> Cancel([FromBody] DTO.Write.Order orderDto)
+    [Route("cancel/{id:guid}/{etag}")]
+    public async Task<IActionResult> Cancel([FromRoute] Guid id)
     {
-        var orderIn = _mapper.Map<Order>(orderDto);
-        var result = await _commandBroker.SendAsync(new CancelOrder(orderIn));
+        var result = await _commandBroker.SendAsync(new CancelOrder(id));
 
         if (result.Outcome != CommandOutcome.Accepted)
             return result.ToActionResult();

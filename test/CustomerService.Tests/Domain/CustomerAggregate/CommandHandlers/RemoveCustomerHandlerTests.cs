@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CustomerService.Domain.CustomerAggregate.Commands;
-using CustomerService.Domain.CustomerAggregate.Handlers;
+using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.Repositories;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
-namespace CustomerService.Tests.Domain.CustomerAggregate.Handlers;
+namespace CustomerService.Tests.Domain.CustomerAggregate.CommandHandlers;
 
 public class RemoveCustomerHandlerTests
 {

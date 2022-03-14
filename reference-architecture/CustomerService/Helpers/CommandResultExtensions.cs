@@ -1,4 +1,4 @@
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerService.Helpers

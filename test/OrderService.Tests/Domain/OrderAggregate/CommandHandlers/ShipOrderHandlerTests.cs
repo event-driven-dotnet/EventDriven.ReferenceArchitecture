@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Repositories;
 using Microsoft.Extensions.Logging;
 using Moq;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.Commands;
-using OrderService.Domain.OrderAggregate.Handlers;
+using OrderService.Domain.OrderAggregate.CommandHandlers;
 using OrderService.Repositories;
 using OrderService.Tests.Fakes;
 using OrderService.Tests.Helpers;
@@ -44,7 +44,7 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
                 .ReturnsAsync((Order) null!);
             var handler = new ShipOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
-            var result = await handler.Handle(new ShipOrder(new Order()), default);
+            var result = await handler.Handle(new ShipOrder(Guid.Empty), default);
 
             Assert.NotNull(result);
             Assert.Equal(CommandOutcome.NotFound, result.Outcome);
@@ -60,7 +60,7 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
                 .ReturnsAsync((Order) null!);
             var handler = new ShipOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
-            var result = await handler.Handle(new ShipOrder(new Order()), default);
+            var result = await handler.Handle(new ShipOrder(Guid.Empty), default);
 
             Assert.NotNull(result);
             Assert.Equal(CommandOutcome.NotFound, result.Outcome);
@@ -76,7 +76,7 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
                 .ThrowsAsync(new ConcurrencyException());
             var handler = new ShipOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
-            var result = await handler.Handle(new ShipOrder(new Order()), default);
+            var result = await handler.Handle(new ShipOrder(Guid.Empty), default);
 
             Assert.NotNull(result);
             Assert.Equal(CommandOutcome.Conflict, result.Outcome);

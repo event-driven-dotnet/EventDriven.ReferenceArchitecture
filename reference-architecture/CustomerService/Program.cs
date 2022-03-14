@@ -1,7 +1,7 @@
 using CustomerService.Configuration;
 using CustomerService.Domain.CustomerAggregate;
 using CustomerService.Repositories;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.DependencyInjection;
 using EventDriven.DependencyInjection.URF.Mongo;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,8 +14,8 @@ builder.Services.AddSwaggerGen();
 // Add automapper
 builder.Services.AddAutoMapper(typeof(Program));
 
-// Add commands
-builder.Services.AddCommands(typeof(Program));
+// Add command and query handlers
+builder.Services.AddHandlers(typeof(Program));
 
 // Add database settings
 builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();

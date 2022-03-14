@@ -1,4 +1,4 @@
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Entities;
 using EventDriven.DDD.Abstractions.Events;
 using OrderService.Domain.OrderAggregate.Commands;
@@ -53,7 +53,7 @@ public class Order :
     }
     public OrderShipped Process(ShipOrder command) =>
         // To process command, return one or more domain events
-        new(command.Entity);
+        new(command.EntityId);
 
     public void Apply(OrderShipped domainEvent)
     {
@@ -64,7 +64,7 @@ public class Order :
 
     public OrderCancelled Process(CancelOrder command) =>
         // To process command, return one or more domain events
-        new(command.Entity);
+        new(command.EntityId);
 
     public void Apply(OrderCancelled domainEvent)
     {

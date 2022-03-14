@@ -10,6 +10,6 @@ namespace CustomerService.DTO.Read
         public string State { get; set; } = null!;
         public string Country { get; set; } = null!;
         public string PostalCode { get; set; } = null!;
-        public string ETag { get; set; } = null!;
+        public string? ETag { get; set; }
     }
 }

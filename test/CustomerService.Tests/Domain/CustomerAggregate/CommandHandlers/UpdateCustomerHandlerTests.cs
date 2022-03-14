@@ -5,17 +5,17 @@ using AutoMapper;
 using Common.Integration.Events;
 using CustomerService.Domain.CustomerAggregate;
 using CustomerService.Domain.CustomerAggregate.Commands;
-using CustomerService.Domain.CustomerAggregate.Handlers;
+using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.Repositories;
 using CustomerService.Tests.Helpers;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Repositories;
 using EventDriven.EventBus.Abstractions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
-namespace CustomerService.Tests.Domain.CustomerAggregate.Handlers;
+namespace CustomerService.Tests.Domain.CustomerAggregate.CommandHandlers;
 
 public class UpdateCustomerHandlerTests
 {

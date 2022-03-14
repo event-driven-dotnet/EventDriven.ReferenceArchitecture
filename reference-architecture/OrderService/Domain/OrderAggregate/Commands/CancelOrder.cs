@@ -1,5 +1,5 @@
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 
 namespace OrderService.Domain.OrderAggregate.Commands;
 
-public record CancelOrder(Order Entity) : Command<Order>(Entity);
+public record CancelOrder(Guid EntityId) : Command<Order>(null, EntityId);

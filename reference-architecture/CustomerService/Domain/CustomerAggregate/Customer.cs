@@ -1,6 +1,6 @@
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Domain.CustomerAggregate.Events;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Entities;
 using EventDriven.DDD.Abstractions.Events;
 

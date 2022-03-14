@@ -1,9 +1,9 @@
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Repositories;
 using OrderService.Domain.OrderAggregate.Commands;
 using OrderService.Repositories;
 
-namespace OrderService.Domain.OrderAggregate.Handlers;
+namespace OrderService.Domain.OrderAggregate.CommandHandlers;
 
 public class UpdateOrderHandler : ICommandHandler<Order, UpdateOrder>
 {
@@ -21,6 +21,7 @@ public class UpdateOrderHandler : ICommandHandler<Order, UpdateOrder>
     public async Task<CommandResult<Order>> Handle(UpdateOrder command, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Handling command: {CommandName}", nameof(UpdateOrder));
+        if (command.Entity == null) return new CommandResult<Order>(CommandOutcome.InvalidCommand);
 
         try
         {

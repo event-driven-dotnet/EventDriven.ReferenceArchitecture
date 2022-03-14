@@ -276,13 +276,19 @@ this.ScenarioInitialize(scenarioInfo);
 #line 36
     testRunner.Given("an order has been created with \'order-to-ship.json\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
+                            "ETag"});
+                table1.AddRow(new string[] {
+                            "dd798647-9c83-4d8f-8102-4d70d0c6c4c3",
+                            "4a0f4ae5-c304-4a6a-8d46-efc8e5af5218"});
 #line 37
-    testRunner.When("I make a PUT request for \'Order\' with \'order-to-ship.json\' to \'api/order/ship\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("I make a PUT request for \'Order\' with the following data to \'api/order/ship\'", ((string)(null)), table1, "When ");
 #line hidden
-#line 38
+#line 40
     testRunner.Then("the response status code should be \'200\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 39
+#line 41
     testRunner.And("the response customer should be \'shipped-order.json\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -297,7 +303,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cancel an order", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 41
+#line 43
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -307,16 +313,22 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 42
+#line 44
     testRunner.Given("an order has been created with \'order-to-cancel.json\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 43
-    testRunner.When("I make a PUT request for \'Order\' with \'order-to-cancel.json\' to \'api/order/ship\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
+                            "ETag"});
+                table2.AddRow(new string[] {
+                            "775c520f-2fec-4ffd-b5fb-870e605fd05b",
+                            "4a0f4ae5-c304-4a6a-8d46-efc8e5af5218"});
+#line 45
+    testRunner.When("I make a PUT request for \'Order\' with the following data to \'api/order/cancel\'", ((string)(null)), table2, "When ");
 #line hidden
-#line 44
+#line 48
     testRunner.Then("the response status code should be \'200\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 45
+#line 49
     testRunner.And("the response customer should be \'cancelled-order.json\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -331,7 +343,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Remove an order", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 47
+#line 51
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -341,14 +353,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 48
+#line 52
     testRunner.Given("an order has been created with \'order.json\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 49
-    testRunner.When("I make a DELETE request for \'Order\' with id \'22eea083-6f0d-48f2-8c82-65ac850e5aad" +
+#line 53
+    testRunner.When("I make a DELETE request for \'Order\' with id \'3fa85f64-5717-4562-b3fc-2c963f66afa6" +
                         "\' to \'api/order\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 50
+#line 54
     testRunner.Then("the response status code should be \'204\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

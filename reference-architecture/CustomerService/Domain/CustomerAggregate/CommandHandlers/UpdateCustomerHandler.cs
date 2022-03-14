@@ -2,12 +2,12 @@ using AutoMapper;
 using Common.Integration.Events;
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Repositories;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Repositories;
 using EventDriven.EventBus.Abstractions;
 using Integration = Common.Integration;
 
-namespace CustomerService.Domain.CustomerAggregate.Handlers;
+namespace CustomerService.Domain.CustomerAggregate.CommandHandlers;
 
 public class UpdateCustomerHandler : ICommandHandler<Customer, UpdateCustomer>
 {
@@ -32,6 +32,7 @@ public class UpdateCustomerHandler : ICommandHandler<Customer, UpdateCustomer>
     {
         // Process command
         _logger.LogInformation("Handling command: {CommandName}", nameof(UpdateCustomer));
+        if (command.Entity == null) return new CommandResult<Customer>(CommandOutcome.InvalidCommand);
         var domainEvent = command.Entity.Process(command);
 
         // Apply events

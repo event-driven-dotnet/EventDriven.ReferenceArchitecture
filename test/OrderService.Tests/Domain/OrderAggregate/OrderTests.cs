@@ -104,7 +104,7 @@ public class OrderTests
         var orderIn = _mapper.Map<Order>(Orders.Order1);
         var order = new Order();
 
-        var events = order.Process(new ShipOrder(orderIn));
+        var events = order.Process(new ShipOrder(orderIn.Id));
 
         Assert.NotNull(events);
         Assert.IsAssignableFrom<OrderShipped>(events);
@@ -114,7 +114,7 @@ public class OrderTests
     public void WhenApplyingOrderShippedEvent_ThenShouldBeInShippedState()
     {
         var orderIn = _mapper.Map<Order>(Orders.Order1);
-        var shippedEvent = new OrderShipped(orderIn);
+        var shippedEvent = new OrderShipped(orderIn.Id);
 
         orderIn.Apply(shippedEvent);
 
@@ -127,7 +127,7 @@ public class OrderTests
         var orderIn = _mapper.Map<Order>(Orders.Order1);
         var order = new Order();
 
-        var events = order.Process(new CancelOrder(orderIn));
+        var events = order.Process(new CancelOrder(orderIn.Id));
 
         Assert.NotNull(events);
         Assert.IsAssignableFrom<OrderCancelled>(events);
@@ -137,7 +137,7 @@ public class OrderTests
     public void WhenApplyingOrderCancelledEvent_ThenShouldBeInCancelledState()
     {
         var orderIn = _mapper.Map<Order>(Orders.Order1);
-        var cancelledEvent = new OrderCancelled(orderIn);
+        var cancelledEvent = new OrderCancelled(orderIn.Id);
 
         orderIn.Apply(cancelledEvent);
 

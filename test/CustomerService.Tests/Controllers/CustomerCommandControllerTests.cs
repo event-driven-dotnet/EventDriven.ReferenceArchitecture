@@ -6,7 +6,7 @@ using CustomerService.Domain.CustomerAggregate;
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Tests.Fakes;
 using CustomerService.Tests.Helpers;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;

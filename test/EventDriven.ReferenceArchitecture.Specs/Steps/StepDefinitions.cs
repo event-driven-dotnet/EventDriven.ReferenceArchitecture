@@ -11,6 +11,7 @@ using EventDriven.ReferenceArchitecture.Specs.Helpers;
 using EventDriven.ReferenceArchitecture.Specs.Repositories;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Repositories;
+using TechTalk.SpecFlow.Assist;
 using Xunit;
 using CustomerWriteDto = CustomerService.DTO.Write.Customer;
 using CustomerReadDto = CustomerService.DTO.Read.CustomerView;
@@ -119,6 +120,13 @@ public class StepDefinitions
         var json = JsonFilesRepo.Files[file];
         var content = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json);
         Response = await GetHttpClient(clientType).PutAsync(endpoint, content);
+    }
+
+    [When(@"I make a PUT request for '(.*)' with the following data to '(.*)'")]
+    public async Task WhenIMakeAputRequestWithTheFollowingData(HttpClientType clientType, string endpoint, Table table)
+    {
+        var request = table.CreateInstance<PutRequest>();
+        Response = await GetHttpClient(clientType).PutAsync($"{endpoint}/{request.Id}/{request.ETag}", null);
     }
 
     [When(@"I make a DELETE request for '(.*)' with id '(.*)' to '(.*)'")]

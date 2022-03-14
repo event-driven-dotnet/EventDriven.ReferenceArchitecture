@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Repositories;
 using Microsoft.Extensions.Logging;
 using Moq;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.Commands;
-using OrderService.Domain.OrderAggregate.Handlers;
+using OrderService.Domain.OrderAggregate.CommandHandlers;
 using OrderService.Repositories;
 using OrderService.Tests.Fakes;
 using OrderService.Tests.Helpers;
@@ -45,7 +45,7 @@ public class CancelOrderHandlerTests
             .ReturnsAsync((Order) null!);
         var handler = new CancelOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
-        var result = await handler.Handle(new CancelOrder(new Order()), default);
+        var result = await handler.Handle(new CancelOrder(Guid.Empty), default);
 
         Assert.NotNull(result);
         Assert.Equal(CommandOutcome.NotFound, result.Outcome);
@@ -61,7 +61,7 @@ public class CancelOrderHandlerTests
             .ReturnsAsync(order);
         var handler = new CancelOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
-        var result = await handler.Handle(new CancelOrder(new Order()), default);
+        var result = await handler.Handle(new CancelOrder(Guid.Empty), default);
 
         Assert.NotNull(result);
         Assert.Equal(OrderState.Cancelled, result.Entity!.OrderState);
@@ -77,7 +77,7 @@ public class CancelOrderHandlerTests
             .ThrowsAsync(new ConcurrencyException());
         var handler = new CancelOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
 
-        var result = await handler.Handle(new CancelOrder(new Order()), default);
+        var result = await handler.Handle(new CancelOrder(Guid.Empty), default);
 
         Assert.NotNull(result);
         Assert.Equal(CommandOutcome.Conflict, result.Outcome);

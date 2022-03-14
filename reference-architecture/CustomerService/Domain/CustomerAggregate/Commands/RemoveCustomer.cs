@@ -1,4 +1,4 @@
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 
 namespace CustomerService.Domain.CustomerAggregate.Commands
 {

@@ -1,8 +1,8 @@
 using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Repositories;
-using EventDriven.DDD.Abstractions.Commands;
+using EventDriven.CQRS.Abstractions.Commands;
 
-namespace CustomerService.Domain.CustomerAggregate.Handlers;
+namespace CustomerService.Domain.CustomerAggregate.CommandHandlers;
 
 public class RemoveCustomerHandler : ICommandHandler<RemoveCustomer>
 {
