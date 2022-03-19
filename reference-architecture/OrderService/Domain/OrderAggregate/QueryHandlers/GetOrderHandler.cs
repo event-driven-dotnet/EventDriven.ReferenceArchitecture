@@ -16,7 +16,6 @@ public class GetOrderHandler : IQueryHandler<GetOrder, Order?>
 
     public async Task<Order?> Handle(GetOrder query, CancellationToken cancellationToken)
     {
-        // Retrieve entities
         var result = await _repository.GetAsync(query.Id);
         return result;
     }

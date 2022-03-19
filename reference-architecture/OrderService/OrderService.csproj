@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="EventDriven.CQRS.Abstractions" Version="2.0.0-beta3" />
+    <PackageReference Include="EventDriven.CQRS.Abstractions" Version="2.0.0" />
+    <PackageReference Include="EventDriven.CQRS.Extensions" Version="2.0.0" />
     <PackageReference Include="EventDriven.DependencyInjection.URF.Mongo" Version="1.1.0" />
     <PackageReference Include="EventDriven.EventBus.Dapr" Version="1.2.0" />
     <PackageReference Include="EventDriven.EventBus.Dapr.EventCache.Mongo" Version="1.2.0" />

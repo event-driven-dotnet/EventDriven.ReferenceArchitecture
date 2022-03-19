@@ -16,7 +16,6 @@ public class GetCustomersHandler : IQueryHandler<GetCustomers, IEnumerable<Custo
 
     public async Task<IEnumerable<Customer>> Handle(GetCustomers query, CancellationToken cancellationToken)
     {
-        // Retrieve entities
         var result = await _repository.GetAsync();
         return result;
     }

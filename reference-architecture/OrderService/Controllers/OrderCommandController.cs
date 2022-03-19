@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using EventDriven.CQRS.Abstractions.Commands;
+using EventDriven.CQRS.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.Commands;
-using OrderService.Helpers;
 
 namespace OrderService.Controllers;
 

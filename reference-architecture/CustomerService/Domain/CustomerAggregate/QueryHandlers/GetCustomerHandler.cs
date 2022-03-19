@@ -16,7 +16,6 @@ public class GetCustomerHandler : IQueryHandler<GetCustomer, Customer?>
 
     public async Task<Customer?> Handle(GetCustomer query, CancellationToken cancellationToken)
     {
-        // Retrieve entity
         var result = await _repository.GetAsync(query.Id);
         return result;
     }
