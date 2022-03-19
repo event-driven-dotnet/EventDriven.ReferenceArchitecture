@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Repositories;
-using Microsoft.Extensions.Logging;
 using Moq;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.Commands;
@@ -17,7 +16,6 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers;
 
 public class CancelOrderHandlerTests
 {
-    private readonly Mock<ILogger<CancelOrderHandler>> _loggerMoq;
     private readonly IMapper _mapper;
 
     private readonly Mock<IOrderRepository> _repositoryMoq;
@@ -25,14 +23,13 @@ public class CancelOrderHandlerTests
     public CancelOrderHandlerTests()
     {
         _repositoryMoq = new Mock<IOrderRepository>();
-        _loggerMoq = new Mock<ILogger<CancelOrderHandler>>();
         _mapper = MappingHelper.GetMapper();
     }
 
     [Fact]
     public void WhenInstantiated_ThenShouldBeOfCorrectType()
     {
-        var handler = new CancelOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
+        var handler = new CancelOrderHandler(_repositoryMoq.Object);
 
         Assert.NotNull(handler);
         Assert.IsType<CancelOrderHandler>(handler);
@@ -43,7 +40,7 @@ public class CancelOrderHandlerTests
     {
         _repositoryMoq.Setup(x => x.GetAsync(It.IsAny<Guid>()))
             .ReturnsAsync((Order) null!);
-        var handler = new CancelOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
+        var handler = new CancelOrderHandler(_repositoryMoq.Object);
 
         var result = await handler.Handle(new CancelOrder(Guid.Empty), default);
 
@@ -59,7 +56,7 @@ public class CancelOrderHandlerTests
             .ReturnsAsync(order);
         _repositoryMoq.Setup(x => x.UpdateOrderStateAsync(It.IsAny<Order>(), It.IsAny<OrderState>()))
             .ReturnsAsync(order);
-        var handler = new CancelOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
+        var handler = new CancelOrderHandler(_repositoryMoq.Object);
 
         var result = await handler.Handle(new CancelOrder(Guid.Empty), default);
 
@@ -75,7 +72,7 @@ public class CancelOrderHandlerTests
             .ReturnsAsync(order);
         _repositoryMoq.Setup(x => x.UpdateOrderStateAsync(It.IsAny<Order>(), It.IsAny<OrderState>()))
             .ThrowsAsync(new ConcurrencyException());
-        var handler = new CancelOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
+        var handler = new CancelOrderHandler(_repositoryMoq.Object);
 
         var result = await handler.Handle(new CancelOrder(Guid.Empty), default);
 

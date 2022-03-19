@@ -7,19 +7,15 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers;
 public class RemoveCustomerHandler : ICommandHandler<RemoveCustomer>
 {
     private readonly ICustomerRepository _repository;
-    private readonly ILogger<RemoveCustomerHandler> _logger;
 
     public RemoveCustomerHandler(
-        ICustomerRepository repository,
-        ILogger<RemoveCustomerHandler> logger)
+        ICustomerRepository repository)
     {
         _repository = repository;
-        _logger = logger;
     }
     
     public async Task<CommandResult> Handle(RemoveCustomer command, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Handling command: {CommandName}", nameof(RemoveCustomer));
         var entity = await _repository.GetAsync(command.EntityId);
         if (entity != null)
         {

@@ -7,7 +7,6 @@ using CustomerService.Domain.CustomerAggregate.QueryHandlers;
 using CustomerService.Repositories;
 using CustomerService.Tests.Fakes;
 using CustomerService.Tests.Helpers;
-using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -16,12 +15,10 @@ namespace CustomerService.Tests.Domain.CustomerAggregate.QueryHandlers;
 public class GetCustomersHandlerTests
 {
     private readonly IMapper _mapper;
-    private readonly Mock<ILogger<GetCustomersHandler>> _loggerMock;
     private readonly Mock<ICustomerRepository> _repositoryMock;
 
     public GetCustomersHandlerTests()
     {
-        _loggerMock = new Mock<ILogger<GetCustomersHandler>>();
         _repositoryMock = new Mock<ICustomerRepository>();
         _mapper = MappingHelper.GetMapper();
     }
@@ -29,7 +26,7 @@ public class GetCustomersHandlerTests
     [Fact]
     public void WhenInstantiated_ThenShouldBeOfCorrectType()
     {
-        var handler = new GetCustomersHandler(_repositoryMock.Object, _loggerMock.Object);
+        var handler = new GetCustomersHandler(_repositoryMock.Object);
 
         Assert.NotNull(handler);
         Assert.IsType<GetCustomersHandler>(handler);
@@ -46,7 +43,7 @@ public class GetCustomersHandlerTests
                 _mapper.Map<Customer>(Customers.Customer3)
             });
 
-        var handler = new GetCustomersHandler(_repositoryMock.Object, _loggerMock.Object);
+        var handler = new GetCustomersHandler(_repositoryMock.Object);
 
         var result = await handler.Handle(new GetCustomers(), default);
 

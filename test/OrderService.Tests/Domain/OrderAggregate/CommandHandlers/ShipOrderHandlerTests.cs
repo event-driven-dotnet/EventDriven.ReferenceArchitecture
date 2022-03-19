@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EventDriven.CQRS.Abstractions.Commands;
 using EventDriven.DDD.Abstractions.Repositories;
-using Microsoft.Extensions.Logging;
 using Moq;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.Commands;
@@ -17,21 +16,19 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
 {
     public class ShipOrderHandlerTests
     {
-        private readonly Mock<ILogger<ShipOrderHandler>> _loggerMoq;
         private readonly IMapper _mapper;
         private readonly Mock<IOrderRepository> _repositoryMoq;
 
         public ShipOrderHandlerTests()
         {
             _repositoryMoq = new Mock<IOrderRepository>();
-            _loggerMoq = new Mock<ILogger<ShipOrderHandler>>();
             _mapper = MappingHelper.GetMapper();
         }
 
         [Fact]
         public void WhenInstantiated_ThenShouldBeOfCorrectType()
         {
-            var handler = new ShipOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
+            var handler = new ShipOrderHandler(_repositoryMoq.Object);
 
             Assert.NotNull(handler);
             Assert.IsType<ShipOrderHandler>(handler);
@@ -42,7 +39,7 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
         {
             _repositoryMoq.Setup(x => x.GetAsync(It.IsAny<Guid>()))
                 .ReturnsAsync((Order) null!);
-            var handler = new ShipOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
+            var handler = new ShipOrderHandler(_repositoryMoq.Object);
 
             var result = await handler.Handle(new ShipOrder(Guid.Empty), default);
 
@@ -58,7 +55,7 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
                 .ReturnsAsync(order);
             _repositoryMoq.Setup(x => x.UpdateOrderStateAsync(It.IsAny<Order>(), It.IsAny<OrderState>()))
                 .ReturnsAsync((Order) null!);
-            var handler = new ShipOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
+            var handler = new ShipOrderHandler(_repositoryMoq.Object);
 
             var result = await handler.Handle(new ShipOrder(Guid.Empty), default);
 
@@ -74,7 +71,7 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers
                 .ReturnsAsync(order);
             _repositoryMoq.Setup(x => x.UpdateOrderStateAsync(It.IsAny<Order>(), It.IsAny<OrderState>()))
                 .ThrowsAsync(new ConcurrencyException());
-            var handler = new ShipOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
+            var handler = new ShipOrderHandler(_repositoryMoq.Object);
 
             var result = await handler.Handle(new ShipOrder(Guid.Empty), default);
 

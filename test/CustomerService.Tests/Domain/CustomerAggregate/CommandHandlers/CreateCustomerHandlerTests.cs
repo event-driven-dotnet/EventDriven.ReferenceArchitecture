@@ -4,7 +4,6 @@ using CustomerService.Domain.CustomerAggregate.Commands;
 using CustomerService.Domain.CustomerAggregate.CommandHandlers;
 using CustomerService.Repositories;
 using EventDriven.CQRS.Abstractions.Commands;
-using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -12,19 +11,17 @@ namespace CustomerService.Tests.Domain.CustomerAggregate.CommandHandlers;
 
 public class CreateCustomerHandlerTests
 {
-    private readonly Mock<ILogger<CreateCustomerHandler>> _loggerMock;
     private readonly Mock<ICustomerRepository> _repositoryMock;
 
     public CreateCustomerHandlerTests()
     {
-        _loggerMock = new Mock<ILogger<CreateCustomerHandler>>();
         _repositoryMock = new Mock<ICustomerRepository>();
     }
 
     [Fact]
     public void WhenInstantiated_ThenShouldBeOfCorrectType()
     {
-        var handler = new CreateCustomerHandler(_repositoryMock.Object, _loggerMock.Object);
+        var handler = new CreateCustomerHandler(_repositoryMock.Object);
 
         Assert.NotNull(handler);
         Assert.IsType<CreateCustomerHandler>(handler);
@@ -33,7 +30,7 @@ public class CreateCustomerHandlerTests
     [Fact]
     public async Task WhenCreatingEntityFails_ThenShouldReturnFailure()
     {
-        var handler = new CreateCustomerHandler(_repositoryMock.Object, _loggerMock.Object);
+        var handler = new CreateCustomerHandler(_repositoryMock.Object);
 
         var cmdResult = await handler.Handle(new CreateCustomer(new Customer()), default);
 
@@ -46,7 +43,7 @@ public class CreateCustomerHandlerTests
         var customer = new Customer();
         _repositoryMock.Setup(x => x.AddAsync(It.IsAny<Customer>()))
             .ReturnsAsync(customer);
-        var handler = new CreateCustomerHandler(_repositoryMock.Object, _loggerMock.Object);
+        var handler = new CreateCustomerHandler(_repositoryMock.Object);
 
         var cmdResult = await handler.Handle(new CreateCustomer(customer), default);
 
@@ -59,7 +56,7 @@ public class CreateCustomerHandlerTests
         var customer = new Customer();
         _repositoryMock.Setup(x => x.AddAsync(It.IsAny<Customer>()))
             .ReturnsAsync(customer);
-        var handler = new CreateCustomerHandler(_repositoryMock.Object, _loggerMock.Object);
+        var handler = new CreateCustomerHandler(_repositoryMock.Object);
 
         var cmdResult = await handler.Handle(new CreateCustomer(customer), default);
 

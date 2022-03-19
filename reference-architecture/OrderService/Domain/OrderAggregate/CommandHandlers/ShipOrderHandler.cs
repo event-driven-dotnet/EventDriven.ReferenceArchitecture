@@ -8,20 +8,16 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers;
 public class ShipOrderHandler : ICommandHandler<Order, ShipOrder>
 {
     private readonly IOrderRepository _repository;
-    private readonly ILogger<ShipOrderHandler> _logger;
 
     public ShipOrderHandler(
-        IOrderRepository repository,
-        ILogger<ShipOrderHandler> logger)
+        IOrderRepository repository)
     {
         _repository = repository;
-        _logger = logger;
     }
 
     public async Task<CommandResult<Order>> Handle(ShipOrder command, CancellationToken cancellationToken)
     {
         // Process command
-        _logger.LogInformation("Handling command: {CommandName}", nameof(ShipOrder));
         var entity = await _repository.GetAsync(command.EntityId);
         if (entity == null) return new CommandResult<Order>(CommandOutcome.NotFound);
         var domainEvent = entity.Process(command);

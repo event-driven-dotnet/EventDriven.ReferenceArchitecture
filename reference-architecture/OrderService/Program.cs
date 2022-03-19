@@ -1,5 +1,7 @@
+using Common.Behaviors;
 using EventDriven.CQRS.Abstractions.DependencyInjection;
 using EventDriven.DependencyInjection.URF.Mongo;
+using MediatR;
 using OrderService.Configuration;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Integration.EventHandlers;
@@ -17,6 +19,9 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 // Add command and query handlers
 builder.Services.AddHandlers(typeof(Program));
+
+// Add behaviors
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
 // Add database settings
 builder.Services.AddSingleton<IOrderRepository, OrderRepository>();

@@ -1,8 +1,10 @@
+using Common.Behaviors;
 using CustomerService.Configuration;
 using CustomerService.Domain.CustomerAggregate;
 using CustomerService.Repositories;
 using EventDriven.CQRS.Abstractions.DependencyInjection;
 using EventDriven.DependencyInjection.URF.Mongo;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,9 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 // Add command and query handlers
 builder.Services.AddHandlers(typeof(Program));
+
+// Add behaviors
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
 // Add database settings
 builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();

@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using EventDriven.CQRS.Abstractions.Commands;
-using Microsoft.Extensions.Logging;
 using Moq;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.Commands;
@@ -15,7 +14,6 @@ namespace OrderService.Tests.Domain.OrderAggregate.CommandHandlers;
 
 public class CreateOrderHandlerTests
 {
-    private readonly Mock<ILogger<CreateOrderHandler>> _loggerMoq;
     private readonly IMapper _mapper;
 
     private readonly Mock<IOrderRepository> _repositoryMoq;
@@ -23,14 +21,13 @@ public class CreateOrderHandlerTests
     public CreateOrderHandlerTests()
     {
         _repositoryMoq = new Mock<IOrderRepository>();
-        _loggerMoq = new Mock<ILogger<CreateOrderHandler>>();
         _mapper = MappingHelper.GetMapper();
     }
 
     [Fact]
     public void WhenInstantiated_ThenShouldBeOfCorrectType()
     {
-        var handler = new CreateOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
+        var handler = new CreateOrderHandler(_repositoryMoq.Object);
 
         Assert.NotNull(handler);
         Assert.IsType<CreateOrderHandler>(handler);
@@ -41,7 +38,7 @@ public class CreateOrderHandlerTests
     {
         _repositoryMoq.Setup(x => x.AddAsync(It.IsAny<Order>()))
             .ReturnsAsync((Order) null!);
-        var handler = new CreateOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
+        var handler = new CreateOrderHandler(_repositoryMoq.Object);
 
         var result = await handler.Handle(new CreateOrder(_mapper.Map<Order>(Orders.Order1)), default);
 
@@ -55,7 +52,7 @@ public class CreateOrderHandlerTests
         var order = _mapper.Map<Order>(Orders.Order1);
         _repositoryMoq.Setup(x => x.AddAsync(It.IsAny<Order>()))
             .ReturnsAsync(order);
-        var handler = new CreateOrderHandler(_repositoryMoq.Object, _loggerMoq.Object);
+        var handler = new CreateOrderHandler(_repositoryMoq.Object);
 
         var result = await handler.Handle(new CreateOrder(order), default);
 

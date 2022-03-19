@@ -7,20 +7,16 @@ namespace CustomerService.Domain.CustomerAggregate.CommandHandlers;
 public class CreateCustomerHandler : ICommandHandler<Customer, CreateCustomer>
 {
     private readonly ICustomerRepository _repository;
-    private readonly ILogger<CreateCustomerHandler> _logger;
 
     public CreateCustomerHandler(
-        ICustomerRepository repository,
-        ILogger<CreateCustomerHandler> logger)
+        ICustomerRepository repository)
     {
         _repository = repository;
-        _logger = logger;
     }
     
     public async Task<CommandResult<Customer>> Handle(CreateCustomer command, CancellationToken cancellationToken)
     {
         // Process command
-        _logger.LogInformation("Handling command: {CommandName}", nameof(CreateCustomer));
         if (command.Entity == null) return new CommandResult<Customer>(CommandOutcome.InvalidCommand);
         var domainEvent = command.Entity.Process(command);
 

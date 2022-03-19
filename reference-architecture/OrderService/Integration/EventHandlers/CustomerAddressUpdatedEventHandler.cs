@@ -23,7 +23,7 @@ public class CustomerAddressUpdatedEventHandler : IntegrationEventHandler<Custom
 
     public override async Task HandleAsync(CustomerAddressUpdated @event)
     {
-        _logger.LogInformation("Handling CustomerAddressUpdated event");
+        _logger.LogInformation("----- Handling CustomerAddressUpdated event");
         var orders = await _orderRepository.GetByCustomerAsync(@event.CustomerId);
         foreach (var order in orders)
         {

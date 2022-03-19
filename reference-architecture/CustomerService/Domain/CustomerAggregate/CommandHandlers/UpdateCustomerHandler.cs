@@ -31,7 +31,6 @@ public class UpdateCustomerHandler : ICommandHandler<Customer, UpdateCustomer>
     public async Task<CommandResult<Customer>> Handle(UpdateCustomer command, CancellationToken cancellationToken)
     {
         // Process command
-        _logger.LogInformation("Handling command: {CommandName}", nameof(UpdateCustomer));
         if (command.Entity == null) return new CommandResult<Customer>(CommandOutcome.InvalidCommand);
         var domainEvent = command.Entity.Process(command);
 
@@ -53,7 +52,7 @@ public class UpdateCustomerHandler : ICommandHandler<Customer, UpdateCustomer>
             if (addressChanged)
             {
                 var shippingAddress = _mapper.Map<Integration.Models.Address>(entity.ShippingAddress);
-                _logger.LogInformation("Publishing event: {EventName}", $"v1.{nameof(CustomerAddressUpdated)}");
+                _logger.LogInformation("----- Publishing event: {EventName}", $"v1.{nameof(CustomerAddressUpdated)}");
                 await _eventBus.PublishAsync(
                     new CustomerAddressUpdated(entity.Id, shippingAddress),
                     null, "v1");

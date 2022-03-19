@@ -8,19 +8,15 @@ namespace OrderService.Domain.OrderAggregate.CommandHandlers;
 public class UpdateOrderHandler : ICommandHandler<Order, UpdateOrder>
 {
     private readonly IOrderRepository _repository;
-    private readonly ILogger<UpdateOrderHandler> _logger;
 
     public UpdateOrderHandler(
-        IOrderRepository repository,
-        ILogger<UpdateOrderHandler> logger)
+        IOrderRepository repository)
     {
         _repository = repository;
-        _logger = logger;
     }
 
     public async Task<CommandResult<Order>> Handle(UpdateOrder command, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Handling command: {CommandName}", nameof(UpdateOrder));
         if (command.Entity == null) return new CommandResult<Order>(CommandOutcome.InvalidCommand);
 
         try

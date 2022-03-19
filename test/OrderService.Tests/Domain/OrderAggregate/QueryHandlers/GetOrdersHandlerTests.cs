@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Logging;
 using Moq;
 using OrderService.Domain.OrderAggregate;
 using OrderService.Domain.OrderAggregate.Queries;
@@ -16,12 +15,10 @@ namespace OrderService.Tests.Domain.OrderAggregate.QueryHandlers;
 public class GetOrdersHandlerTests
 {
     private readonly IMapper _mapper;
-    private readonly Mock<ILogger<GetOrdersHandler>> _loggerMock;
     private readonly Mock<IOrderRepository> _repositoryMock;
 
     public GetOrdersHandlerTests()
     {
-        _loggerMock = new Mock<ILogger<GetOrdersHandler>>();
         _repositoryMock = new Mock<IOrderRepository>();
         _mapper = MappingHelper.GetMapper();
     }
@@ -29,7 +26,7 @@ public class GetOrdersHandlerTests
     [Fact]
     public void WhenInstantiated_ThenShouldBeOfCorrectType()
     {
-        var handler = new GetOrdersHandler(_repositoryMock.Object, _loggerMock.Object);
+        var handler = new GetOrdersHandler(_repositoryMock.Object);
 
         Assert.NotNull(handler);
         Assert.IsType<GetOrdersHandler>(handler);
@@ -45,7 +42,7 @@ public class GetOrdersHandlerTests
                 _mapper.Map<Order>(Orders.Order2)
             });
 
-        var handler = new GetOrdersHandler(_repositoryMock.Object, _loggerMock.Object);
+        var handler = new GetOrdersHandler(_repositoryMock.Object);
 
         var result = await handler.Handle(new GetOrders(), default);
 
