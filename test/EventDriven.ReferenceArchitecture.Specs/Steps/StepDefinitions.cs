@@ -211,7 +211,7 @@ public class StepDefinitions
         await Task.Delay(SpecSettings.AddressUpdateTimeout);
         var json = JsonFilesRepo.Files[file];
         var address = JsonSerializer.Deserialize<OrderWriteDtoAddress>(json, JsonSerializerOptions);
-        var orders = await OrderRepository.GetByCustomerAsync(SpecSettings.Customer1Id);
+        var orders = await OrderRepository.GetByCustomerAsync(SpecSettings.CustomerPubSub1Id);
         var ordersDto = OrderMapper.Map<List<OrderWriteDto>>(orders);
         foreach (var order in ordersDto)
             Assert.Equal(address, order.ShippingAddress, new OrderWriteDtoAddressComparer()!);
