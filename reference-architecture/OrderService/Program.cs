@@ -55,7 +55,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapDaprEventBus(eventBus =>
     {
         var customerAddressUpdatedEventHandler = app.Services.GetRequiredService<CustomerAddressUpdatedEventHandler>();
-        eventBus.Subscribe(customerAddressUpdatedEventHandler, null, "v1");
+        eventBus?.Subscribe(customerAddressUpdatedEventHandler, null, "v1");
     });
 });
 

@@ -65,7 +65,8 @@ public class UpdateCustomerHandlerTests
         _repositoryMock.Setup(x => x.UpdateAsync(It.IsAny<Customer>()))
             .ReturnsAsync(updatedCustomer);
         var eventRaised = false;
-        _eventBusMock.Setup(x => x.PublishAsync(It.IsAny<CustomerAddressUpdated>(), It.IsAny<string>(), It.IsAny<string>()))
+        _eventBusMock.Setup(x => x.PublishAsync(
+        It.IsAny<CustomerAddressUpdated>(), It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>()))
             .Callback(() => eventRaised = true);
         var handler = GetHandler();
 
@@ -83,7 +84,8 @@ public class UpdateCustomerHandlerTests
         _repositoryMock.Setup(x => x.UpdateAsync(It.IsAny<Customer>()))
             .ReturnsAsync(existingCustomer);
         var eventRaised = false;
-        _eventBusMock.Setup(x => x.PublishAsync(It.IsAny<CustomerAddressUpdated>(), It.IsAny<string>(), It.IsAny<string>()))
+        _eventBusMock.Setup(x => x.PublishAsync(
+        It.IsAny<CustomerAddressUpdated>(), It.IsAny<string?>(), It.IsAny<string?>(), It.IsAny<string?>()))
             .Callback(() => eventRaised = true);
         var handler = GetHandler();
 
