@@ -12,7 +12,7 @@
 
     <ItemGroup>
         <PackageReference Include="EventDriven.DependencyInjection" Version="1.1.0" />
-        <PackageReference Include="EventDriven.DependencyInjection.URF.Mongo" Version="1.2.0" />
+        <PackageReference Include="EventDriven.DependencyInjection.URF.Mongo" Version="1.2.1" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
