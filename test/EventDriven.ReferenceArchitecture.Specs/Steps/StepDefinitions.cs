@@ -24,7 +24,6 @@ using OrderMappingProfile = OrderService.Mapping.AutoMapperProfile;
 namespace EventDriven.ReferenceArchitecture.Specs.Steps;
 
 [Binding]
-[CollectionDefinition("SpecFlowNonParallelizableFeatures", DisableParallelization = true)]
 public class StepDefinitions
 {
     private IMapper OrderMapper { get; }
