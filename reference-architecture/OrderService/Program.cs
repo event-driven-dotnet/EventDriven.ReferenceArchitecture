@@ -31,7 +31,7 @@ builder.Services.AddMongoDbSettings<OrderDatabaseSettings, Order>(builder.Config
 builder.Services.AddSingleton<CustomerAddressUpdatedEventHandler>();
 
 // Add Dapr event bus
-builder.Services.AddDaprEventBus(builder.Configuration, true);
+builder.Services.AddDaprEventBus(builder.Configuration);
 builder.Services.AddDaprMongoEventCache(builder.Configuration);
 
 var app = builder.Build();

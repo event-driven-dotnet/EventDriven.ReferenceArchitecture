@@ -27,7 +27,7 @@ builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
 builder.Services.AddMongoDbSettings<CustomerDatabaseSettings, Customer>(builder.Configuration);
 
 // Add Dapr event bus
-builder.Services.AddDaprEventBus(builder.Configuration, true);
+builder.Services.AddDaprEventBus(builder.Configuration);
 builder.Services.AddDaprMongoEventCache(builder.Configuration);
 
 var app = builder.Build();

@@ -13,9 +13,9 @@
     <ItemGroup>
         <PackageReference Include="EventDriven.DependencyInjection" Version="1.1.0" />
         <PackageReference Include="EventDriven.DependencyInjection.URF.Mongo" Version="1.2.1" />
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
         <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
         <PackageReference Include="SpecFlow.xUnit" Version="3.9.74" />
         <PackageReference Include="xunit" Version="2.4.2" />
@@ -23,7 +23,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="FluentAssertions" Version="6.7.0" />
+        <PackageReference Include="FluentAssertions" Version="6.10.0" />
     </ItemGroup>
 
     <ItemGroup>
