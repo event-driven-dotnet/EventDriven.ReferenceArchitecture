@@ -47,7 +47,7 @@ public class OrderCommandControllerTests
 
         Assert.NotNull(actionResult);
         Assert.NotNull(createdResult);
-        Assert.Equal($"api/order/{orderOut.Id}", createdResult!.Location, true);
+        Assert.Equal($"api/order/{orderOut.Id}", createdResult.Location, true);
     }
 
     [Fact]
@@ -62,7 +62,7 @@ public class OrderCommandControllerTests
 
         Assert.NotNull(actionResult);
         Assert.NotNull(statusCodeResult);
-        Assert.Equal(500, statusCodeResult!.StatusCode);
+        Assert.Equal(500, statusCodeResult.StatusCode);
     }
 
     [Fact]

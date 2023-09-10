@@ -48,7 +48,7 @@ public class CustomerCommandControllerTests
 
         Assert.NotNull(actionResult);
         Assert.NotNull(createdResult);
-        Assert.Equal($"api/customer/{customerOut.Id}", createdResult!.Location, true);
+        Assert.Equal($"api/customer/{customerOut.Id}", createdResult.Location, true);
     }
 
     [Fact]
@@ -64,7 +64,7 @@ public class CustomerCommandControllerTests
 
         Assert.NotNull(actionResult);
         Assert.NotNull(statusCodeResult);
-        Assert.Equal(500, statusCodeResult!.StatusCode);
+        Assert.Equal(500, statusCodeResult.StatusCode);
     }
 
     [Fact]
@@ -83,7 +83,7 @@ public class CustomerCommandControllerTests
 
         Assert.NotNull(actionResult);
         Assert.NotNull(objectResult);
-        Assert.Equal(customerIn.Id, ((DTO.Write.Customer)objectResult!.Value!).Id);
+        Assert.Equal(customerIn.Id, ((DTO.Write.Customer)objectResult.Value!).Id);
     }
 
     [Fact]
