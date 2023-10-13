@@ -51,8 +51,8 @@ app.UseCloudEvents();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapSubscribeHandler();
-    endpoints.MapDaprEventBus(eventBus =>
+    endpoints.MapSubscribeHandler(); // needed by dapr
+    endpoints.MapDaprEventBus(eventBus => // used by event bus
     {
         var customerAddressUpdatedEventHandler = app.Services.GetRequiredService<CustomerAddressUpdatedEventHandler>();
         eventBus?.Subscribe(customerAddressUpdatedEventHandler, null, "v1");
