@@ -3,16 +3,21 @@
 Reference architecture for using **Event Driven .NET** abstractions and libraries for [Domain Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) (DDD), [Command Query Responsibility Segregation](https://martinfowler.com/bliki/CQRS.html) (CQRS) and [Event Driven Architecture](https://en.wikipedia.org/wiki/Event-driven_architecture) (EDA).
 
 ## Prerequisites
-- [.NET Core SDK](https://dotnet.microsoft.com/download) (6.0 or greater)
+- [.NET Core SDK](https://dotnet.microsoft.com/download) (8.0 or greater)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - MongoDB Docker: `docker run --name mongo -d -p 27017:27017 -v /tmp/mongo/data:/data/db mongo`
-- [MongoDB Client](https://robomongo.org/download):
-  - Download Robo 3T only.
+- [MongoDB Client](https://studio3t.com/download/):
+  - Download Studio 3T only.
   - Add connection to localhost on port 27017.
 - [Dapr](https://dapr.io/) (Distributed Application Runtime)
   - [Install Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
   - [Initialize Dapr](https://docs.dapr.io/getting-started/install-dapr-selfhost/)
-- [Microsoft Tye](https://github.com/dotnet/tye/blob/main/docs/getting_started.md) (recommended)
+- [.NET Aspire Workload](https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/setup-tooling?tabs=dotnet-cli#install-net-aspire)
+  ```
+  dotnet workload update
+  dotnet workload install aspire
+  dotnet workload list
+  ```
 - [Specflow](https://specflow.org/) IDE Plugin  (recommended)
   - [Visual Studio](https://docs.specflow.org/projects/getting-started/en/latest/GettingStarted/Step1.html)
   - [JetBrains Rider](https://docs.specflow.org/projects/specflow/en/latest/Rider/rider-installation.html)
@@ -38,23 +43,11 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
   <img width="600" src="images/event-driven-ref-arch.png">
 </p>
 
-## Running Services with Tye and Dapr
+## Running Services with Aspire
 
-> **Note**: As an alternative to Tye, you can run services directly usng the [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/). This may be useful for troubleshooting Dapr issues after setting `Microsoft.AspNetCore` logging level to `Debug`:
-> `dapr run --app-id service-name --app-port #### --components-path ../dapr/components -- dotnet run`
-
-1. Open a terminal at the **reference-architecture** directory and run Tye to launch all services simultaneously.
-    ```
-    tye run
-    ```
-2. Alternatively, run Tye in debug mode.
-    ```
-    tye run --debug *
-    ```
-    - Set breakpoints in **OrderService**, **CustomerService**.
-    - Attach the IDE debugger to **OrderService.dll**, **CustomerService.dll**.
-3. Open the Tye dashboard at http://localhost:8000 to inspect service endpoints and view logs.
-4. Create some customers.
+1. If using an IDE such as Visual Studio or Rider, Using an IDE such as Visual Studio or Rider, run the **http** profile of **ReferenceArchitecture.AppHost**.
+2. Open the Aspire dashboard to inspect service endpoints and view logs.
+3. Create some customers.
    - Open http://localhost:5656/swagger
    - Execute posts using contents of **customers.json**.
    - Copy post response, modify fields, then execute puts.
@@ -62,7 +55,7 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
    - Copy `id` and `etag` values to execute deletes.
    - Execute gets to retrieve customers.
    - View customers database collections using Robo 3T.
-5. Create some orders.
+4. Create some orders.
    - Open http://localhost:5757/swagger
    - Execute posts using contents of **orders.json**.
    - Copy post response, modify fields, then execute puts.
@@ -70,11 +63,34 @@ The **Reference Architecture** projects demonstrate how to apply these concepts 
    - Copy `id` and `etag` values to execute deletes.
    - Execute gets to retrieve orders.
    - View orders database collections using Robo 3T.
-6. Update the address of a customer who has order.
+5. Update the address of a customer who has order.
    - Note the address is also updated for the customer's orders.
    - Observe log messages in terminal when integration events are published and handled.
 
-## Tests
+## Running Services with the Dapr CLI
+
+1. Start the Customer Service using the Dapr CLI from a terminal at the project root.
+
+    ```
+    dapr run --app-id customer-service --app-port 5656 --resources-path ../dapr/components -- dotnet run
+    ```
+
+2. Start the Order Service using the Dapr CLI from a terminal at the project root.
+
+    ```
+    dapr run --app-id order-service --app-port 5757 --resources-path ../dapr/components -- dotnet run
+    ```
+
+3. Open the Dapr Dashboard at http://localhost:8080
+
+
+    ```
+    dapr dashboard
+    ```
+
+4. Execute steps 3-5 above to use services and pub-sub features.
+
+## Running Tests
 
 ### Unit Tests
 
@@ -82,13 +98,20 @@ In the **test** folder you'll find unit tests for both **CustomerService** and *
 - [xUnit](https://xunit.net/) is used as the unit testing framework.
 - [Moq](https://github.com/moq/moq4) is used as the mocking framework.
 
-> **Note**: Because database API's are notoriously [difficult to mock](https://jimmybogard.com/avoid-in-memory-databases-for-tests/), **repositories** are deliberately *excluded* from unit testing. Instead, repositories attain code coverage with **integration / acceptance tests**. 
+> **Note**: Because database API's are notoriously [difficult to mock](https://jimmybogard.com/avoid-in-memory-databases-for-tests/), **repositories** are deliberately *excluded* from unit testing. Instead, repositories attain code coverage with **acceptance/integration tests**.
 
-### Integration / Acceptance Tests
+1. Run unit **CustomerService.Tests** and **OrderService.Tests** from the Test explorer in your IDE.
+2. Alternatively, open a terminal at **CustomerService.Tests** and **OrderService.Tests**, then run `dotnet test`
 
-In the **tests** folder you'll find an **EventDriven.ReferenceArchitecture.Specs** project with automated integration / acceptance tests.
+### Acceptance (Integration) Tests
+
+In the **tests** folder you'll find an **EventDriven.ReferenceArchitecture.Specs** project with automated acceptance / integration tests.
 - [SpecFlow](https://specflow.org/) is used as the acceptance testing framework.
 - Feature files use [Gherkin](https://specflow.org/learn/gherkin/) syntax to enable [Behavior Driven Development](https://en.wikipedia.org/wiki/Behavior-driven_development) with scenarios that match **acceptance criteria** in user stories.
+
+1. Using an IDE such as Visual Studio or Rider, run the **specs** profile of **ReferenceArchitecture.AppHost**.
+2. Run **EventDriven.ReferenceArchitecture.Specs** from the Test explorer of your IDE.
+3. Alternatively, open a terminal at **EventDriven.ReferenceArchitecture.Specs**, then run `dotnet test`
 
 ## Development Guide
 
