@@ -46,17 +46,19 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseAuthorization();
 
-// Map Dapr Event Bus subscribers
+// Use Cloud Events (needed by Dapr)
 app.UseCloudEvents();
-app.UseEndpoints(endpoints =>
+
+app.MapControllers();
+
+// Map Dapr subscriber (needed by Dapr)
+app.MapSubscribeHandler();
+
+// Map Dapr Event Bus subscribers
+app.MapDaprEventBus(eventBus => // used by event bus
 {
-    endpoints.MapControllers();
-    endpoints.MapSubscribeHandler(); // needed by dapr
-    endpoints.MapDaprEventBus(eventBus => // used by event bus
-    {
-        var customerAddressUpdatedEventHandler = app.Services.GetRequiredService<CustomerAddressUpdatedEventHandler>();
-        eventBus?.Subscribe(customerAddressUpdatedEventHandler, null, "v1");
-    });
+    var customerAddressUpdatedEventHandler = app.Services.GetRequiredService<CustomerAddressUpdatedEventHandler>();
+    eventBus?.Subscribe(customerAddressUpdatedEventHandler, null, "v1");
 });
 
 app.Run();

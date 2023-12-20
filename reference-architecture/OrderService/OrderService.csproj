@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -13,7 +13,7 @@
     <PackageReference Include="EventDriven.DependencyInjection.URF.Mongo" Version="1.2.2" />
     <PackageReference Include="EventDriven.EventBus.Dapr" Version="1.4.0" />
     <PackageReference Include="EventDriven.EventBus.Dapr.EventCache.Mongo" Version="1.4.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.22.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="URF.Core.Mongo" Version="7.0.0" />
   </ItemGroup>
