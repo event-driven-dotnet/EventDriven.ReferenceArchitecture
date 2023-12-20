@@ -18,7 +18,6 @@ using CustomerReadDto = CustomerService.DTO.Read.CustomerView;
 using OrderWriteDto = OrderService.DTO.Write.Order;
 using OrderReadDto = OrderService.DTO.Read.OrderView;
 using OrderWriteDtoAddress = OrderService.DTO.Write.Address;
-using CustomerMappingProfile = CustomerService.Mapping.AutoMapperProfile;
 using OrderMappingProfile = OrderService.Mapping.AutoMapperProfile;
 
 namespace EventDriven.ReferenceArchitecture.Specs.Steps;
