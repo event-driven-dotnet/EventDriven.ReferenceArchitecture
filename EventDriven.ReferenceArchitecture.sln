@@ -5,16 +5,13 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AFFCBFA4-9D64-43AA-AC59-D4CC54BD9C72}"
 	ProjectSection(SolutionItems) = preProject
-		ReadMe.md = ReadMe.md
 		DevelopmentGuide.md = DevelopmentGuide.md
+		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{269CD137-4093-4100-B33E-808586D335F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "reference-architecture", "reference-architecture", "{C4FD0AF1-927A-4860-A634-7CE342807692}"
-	ProjectSection(SolutionItems) = preProject
-		reference-architecture\tye.yaml = reference-architecture\tye.yaml
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService", "reference-architecture\CustomerService\CustomerService.csproj", "{48983715-E6DF-462F-AF3C-769C1122794F}"
 EndProject
@@ -42,11 +39,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "standby", "standby", "{A045
 		reference-architecture\dapr\standby\pubsub-snssqs.yaml = reference-architecture\dapr\standby\pubsub-snssqs.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventDriven.ReferenceArchitecture.Specs", "test\EventDriven.ReferenceArchitecture.Specs\EventDriven.ReferenceArchitecture.Specs.csproj", "{68B613B3-EB4A-41DB-A61E-1E031C5BFA85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventDriven.ReferenceArchitecture.Specs", "test\EventDriven.ReferenceArchitecture.Specs\EventDriven.ReferenceArchitecture.Specs.csproj", "{68B613B3-EB4A-41DB-A61E-1E031C5BFA85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerService.Tests", "test\CustomerService.Tests\CustomerService.Tests.csproj", "{C5056BF3-987B-466C-962D-77F8E725F210}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Tests", "test\CustomerService.Tests\CustomerService.Tests.csproj", "{C5056BF3-987B-466C-962D-77F8E725F210}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Tests", "test\OrderService.Tests\OrderService.Tests.csproj", "{B3A36227-2EB9-4BEC-8FCA-B5DB7A809C06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Tests", "test\OrderService.Tests\OrderService.Tests.csproj", "{B3A36227-2EB9-4BEC-8FCA-B5DB7A809C06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceArchitecture.AppHost", "reference-architecture\ReferenceArchitecture.AppHost\ReferenceArchitecture.AppHost.csproj", "{8E145A04-E2D6-4507-86B7-F5E4A3CA8C61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceArchitecture.ServiceDefaults", "reference-architecture\ReferenceArchitecture.ServiceDefaults\ReferenceArchitecture.ServiceDefaults.csproj", "{CB1E0EE8-0B80-40EB-B838-D1F568A05B29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +79,14 @@ Global
 		{B3A36227-2EB9-4BEC-8FCA-B5DB7A809C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3A36227-2EB9-4BEC-8FCA-B5DB7A809C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3A36227-2EB9-4BEC-8FCA-B5DB7A809C06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E145A04-E2D6-4507-86B7-F5E4A3CA8C61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E145A04-E2D6-4507-86B7-F5E4A3CA8C61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E145A04-E2D6-4507-86B7-F5E4A3CA8C61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E145A04-E2D6-4507-86B7-F5E4A3CA8C61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB1E0EE8-0B80-40EB-B838-D1F568A05B29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB1E0EE8-0B80-40EB-B838-D1F568A05B29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB1E0EE8-0B80-40EB-B838-D1F568A05B29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB1E0EE8-0B80-40EB-B838-D1F568A05B29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,12 +96,14 @@ Global
 		{16A5B2CB-8C46-4F3E-B7A1-97C47D9F66E7} = {C4FD0AF1-927A-4860-A634-7CE342807692}
 		{B11B21E0-7B89-4285-990A-D98793310B02} = {C4FD0AF1-927A-4860-A634-7CE342807692}
 		{FC04D111-903D-49FF-84A6-8806C71E2168} = {C4FD0AF1-927A-4860-A634-7CE342807692}
-		{00BA9501-787E-465C-97D0-F51295D97802} = {F0E48E00-7D72-4614-9C13-90A7B015B06F}
 		{F0E48E00-7D72-4614-9C13-90A7B015B06F} = {C4FD0AF1-927A-4860-A634-7CE342807692}
+		{00BA9501-787E-465C-97D0-F51295D97802} = {F0E48E00-7D72-4614-9C13-90A7B015B06F}
 		{A045033E-5283-4A6F-87D3-B02194595788} = {F0E48E00-7D72-4614-9C13-90A7B015B06F}
 		{68B613B3-EB4A-41DB-A61E-1E031C5BFA85} = {269CD137-4093-4100-B33E-808586D335F6}
 		{C5056BF3-987B-466C-962D-77F8E725F210} = {269CD137-4093-4100-B33E-808586D335F6}
 		{B3A36227-2EB9-4BEC-8FCA-B5DB7A809C06} = {269CD137-4093-4100-B33E-808586D335F6}
+		{8E145A04-E2D6-4507-86B7-F5E4A3CA8C61} = {C4FD0AF1-927A-4860-A634-7CE342807692}
+		{CB1E0EE8-0B80-40EB-B838-D1F568A05B29} = {C4FD0AF1-927A-4860-A634-7CE342807692}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {427A0D03-63CA-48AE-AA95-D21800101398}

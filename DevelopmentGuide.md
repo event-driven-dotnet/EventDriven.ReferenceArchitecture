@@ -13,7 +13,7 @@ The following steps illustrate how to create microservices based on the principl
      - **EventDriven.CQRS.Extensions**
      - **EventDriven.DependencyInjection.URF.Mongo**
      - **EventDriven.EventBus.Dapr**
-     - **EventDriven.EventBus.Dapr.EventCache.Mongo**
+     - **EventDriven.EventBus.EventCache.Mongo**
      - **MongoDB.Driver**
      - **URF.Core.Mongo**
 2. Add **Domain/CustomerAggregate** folders to the project, then add a `Customer` class that extends `Entity`.
@@ -336,7 +336,7 @@ The following steps illustrate how to create microservices based on the principl
 
     // Add Dapr event bus
     builder.Services.AddDaprEventBus(builder.Configuration, true);
-    builder.Services.AddDaprMongoEventCache(builder.Configuration);
+    builder.Services.AddMongoEventCache(builder.Configuration);
     ```
 12. Add configuration entries to **appsettings.json**.
     ```json
@@ -348,12 +348,10 @@ The following steps illustrate how to create microservices based on the principl
     "DaprEventBusOptions": {
       "PubSubName": "pubsub"
     },
-    "DaprEventCacheOptions": {
-      "DaprStateStoreOptions": {
-        "StateStoreName": "statestore-mongodb"
-      }
+    "MongoEventCacheOptions": {
+      "AppName": "order-service"
     },
-    "DaprStoreDatabaseSettings": {
+    "MongoStoreDatabaseSettings": {
       "ConnectionString": "mongodb://localhost:27017",
       "DatabaseName": "daprStore",
       "CollectionName": "daprCollection"
@@ -390,7 +388,7 @@ The following steps illustrate how to create microservices based on the principl
       ```csharp
       builder.Services.AddSingleton<CustomerAddressUpdatedEventHandler>();
       builder.Services.AddDaprEventBus(builder.Configuration, true);
-      builder.Services.AddDaprMongoEventCache(builder.Configuration);
+      builder.Services.AddMongoEventCache(builder.Configuration);
       ```
    - Also in `Program` use Cloud Events, map subscribe handlers, and map Dapr Event Bus endpoints.
       ```csharp
@@ -406,18 +404,16 @@ The following steps illustrate how to create microservices based on the principl
           });
       });
       ```
-14. Add configuration entries for `DaprEventCacheOptions` and `DaprStoreDatabaseSettings` to **appsettings.json**.
+14. Add configuration entries for `MongoEventCacheOptions` and `MongoStoreDatabaseSettings` to **appsettings.json**.
     ```json
-    "DaprEventCacheOptions": {
-      "DaprStateStoreOptions": {
-        "StateStoreName": "statestore-mongodb"
-      }
+    "MongoEventCacheOptions": {
+      "AppName": "order-service"
     },
-    "DaprStoreDatabaseSettings": {
+    "MongoStoreDatabaseSettings": {
       "ConnectionString": "mongodb://localhost:27017",
       "DatabaseName": "daprStore",
       "CollectionName": "daprCollection"
-    },
+    }
     ```
 15. Lastly, add a **dapr/components** directory to the **reference-architecture** folder.
     - Add the following dapr component yaml files:
@@ -425,24 +421,4 @@ The following steps illustrate how to create microservices based on the principl
       - **statestore.yaml**
       - **statestore-mongodb.yaml**
     - Files not in use should be placed in a separate folder.
-    - Add a **tye.yaml** file to the **reference-architecture** folder (recommended), including the dapr extension and components path. Optionally specify port bindings which match those in **launchSettings.json**.
-    ```yaml
-    name: event-driven-ref-arch
-    extensions:
-      - name: dapr
-        log-level: debug
-        components-path: "dapr/components"
-    services:
-      - name: customer-service
-        project: CustomerService/CustomerService.csproj
-        bindings:
-          - port: 5656
-      - name: order-service
-        project: OrderService/OrderService.csproj
-        bindings:
-          - port: 5757
-    ```
-    - Run the Customer and Order services using [Tye](https://github.com/dotnet/tye).
-      - Be sure to install the [Tye CLI](https://github.com/dotnet/tye/blob/main/docs/getting_started.md) tool globally.
-      - To debug services, set breakpoints and execute `tye run --debug *`. Then attach the debugger to **CustomerService.dll** and/or **OrderService.dll**.
 

@@ -8,10 +8,14 @@ using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add Aspire service defaults
+builder.AddServiceDefaults();
+
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddProblemDetails();
 
 // Add automapper
 builder.Services.AddAutoMapper(typeof(Program));
@@ -28,7 +32,6 @@ builder.Services.AddMongoDbSettings<CustomerDatabaseSettings, Customer>(builder.
 
 // Add Dapr event bus
 builder.Services.AddDaprEventBus(builder.Configuration);
-builder.Services.AddDaprMongoEventCache(builder.Configuration);
 
 var app = builder.Build();
 
