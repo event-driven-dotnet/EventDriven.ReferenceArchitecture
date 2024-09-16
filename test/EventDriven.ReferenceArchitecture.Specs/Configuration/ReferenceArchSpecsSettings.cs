@@ -14,7 +14,5 @@ public class ReferenceArchSpecsSettings
     public Guid OrderPubSub2Id { get; set; }
     public string? CustomerServiceBaseAddress { get; set; }
     public string? OrderServiceBaseAddress { get; set; }
-    public bool StartTyeProcess { get; set; }
-    public TimeSpan TyeProcessTimeout { get; set; }
     public TimeSpan AddressUpdateTimeout { get; set; }
 }
