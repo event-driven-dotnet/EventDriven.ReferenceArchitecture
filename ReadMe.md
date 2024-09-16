@@ -6,8 +6,8 @@ Reference architecture for using **Event Driven .NET** abstractions and librarie
 - [.NET Core SDK](https://dotnet.microsoft.com/download) (8.0 or greater)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - MongoDB Docker: `docker run --name mongo -d -p 27017:27017 -v /tmp/mongo/data:/data/db mongo`
-- [MongoDB Client](https://studio3t.com/download/):
-  - Download Studio 3T only.
+- [MongoDB Client](https://robomongo.org/):
+  - Download Studio 3T.
   - Add connection to localhost on port 27017.
 - [Dapr](https://dapr.io/) (Distributed Application Runtime)
   - [Install Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)

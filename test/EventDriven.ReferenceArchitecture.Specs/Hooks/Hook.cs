@@ -17,17 +17,8 @@ using OrderService.Repositories;
 namespace EventDriven.ReferenceArchitecture.Specs.Hooks;
 
 [Binding]
-public class Hooks
+public class Hooks(IObjectContainer objectContainer)
 {
-    private Process? _tyeProcess;
-    private readonly IObjectContainer _objectContainer;
-    private const string TyeArguments = "run" + " ../../..";
-
-    public Hooks(IObjectContainer objectContainer)
-    {
-        _objectContainer = objectContainer;
-    }
-
     [BeforeScenario]
     public async Task RegisterServices()
     {
@@ -51,9 +42,6 @@ public class Hooks
         var orderRepository = host.Services.GetRequiredService<IOrderRepository>();
         var httpClientFactory = host.Services.GetRequiredService<IHttpClientFactory>();
         
-        if (settings.StartTyeProcess)
-            await StartTyeProcess(settings.TyeProcessTimeout);
-
         await ClearData(customerRepository, settings.Customer1Id);
         await ClearData(customerRepository, settings.Customer2Id);
         await ClearData(customerRepository, settings.Customer3Id);
@@ -65,25 +53,11 @@ public class Hooks
         await ClearData(orderRepository, settings.OrderPubSub1Id);
         await ClearData(orderRepository, settings.OrderPubSub2Id);
         
-        _objectContainer.RegisterInstanceAs(settings);
-        _objectContainer.RegisterInstanceAs(httpClientFactory);
-        _objectContainer.RegisterInstanceAs(new JsonFilesRepository());
-        _objectContainer.RegisterInstanceAs(customerRepository);
-        _objectContainer.RegisterInstanceAs(orderRepository);
-    }
-
-    [AfterScenario]
-    public void CleanUp()
-    {
-        try
-        {
-            if (_tyeProcess is { HasExited: false })
-                _tyeProcess.Kill();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
+        objectContainer.RegisterInstanceAs(settings);
+        objectContainer.RegisterInstanceAs(httpClientFactory);
+        objectContainer.RegisterInstanceAs(new JsonFilesRepository());
+        objectContainer.RegisterInstanceAs(customerRepository);
+        objectContainer.RegisterInstanceAs(orderRepository);
     }
 
     private async Task ClearData<TRepository>(TRepository repository, Guid entityId)
@@ -92,18 +66,5 @@ public class Hooks
             await customerRepository.RemoveAsync(entityId);
         if (repository is IOrderRepository orderRepository)
             await orderRepository.RemoveAsync(entityId);
-    }
-
-    private async Task StartTyeProcess(TimeSpan waitForTyeProcess)
-    {
-        var processInfo = new ProcessStartInfo("tye", TyeArguments)
-        {
-            CreateNoWindow = true,
-            UseShellExecute = false,
-            RedirectStandardError = true,
-            RedirectStandardOutput = true
-        };
-        _tyeProcess = Process.Start(processInfo);
-        await Task.Delay(waitForTyeProcess);
     }
 }

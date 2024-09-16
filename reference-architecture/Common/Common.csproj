@@ -8,8 +8,8 @@
 
     <ItemGroup>
         <PackageReference Include="EventDriven.CQRS.Extensions" Version="2.0.0" />
-        <PackageReference Include="EventDriven.EventBus.Abstractions" Version="1.4.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+        <PackageReference Include="EventDriven.EventBus.Abstractions" Version="1.5.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
     </ItemGroup>
 
 </Project>
